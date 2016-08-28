@@ -1,9 +1,8 @@
 This toolbox reproduces the numerical illustrations of the paper:
 
-Vincent Duval and Gabriel Peyré
-On the extended support of the Lasso and the Continuous Basis Pursuit
-Preprint HAL, 2015
+V. Duval, G. Peyré. [Sparse Spikes Deconvolution on Thin Grids](https://hal.archives-ouvertes.fr/hal-01135200). Preprint HAL:01135200, 2015.
 
+![Example of l1 regularization path](img/paths.png)
 
 Content
 -------
@@ -16,4 +15,4 @@ It contains the following directories:
 Copyright
 -------
 
-Copyright (c) 2015 Gabriel Peyré 
+Copyright (c) 2015 Gabriel Peyré
