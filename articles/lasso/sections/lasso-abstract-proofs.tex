@@ -1,0 +1,104 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+%%%
+\section{Proofs for Section~\ref{sec-discrete-lasso}}
+\label{sec-discrete-lasso-proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Characterization of $\certdiscO$}
+
+%
+It is shown in~\cite{2013-duval-sparsespikes} that there exists a low noise regime where the (signed) support of any solution $\tilde{\vecdisc}_{\la}$ of~$\Pp_\la(y_0+w)$ is included in $\extpm(\vecdiscO)$, $\suppm \tilde{\vecdisc}_\la\subset \extpm(\vecdiscO)$. It is therefore crucial to understand precisely the behavior of $\certdiscO$ and the structure of the extended (signed) support  $\extpm(\vecdiscO)$. 
+%
+Before detailing the proof of Theorem~\ref{thm-stability-dbp}, we thus detail in the following lemma a (new) result giving a characterization of $\certdiscO$.
+
+\begin{lem}\label{lem-eta0}
+  Let $(J,s_J)\subset \seg{0}{\taillegrid-1} \times \{-1,1\}$ such that $(I,\sign((\vecdiscO)_I))\subset (J,s_J)$ and $\Op_J$ has full rank. Define $v_J=(\Op_J^*\Op_J)^{-1}s_J$.
+
+  Then $(J,s_J)$ is the extended signed support of $\vecdiscO$, \textit{i.e.}  $(J,s_J)=\extpm(\vecdiscO)$, if and only if  the following two conditions hold:
+\begin{itemize}
+  \item for all $j\in J\setminus I$, $v_j=0$ or $s_j = -\sign(v_j)$,
+  \item $\|\Op_{J^c}^* \Op_J v_J\|_{\infty}<1$.
+\end{itemize}
+In that case, the minimal norm certificate is given by $\certdiscO=\Op^*\Op_J^{+,*}s_J$.
+\end{lem} 
+
+\begin{proof}
+  Writing the optimality conditions for~\eqref{eq-eta0}, we see that $p\in\Hh$ is equal to $p_0$ if and only if ${\|\Op^*p\|_{\infty}}\leq 1$, $\Op_I^*p=\sign (\vecdiscOI)$, and there exists $u_+\in (\RR^+)^\taillegrid$ and $u_-\in (\RR^+)^\taillegrid$ such that:
+\begin{align}
+  2p+ \Op u_+ - \Op u_- =0,
+  \label{eq-optim-contrainte}
+\end{align}
+where for $i\in I^c$, $u_{+,i}$ (resp. $u_{-,i}$) is a Lagrange multiplier for the constraint $(\Op^*p)_i\leq 1$ (resp. $(\Op^*p)_i\geq -1$) which satisfies  the complementary slackness condition: $u_{+,i}((\Op^*p)_i- 1)=0$ (resp $u_{-,i}((\Op^*p)_i+1)=0$), and for $i\in I$, $(u_{+,i}-u_{-,i})$ is the Lagrange multiplier for the constraint $(\Op^*p)_i=\sign(\vecdiscO)_i$.
+
+First, let $(J,s_J)=\extpm(\vecdiscO)$ (so that $J$ determines the set of active constraints) and $p=p_0$. Using the complementary slackness condition we may reformulate~\eqref{eq-optim-contrainte} as 
+\begin{align}\label{eq:valpzero}
+  p_0- \Op_J v_J=0,
+\end{align}
+for some $v\in \RR^{\taillegrid}$, where $v_j=0$ or $\sign v_j= -(\Op^*p_0)_j$ for $j\in J\setminus I$, and $v_j=0$ for $j\in\seg{0}{\taillegrid-1}\setminus J$. Inverting this relation, we obtain $v_J=(\Op_J^*\Op_J)^{-1}(\certdiscO)_J$, and the stated conditions hold.
+
+Conversely, let $(J,s_J)\subset \seg{0}{\taillegrid-1}\times\{-1,1\}$ (not necessarily equal to $\extpm(\vecdiscO)$) such that $(I,\sign((\vecdiscO)_I))\subset (J,s_J)$ and that the conditions of the lemma hold, with $v_J=(\Op_J^*\Op_J)^{-1}s_J$. Then, setting $p=-\Op_J v_J$, we see that $\|\Op^* p\|_\infty\leq 1$, $\Op_I^*p=\sign (\vecdiscO)_I$, and~\eqref{eq-optim-contrainte} holds with the complementary slackness when setting $u_{+,j}=\frac{1}{2} \max(v_j,0)$, $u_{-,j}=\frac{1}{2} \max(-v_j,0)$ for $j\in J$ and $u_{\pm,j}=0$ for $j\notin J$. Then $p=p_0$ and the equivalence is proved.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Theorem~\ref{thm-stability-dbp}}
+
+	We define a candidate solution $\hat \vecdisc$ by 
+  \begin{equation}\label{eq:defcandidate}
+		\hatvecdiscJ = \vecdiscOJ + \Op_J^+ w - \la v_{J}, \quad \hat \vecdisc_{J^c}=0
+  \end{equation}
+  and we prove that $\hat \vecdisc$ is the unique solution to~$(\Pp_\la(y_0+w))$ using the optimality conditions~\eqref{eq-optimal-subdiff} and~\eqref{eq-optimal-lagrange}. 
+	
+We first exhibit a condition for $\sign(\hatvecdiscJ)=\sign(\certdiscOJ)$. To shorten the notation, we write $s_J\eqdef\sign(\certdiscOJ)$.
+Since for $i\in I$, $\vecdisc_{0,i}\neq 0$, the constraint $\sign(\hatvecdiscI)=s_I$ is implied by 
+	\eq{
+		\norm{R_I \Op_J^+}_{\infty,2} \norm{w} + \norm{v_I}_{\infty} \la < T, \qwhereq T=\umin{i \in I} |\vecdiscOI| > 0,
+	}
+and  $R_I: u\mapsto u_I$  is the restriction operator.
+As for $ K=J\setminus I$, for all $k\in K$ $\vecdisc_{0,k}=0$ but we know from Lemma~\ref{lem-eta0} that $\sign(v_{k}) = -s_k$.
+	The constraint $\sign(\hatvecdisc_K)=s_K$ is thus implied by 
+	\eq{
+    \norm{R_K \Op_J^+}_{\infty,2} \norm{w} \leq \la \underbrace{\left(\umin{k \in K} |v_{k}|\right)}_{>0}.
+	}
+  Hence, we have $\sign\hatvecdiscJ= \sign \certdiscOJ=s_J$, and by construction $\supp(\hatvecdisc) = J$ with
+	\begin{align}
+		\Op_J^*( y-\Op \hat a ) = \la s_J.
+	\end{align}
+
+  To ensure that $\hatvecdisc$ is the unique solution to~$(\Pp_\la(y))$ with $y=y_0+w$, it remains to check that
+  \begin{align}
+    \normi{\Op_{J^c}^*(y-\Op \hatvecdisc)}<\la.
+    \label{eq-abstract-strict}
+  \end{align}
+
+  From~\eqref{eq:defcandidate} and~\eqref{eq:valpzero},
+  \begin{align*}
+    y - \Op \hatvecdisc &= y_0+w-\Op \vecdiscO-\Op\Op_J^+w-\la Av\\
+                        &=\left(\mathrm{I}_\Hh-\Op_J\Op_J^+ \right)w- \la p_0\\
+                        &=P_{\ker(\Op_J^*)} w -\la p_0,
+  \end{align*}
+and  we see that~\eqref{eq-abstract-strict} is implied by
+  \eq{\label{eq-rough-snr}
+		\norm{ \Op_{J^c}^* P_{\ker(\Op_J^*)} }_{2,\infty} \norm{w}
+		- \la ( 1 - \normi{\eta_{0,J^c}} ) < 0
+	}
+	where by construction $\normi{\eta_{0,J^c}}<1$.
+	
+	Putting everything together, one sees that $\hat a$ is the unique solution of~$(\Pp_\la(y))$ if the following affine inequalities hold simultaneously 
+    \begin{align}
+    	c_1 \norm{w} + c_2 \la &< T \qwhereq
+		    \choice{
+			    c_1 \eqdef \norm{R_I \Op_J^+}_{\infty,2}, \\
+			    c_2 \eqdef \norm{v_I}_{\infty}, 	
+		    }\\
+        \norm{w} &\leq c_3\la  
+      \qwhereq c_3\eqdef (\norm{R_K \Op_J^+}_{\infty,2})^{-1}\left(\umin{k \in K} |v_{k}|\right)>0,\\
+      c_4 \norm{w} - c_5 \la &< 0
+	    	\qwhereq
+		    \choice{
+			      c_4 \eqdef  \norm{ \Op_{J^c}^* P_{\ker(\Op_J^*)} }_{2,\infty}, \\
+			      c_5 \eqdef  1 - \normi{\eta_{0,J^c}} >0.
+        }
+     %\left(\umin{k \in K} |v_{k}|\right) \norm{R_K \Op_J^+}_{\infty,2}^{-1} )>0.
+    \end{align}
+Hence, for $\|w\| <\min(c_3,\frac{c_5}{c_4}) \la$ and $\left(\frac{c_1c_5}{c_4}+c_2 \right)\la<T$, the first order optimality conditions hold.
+

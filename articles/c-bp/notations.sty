@@ -1,0 +1,174 @@
+
+\DeclareMathOperator{\sat}{sat}
+
+\newcommand{\OpG}{C}
+\newcommand{\PhiI}{\Phi^I}
+\newcommand{\PhiId}{{\Phi'}^I}
+\newcommand{\GaI}{\Ga^I}
+\newcommand{\GaJ}{\Ga^J}
+
+
+\newcommand{\lasso}{\textsc{Lasso}\xspace}
+\newcommand{\blasso}{\textsc{BLasso}\xspace}
+
+% Noise
+\newcommand{\noise}{w}
+
+%%%% Notations
+% Analyse abstraite du lasso
+\newcommand{\certdiscO}{\eta_0}
+\newcommand{\certdiscOJ}{\eta_{0,J}}
+\newcommand{\certdisc}{\eta}
+\newcommand{\fuchsdisc}{\eta_F}
+\newcommand{\fuchsdiscI}{\eta_{F,I}}
+\newcommand{\fuchsdiscIC}{\eta_{F,I^c}}
+\newcommand{\taillegrid}{G}
+\newcommand{\Op}{A}
+\newcommand{\vecdiscO}{a_0}
+\newcommand{\vecdiscOI}{a_{0,I}}
+\newcommand{\vecdiscOJ}{a_{0,J}}
+\newcommand{\vecdisc}{a}
+\newcommand{\vecdiscJ}{a_J}
+\newcommand{\hatvecdisc}{\hat{a}}
+\newcommand{\hatvecdiscJ}{\hat{a}_J}
+\newcommand{\hatvecdiscI}{\hat{a}_I}
+\newcommand{\soldisc}{\tilde{a}_\la}
+\newcommand{\soldiscI}{\tilde{a}_{\la,I}}
+\newcommand{\soldiscJ}{\tilde{a}_{\la,J}}
+
+% Lasso on thin grid
+\newcommand{\g}{g}
+\newcommand{\stepsize}{h}
+\newcommand{\stepsizen}{{h_n}}
+\newcommand{\stepsizenp}{{h_{n'}}}
+\newcommand{\taillegridn}{{G_n}}
+\newcommand{\certthin}{\eta}
+\newcommand{\certthinO}{{\eta_0^n}}
+\newcommand{\pthinO}{{p_0^n}}
+\newcommand{\vecthin}{a}
+\newcommand{\vecthinO}{a_0}
+\newcommand{\vecthinOI}{a_{0,I}}
+\newcommand{\vecthinOi}{a_{0,i}}
+\newcommand{\solthin}{a_\la}
+\newcommand{\solthinI}{a_{\la,I}}
+\newcommand{\gI}{hI} % ensemble des points de T tels que ai non nul
+\newcommand{\gIn}{Ih_n} % ensemble des points de T tels que ai non nul
+
+\newcommand{\certbeurlO}{\eta_{0,\infty}}
+\newcommand{\pbeurlO}{{p_0^{\infty}}}
+\newcommand{\posbeurl}{x}
+\newcommand{\vecbeurl}{\alpha}
+\newcommand{\vecbeurlO}{\alpha_0}
+\newcommand{\vecbeurlOnu}{\alpha_{0,\nu}}
+\newcommand{\certvanishing}{\eta_{V,\infty}}
+\newcommand{\pvanishing}{{p_{V,\infty}}}
+\newcommand{\pfuchsbeurl}{{p^{\infty}_F}}
+
+
+\newcommand{\mn}{m_n}
+\newcommand{\mon}{m_{0,n}}
+
+\newcommand{\mln}{m_{\la,n}}
+\newcommand{\mli}{m_{\la,\infty}}
+
+
+\newcommand{\muc}{\eta} %certificat (tout court)
+\newcommand{\mut}{\eta_T} %certificat (tout court)
+\newcommand{\mun}{\eta_n}
+\newcommand{\mui}{\eta_\infty}
+\newcommand{\muln}{\eta_{\la,n}}
+\newcommand{\muli}{\eta_{\la,\infty}}
+\newcommand{\muon}{\eta_{0,n}}
+\newcommand{\muvi}{\eta_{V,\infty}}
+
+\newcommand{\qon}{p_{0,n}}
+\newcommand{\bx}{\overline{x_0}}
+
+
+% Analyse abstraite du continuous BP
+\newcommand{\OpU}{{\Op}}
+\newcommand{\OpUI}{{\Op_{I}}}
+
+\newcommand{\Oq}{B} % derivee 
+\newcommand{\OpD}{{\Oq}}
+\newcommand{\OpDI}{{\Oq_{I}}}
+\newcommand{\OpT}{\mathbf{A}}
+\newcommand{\OpTI}{\mathbf{A}_I}
+\newcommand{\Cop}{{\mathcal{A}_\stepsize}}
+\newcommand{\Coph}{{\hat{\mathcal{A}}_\stepsize}}
+\newcommand{\Copt}{{\hat{\mathcal{A}}_\stepsize}}
+\newcommand{\Capt}{{\bar{\mathcal{A}}_\stepsize}}
+%\newcommand{\Copactiv}{C_{\mathring{I}\cup I^+/\mathring{I}\cup I^-}}
+%\newcommand{\Copactiv}{{C_{\Iup/\Idown}}}
+\newcommand{\Copactiv}{\begin{pmatrix}\CopU_{\Iup} &\CopD_{\Idown}\end{pmatrix}}
+\newcommand{\CopJactiv}{\begin{pmatrix}\CopU_{\Jup} &\CopD_{\Jdown}\end{pmatrix}}
+\newcommand{\shortCopJactiv}{G}
+%\newcommand{\CopJactiv}{{C_{\Jmo/\Jpo}}}
+\newcommand{\Hactiv}{H_{\Imo/\Ipo}}
+\newcommand{\CopU}{{C_1}}
+\newcommand{\CopD}{{C_2}}
+
+\newcommand{\veccont}{a}
+\newcommand{\veccontO}{a_0}
+\newcommand{\veccontOi}{a_{0,i}}
+\newcommand{\shiftcont}{b}
+\newcommand{\shiftcontO}{b_0}
+\newcommand{\shiftcontOi}{b_{0,i}}
+\newcommand{\coneh}{\Cc_h}
+\newcommand{\conehp}{{\Cc_h^\taillegrid}}
+\newcommand{\conehn}{\Cc_{h_n}}
+\newcommand{\conehnp}{{\Cc_{h_n}^\taillegrid}}
+\newcommand{\veccertcont}{\bar{\eta}}
+\newcommand{\veccertcontO}{\bar{\eta}_0}
+\newcommand{\certcont}{\eta}
+\newcommand{\certshift}{\xi}
+\newcommand{\projf}{F}
+\newcommand{\projg}{G}
+\newcommand{\parmat}{H}
+%\newcommand{\parU}{u}
+%\newcommand{\parUO}{u_0}
+%\newcommand{\vecrl}{{\begin{pmatrix}\parU &\parD\end{pmatrix}^T}}
+\newcommand{\vecrl}{{\begin{pmatrix}\parU \\\parD\end{pmatrix}}}
+\newcommand{\parU}{r}
+\newcommand{\parUO}{r_0}
+%\newcommand{\parD}{d}
+%\newcommand{\parDO}{d_0}
+\newcommand{\parD}{l}
+\newcommand{\parDO}{l_0}
+\newcommand{\parV}{\parD}
+\newcommand{\Ir}{\mathring{I}}
+\newcommand{\Jpo}{{\mathring{J}^+}}
+\newcommand{\Jpoc}{{\mathring{J}^{+c}}}
+\newcommand{\Ipo}{{\mathring{I}^+}}
+\newcommand{\Jmo}{{\mathring{J}^-}}
+\newcommand{\Jmoc}{{\mathring{J}^{-c}}}
+\newcommand{\Imo}{{\mathring{I}^-}}
+
+%\newcommand{\Iup}{{I^{\rightarrow}}}
+\newcommand{\Iup}{{I^{\mathbf{(r)}}}}
+%\newcommand{\Idown}{{I^{\leftarrow}}}
+\newcommand{\Idown}{{I^{\mathbf{(l)}}}}
+
+%\newcommand{\Jup}{{J^{\rightarrow}}}
+\newcommand{\Jup}{{J^{\mathbf{(r)}}}}
+%\newcommand{\Jdown}{{J^{\leftarrow}}}
+\newcommand{\Jdown}{{J^{\mathbf{(l)}}}}
+%\newcommand{\Sright}{S_{n,\nu}^{\rightarrow}}
+\newcommand{\Sright}{S_{n,\nu}^{\mathbf{(r)}}}
+\newcommand{\Srightp}{S_{n',\nu}^{\mathbf{(r)}}}
+%\newcommand{\Sleft}{S_{n,\nu}^{\leftarrow}}
+\newcommand{\Sleft}{S_{n,\nu}^{\mathbf{(l)}}}
+\newcommand{\Sleftp}{S_{n',\nu}^{\mathbf{(l)}}}
+
+
+\newcommand{\projGam}{\tilde{\Pi}}
+
+% Continuous BP thin grid
+\newcommand{\mU}{m_u}
+\newcommand{\mD}{m_d}
+
+%COntinuous function
+\usepackage{mathrsfs}
+\newcommand{\Cont}{\mathscr{C}}
+
+\newcommand{\normH}[1]{\norm{#1}_\Hh}

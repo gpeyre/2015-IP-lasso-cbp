@@ -1,0 +1,16 @@
+% !TEX root = ../Asymptotic-CBP.tex
+
+\begin{abstract}
+This article analyzes the performances of the Continuous Basis Pursuit (C-BP) method for sparse super-resolution. The C-BP has been recently proposed by Ekanadham, Tranchina and Simoncelli as a refined discretization scheme for the recovery of spikes in inverse problems regularization. 
+%
+One of the most well known discretization scheme, the Basis Pursuit (BP, also known as \lasso) makes use of a finite dimensional $\ell^1$ norm on a grid.
+In contrast, the C-BP rather uses a linear interpolation of the spikes position to enable the recovery of spikes between grid's points. When the thought after solution is constrained to be positive, a remarkable feature of this approach is that it retains the convexity of the initial $\ell^1$ problem.
+% 
+For deconvolution problem, it is well known that $\ell^1$-type methods (including BP and C-BP) recovers exactly the unknown sparse sum of positive Diracs when there is no noise in the measurements.
+%
+Our main contribution identify a non-degeneracy condition ensuring that the support of the solution enjoy some stability when noise is added. 
+%
+More precisely, we show that, in the small noise regime, when the non-degeneracy condition holds, the C-B method estimates a pair of Diracs around each spike of the input measure. We also derive the asymptotic of the recovery error when the grid size tends to zero. 
+%
+We show some numerical illustrations of this stability to noise for both the BP and C-BP methods, and evaluate numerically these non-degeneracy conditions.
+\end{abstract}

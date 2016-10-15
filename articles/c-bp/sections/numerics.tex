@@ -1,0 +1,75 @@
+% !TEX root = ../Asymptotic-CBP.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical illustrations}
+\label{sec-numerics}
+
+In this section, we illustrate the relevance of our analysis to gain a precise understanding of the recovery performance of $\ell^1$-type methods (\lasso and C-BP) for deconvolution. The code to reproduce these numerical experiments is available online\footnote{\url{https://github.com/gpeyre/2015-IP-lasso-cbp/}}. 
+
+%%%%%
+\subsection{Convergence of pre-certificates}
+
+In this section and in Section~\ref{sec-numeric-deconv}, we consider the deconvolution problem, that is $\varphi(x)=\tilde{\varphi}(\cdot-x)$, in the case where $\tilde{\phi}$ is an ideal filter, i.e. whose Fourier coefficients  
+\eq{
+  \foralls k \in \ZZ, \quad \hat{\tilde{\phi}}(k) \eqdef \int_\TT \tilde{\phi}(t) e^{-2\imath\pi k t} \d t
+} 
+satisfy $\hat{\tilde{\phi}}(k)=1$ if $k\in \{-f_c,\ldots,f_c\}$ and $\hat{\tilde{\phi}}(k)=0$ otherwise. This allows us to implement exactly the $\Phi$ operator appearing in the \lasso and C-BP problem since $\Im(\Phi)$ is a finite dimensional space of dimension $Q=2f_c+1$, i.e. it can be represented using a matrix of size $(Q,P)$ when evaluated on a grid of $P$ points. In Figures~\ref{fig-certificates} and ~\ref{fig-homotopy} we used $f_c=10$.
+
+
+\newcommand{\myfigCertif}[2]{\includegraphics[width=0.46\linewidth]{certificates/certificates-k#1-#2}}
+
+\begin{figure}[ht]
+\centering
+	\begin{tabular}{@{}c@{\hspace{3mm}}c@{}}
+		\myfigCertif{2}{3} & \myfigCertif{3}{2} \\
+		\myfigCertif{2}{5} & \myfigCertif{3}{3} \\
+		\myfigCertif{2}{6} & \myfigCertif{3}{4} \\
+		$N=2$ & $N=3$
+	\end{tabular}
+\caption{\label{fig-certificates} % 
+	Display of $\certvanishing$ (red) and $\mut$ (blue) pre-certificate for different input positive measures $m_0$ (showed as black dots to symbolize the position of the Diracs).
+	}
+\end{figure}
+
+Figure~\ref{fig-certificates} illustrates for the case of two ($N=2$) and three ($N=3$) spikes the behavior of the vanishing pre-certificate $\certvanishing$ (see Definition~\ref{prop-etav-nonvanish}) useful to analyze \lasso/\blasso problems and of the pre-certificate $\mut$ (see Definition~\ref{defn-third-deriv-precertif}) useful to analyze C-BP problems. 
+
+We first notice that for all the (positive) input measures (i.e. whatever the spacing between the Diracs), $\certvanishing$ is always a non-degenerate certificate (in the sense of Proposition~\ref{prop-etav-nonvanish}), meaning that one actually has $\certvanishing=\certbeurlO$ (where the minimal norm certificate $\certbeurlO$ is the minimal norm solution of $(\Dd_0^\infty(y_0))$ in~\cite{2016-duval-thinlasso}). This empirical finding is the subject of another recent work on the asymptotic of sparse recovery of positive measures when the spacing between the Diracs tends to zero~\cite{denoyelle2015asymptic}. Since $\certbeurlO$ is non-degenerate, one can thus apply \cite[Theorem~2]{2016-duval-thinlasso} to analyze the extended support of the \lasso on a thin grid (see Section~\ref{sec-numeric-deconv} below for a numerical illustration).
+
+For the C-BP problem, the situation is however more contrasted. We observe that when the Dirac masses are separated enough (first row) then the pre-certificate $\mu_T$ is a valid certificate, meaning the the Twice Non-Degenerate Source Condition (see Definition~\ref{defn-TNDSC}) holds. This means that Theorem~\ref{thm-cbpasso-extended} can be applied to analyze the extended support of C-BP on a thin grid (see Section~\ref{sec-numeric-deconv} below for a numerical illustration). But when the Dirac masses are too close (second and third rows), one has $\norm{\mut}_\infty>1$, so that one cannot ensure the support stability of the C-BP solution with our result. 
+
+
+
+%%%%%
+\subsection{Extended support for deconvolution on a thin grid}
+\label{sec-numeric-deconv}
+
+\newcommand{\myfigHom}[1]{\includegraphics[width=0.46\linewidth]{homotopy/homotopy-#1}}
+
+We still consider the case of an ideal low pass filter. Figure~\ref{fig-homotopy} displays the evolution, as a function of $\la$ (in abscissa) of the solution $a_\la$ of the \lasso (Eq.~\eqref{eq-bp}) and of the solution $(a_\la,b_\la)$ of the C-BP~\eqref{eq-thin-cbpasso}, on a thin grid. We consider here the case of an input measure with two nearby Diracs (displayed as red/blue dots in the upper-left part of the Figure) and when there is no noise, i.e. $w=0$. Each 1-D curve (either plain or dashed) represents the evolution of a single coefficient, e.g. $(a_\la)_i$, for some index $i$ (only non-zero coefficients are displayed). 
+
+
+\begin{figure}[ht]
+\centering
+	\begin{tabular}{@{}c@{\hspace{3mm}}c@{}}
+		\myfigHom{k2-d22-certificates} & \myfigHom{k2-d22-n256-bp-A-z0}\\
+		Pre-certificates ${\color{magenta} \eta_V}$ and ${\color{green} \mu_T}$ & \lasso, $a_\la$ \\
+		\myfigHom{k2-d22-n256-cbp-A-z0} & \myfigHom{k2-d22-n256-cbp-BA-z0} \\[-2mm]
+		C-BP, $a_\la$ & C-BP, $\frac{2b_\la}{h a_\la}$ \\
+		\myfigHom{k2-d22-n256-cbp-A-z1} & \myfigHom{k2-d22-n256-cbp-BA-z1} \\[-2mm]
+		C-BP, $a_\la$ (zoom) & C-BP, $\frac{2b_\la}{h a_\la}$ (zoom)
+	\end{tabular}
+\caption{\label{fig-homotopy} % 
+	Display of the evolution as a function of $\protect\la$ of the solutions of the \protect\lasso and C-BP problems. 
+	Note that dashed curved have been (artificially) slightly shifted to avoid that they overlap with the plain curve. 
+	}
+\end{figure}
+
+The solutions path $\la \mapsto a_\la$ (for \lasso{}) and $\la \mapsto (a_\la,b_\la)$ (for C-BP) are continuous and piecewise affine, which is to be expected since the regularizations ($\ell^1$ and $\ell^1$ under conic constraints) are polyhedral. The upper-left plot in the figure displays the pre-certificate $\certvanishing$ (in magenta, see Definition~\ref{prop-etav-nonvanish}) and $\mut$ (in green, see Definition~\ref{defn-third-deriv-precertif}). This shows graphically that these two precertificates are non-degenerate (in the sense of~\cite[Proposition~3]{2016-duval-thinlasso} and Definition~\ref{defn-TNDSC}) so that the conclusions of~\cite[Theorem~2]{2016-duval-thinlasso} and Theorem~\ref{thm-cbpasso-extended} hold, hence precisely describing the evolution of the solution on the extended support when $\la$ is small. On these graphs, this corresponds to the first segment of the corresponding piecewise affine paths. 
+
+The behavior for BP agrees with our analysis. As predicted by~\cite[Corollary~1]{2016-duval-thinlasso}, there exists a range of values $0 < \la < \la_0$ on which the solution is exactly supported on the extended support $J$, which is composed of four spikes (the plain curve corresponds to the support $I$ and the dashed curve corresponds to $J\backslash I$). Also, as predicted by~\cite[Proposition~7]{2016-duval-thinlasso} in the case $w=0$, we verify that $\la_0 = O(\stepsizen)$ and that the Lipschitz constant of $\la \mapsto a_\la$ is of order $O(1/\stepsizen)$. 
+
+In sharp contrast, the behavior for C-BP is less regular, since the range $0 < \la < \la_0$ on which the solution is supported on the extended support is shorter, as it can be clearly seen on the zoom for very small values of $\la$. This is in agreement with Proposition~\ref{prop-asympto-constant-cbp} which shows that $\la_0$ is of the order of $O(\stepsizen^3)$ and that the Lipschitz constant of $\la \mapsto (a_\la,b_\la)$ is of order $O(1/\stepsizen^3)$.
+%
+On this range of small $\la$, as predicted by Theorem~\ref{thm-cbpasso-extended}, the support of the solutions (which correspond to the extended support $J$ described in Theorem~\ref{thm-cbpasso-extended}) is composed of one pair of neighboring spikes for each original spike. For indices on the support $i \in I$, one has $|(b_\la)_i|/(a_\la)_i<h/2$ (the constraint is non-saturating, and the spike moves ``freely'' inside $(i\stepsize-\frac{\stepsize}{2},i\stepsize+\frac{\stepsize}{2})$) while for indices on the extended part $i \in J \backslash I$, one has $|(b_\la)_i|/(a_\la)_i = h/2$ (the constraint is saturating, the spikes are fixed at half-grid points).
+Another part of the path is interesting, for $\la$ not so small (say $\la>\la_1$), which is in fact the prominent regime in the non-zoomed figure. For this range of $\la$, there is still a pair of spikes for each original spike, but this time both spikes saturate, on same side. This observation should be related to Proposition~\ref{prop-cbp-thin-supplambda} and Remark~\ref{rem-cbp-nbspikes} which predict that, in the case where $\muli^{(3)}(x_{\la,\nu})\neq 0$, the C-BP yields either one spike or a pair of spikes with the same shift (the latter case is in fact overwhelming).
+

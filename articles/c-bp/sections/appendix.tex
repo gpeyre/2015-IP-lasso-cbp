@@ -1,0 +1,127 @@
+% !TEX root = ../Asymptotic-CBP.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Asymptotic expansion of the inverse of a Gram matrix}
+
+In this Appendix, we gather some useful lemmas on the asymptotic behavior of inverse Gram matrices.
+The proof of the following lemma can be found in~\cite{2016-duval-thinlasso}.
+\begin{lem}
+  Let $A\colon \RR^N\rightarrow \Hh$, $B:\RR^N\rightarrow\RR^N$ be linear operators such that $A$ has full rank and $B$ is invertible. Then $(AB)^+=B^{-1}A^+$.
+  \label{lem-apx-inverse}
+\end{lem}
+
+\begin{lem}\label{lem-apx-cbpdl}
+Let $A,B,C,C_h\colon \RR^N\rightarrow \Hh$ be linear operators such that $C_h=C +o(1)$ for $h>0$, and that $\begin{pmatrix}
+    A & B & C
+  \end{pmatrix}$ has full rank. Let $\tilde{\Pi}$ be the orthogonal projector onto $(\Im \begin{pmatrix}A&B\end{pmatrix})^\perp$, and let 
+  \eq{
+  	G_h\eqdef \begin{pmatrix}
+    (A+\frac{h}{2}B)^*\\
+    (A-\frac{h}{2}B)^*\\
+    (A+\frac{h}{2}B+h^3 C_h)^*
+  \end{pmatrix}\begin{pmatrix}
+   A+\frac{h}{2}B & A-\frac{h}{2}B & A+\frac{h}{2}B+ h^3 C_h
+  \end{pmatrix}.
+  } 
+  Then for $h>0$ small enough, $G_h$ and $C^*\tilde{\Pi} C$ are invertible, and
+\begin{align*}
+ 	G_h^{-1}\begin{pmatrix}\bun_N\\\bun_N\\\bun_N\end{pmatrix} 
+	&= -\frac{1}{h^3}\begin{pmatrix} -I_N\\0\\I_N\end{pmatrix} (C^*\tilde{\Pi} C)^{-1}C^*\begin{pmatrix} A& B\end{pmatrix}^{+,*} \begin{pmatrix} \bun_N\\0\end{pmatrix} +o\left(\frac{1}{h^3}\right)
+\end{align*}
+%%
+\begin{align*}	
+\begin{pmatrix}
+ A+\frac{h}{2}B & A-\frac{h}{2}B & A+\frac{h}{2}B+h^3 C_h
+\end{pmatrix}^+&= \frac{1}{h^3}  \begin{pmatrix}
+    -(C^*\tilde{\Pi} C)^{-1}C^*\tilde{\Pi} \\ 0 \\(C^*\tilde{\Pi} C)^{-1}C^*\tilde{\Pi} 
+    \end{pmatrix}+ o\left(\frac{1}{h^3}\right),
+  \end{align*}
+  but
+\begin{align*}
+    \begin{pmatrix}A^*+\frac{h}{2}B^* \\ A^*-\frac{h}{2}B^* \\ A^*+\frac{h}{2}B^*+h^3 C_h^*\end{pmatrix}^+
+    \begin{pmatrix}\bun_N\\\bun_N\\\bun_N\end{pmatrix}
+    = \begin{pmatrix}A^*\\ B^*\end{pmatrix}^{+}\begin{pmatrix}\bun_N\\0\end{pmatrix}-\tilde{\Pi}C(C^*\tilde{\Pi}C)^{-1}C^*\begin{pmatrix}A^*\\ B^*\end{pmatrix}^{+}\begin{pmatrix}\bun_N\\0\end{pmatrix}\\
+    \qquad\qquad\qquad+o(1).
+\end{align*}
+\end{lem}
+
+\begin{proof}
+    Observe that 
+\begin{align*}
+\begin{pmatrix}
+ A+\frac{h}{2}B & \!A-\frac{h}{2}B & \!A+\frac{h}{2}B+ h^3 C_h
+\end{pmatrix}
+	\!=\!
+	\begin{pmatrix} A\! & B\! & C_h  \end{pmatrix}
+\diag\left(1, \frac{h}{2}, h^3 \right)
+  \begin{pmatrix}I_N & I_N & I_N\\ I_N &-I_N & I_N\\ 0 & 0 &I_N  \end{pmatrix}
+\end{align*}
+
+As a result, for $h>0$ small enough $G_h$ is invertible and 
+\begin{align*}
+  G_h^{-1}&=\begin{pmatrix}\frac{1}{2} I_N & \frac{1}{2} I_N & -I_N\\ \frac{1}{2}I_N &-\frac{1}{2} I_N & 0\\ 0 & 0 &I_N  \end{pmatrix}
+  \diag\left(1,\frac{2}{h},\frac{1}{h^3}\right)
+  \begin{pmatrix} A^*A & A^*B & A^*C_h\\ B^*A & B^*B& B^*C_h\\ C_h^*A & C_h^*B & C_h^*C_h\end{pmatrix}^{-1}\\
+ &\qquad \qquad\times\diag\left(1,\frac{2}{h},\frac{1}{h^3}\right)
+  \begin{pmatrix}\frac{1}{2} I_N & \frac{1}{2} I_N & 0\\ \frac{1}{2}I_N &-\frac{1}{2} I_N & 0\\ -I_N & 0 &I_N  \end{pmatrix}
+\end{align*}
+the middle matrix being invertible from the full rank assumption on $\begin{pmatrix}A & B & C\end{pmatrix}$. Moreover, 
+ writing  $\tilde{\Gamma}\eqdef\begin{pmatrix}A & B\end{pmatrix}$ and $\begin{pmatrix} a & b\\ c & d\end{pmatrix}\eqdef \begin{pmatrix} \tilde{\Gamma}^*\tilde{\Gamma} & \tilde{\Gamma}^*C_h \\ C_h^*\tilde{\Gamma} & C_h^*C_h\end{pmatrix}$,  we obtain 
+\begin{align*}
+  \begin{pmatrix} A^*A & A^*B & A^*C_h\\ B^*A & B^*B& B^*C_h\\ C_h^*A & C_h^*B & C_h^*C_h\end{pmatrix}^{-1}
+ &= \begin{pmatrix}
+    u & -a^{-1}bS^{-1}\\
+    -S^{-1}ca^{-1} & S^{-1}\end{pmatrix}
+\end{align*}
+where $u \eqdef a^{-1} + a^{-1}bS^{-1}ca^{-1}$, $S \eqdef d-ca^{-1}b=C_h^*\tilde{\Pi} C_h$, $a^{-1}bS^{-1} = (\tilde{\Gamma}^*\tilde{\Gamma})^{-1} \tilde{\Gamma}^*C_h(C_h^*\tilde{\Pi} C_h)^{-1}$, $S^{-1}ca^{-1}=(C_h^*\tilde{\Pi} C_h)^{-1} C_h^*\tilde{\Gamma}(\tilde{\Gamma}^*\tilde{\Gamma})^{-1}$, and $\tilde{\Pi}$ is the orthogonal projector onto $(\Im \tilde{\Gamma})^\perp$.
+Thus 
+\begin{align*}
+  G_h^{-1}\begin{pmatrix}\bun_N\\\bun_N\\\bun_N\end{pmatrix} &= \begin{pmatrix}\frac{1}{2} I_N & \frac{1}{2} I_N & -I_N\\ \frac{1}{2}I_N &-\frac{1}{2} I_N & 0\\ 0 & 0 &I_N  \end{pmatrix}
+\diag\left(1,\frac{2}{h},\frac{1}{h^3}\right)
+\begin{pmatrix}
+    u & -a^{-1}bS^{-1}\\
+    -S^{-1}ca^{-1} & S^{-1}\end{pmatrix}
+\begin{pmatrix} \bun_N\\0\\0\end{pmatrix}\\
+&=\frac{1}{h^3} \begin{pmatrix}0 & 0 & -I_N\\ 0&0& 0\\ 0 & 0 &I_N  \end{pmatrix}
+\begin{pmatrix}
+   u \begin{pmatrix} \bun_N\\0\end{pmatrix} \\ 
+   -S^{-1}ca^{-1}\begin{pmatrix} \bun_N\\0\end{pmatrix}
+\end{pmatrix}+o\left(\frac{1}{h^3}\right) \\
+&= -\frac{1}{h^3}\begin{pmatrix} -I_N\\0\\I_N\end{pmatrix} (C^*\tilde{\Pi} C)^{-1}C^*\tilde{\Gamma}^{+,*} \begin{pmatrix} \bun_N\\0\end{pmatrix} +o\left(\frac{1}{h^3}\right).
+\end{align*}
+
+Eventually, one has 
+\begin{align*}
+  &\begin{pmatrix}
+ A+\frac{h}{2}B & A-\frac{h}{2}B & A+\frac{h}{2}B+ h^3 C_h
+\end{pmatrix}^+\\
+&=\begin{pmatrix}\frac{1}{2} I_N & \frac{1}{2} I_N & -I_N\\ \frac{1}{2}I_N &-\frac{1}{2} I_N & 0\\ 0 & 0 &I_N  \end{pmatrix}
+  \diag(1,\frac{2}{h},\frac{1}{h^3})
+\begin{pmatrix}
+  \tilde{\Gamma} & C_h
+\end{pmatrix}^+ \\
+&=\frac{1}{h^3} \begin{pmatrix}0 & 0 & -I_N\\ 0&0& 0\\ 0 & 0 &I_N  \end{pmatrix}\begin{pmatrix}
+    u & -a^{-1}bS^{-1}\\
+    -S^{-1}ca^{-1} & S^{-1}\end{pmatrix} \begin{pmatrix} \tilde{\Gamma}^*& C_h^*\end{pmatrix}+o\left(\frac{1}{h^3}\right)\\
+  &= \frac{1}{h^3}  \begin{pmatrix}
+    -(C^*\tilde{\Pi} C)^{-1}C^*\tilde{\Pi} \\ 0 \\ (C^*\tilde{\Pi} C)^{-1}C^*\tilde{\Pi} 
+    \end{pmatrix}+ o\left(\frac{1}{h^3}\right),\\
+    \intertext{and }
+&\begin{pmatrix}
+ A+\frac{h}{2}B & A-\frac{h}{2}B & A+\frac{h}{2}B+ h^3 C_h
+\end{pmatrix}^{+,*} \begin{pmatrix}\bun_N\\\bun_N\\\bun_N\end{pmatrix}\\
+&=\begin{pmatrix}\tilde{\Gamma}^* \\ C_h^*\end{pmatrix}^+
+  \diag(1,\frac{2}{h},\frac{1}{h^3})
+\begin{pmatrix}\frac{1}{2} I_N & \frac{1}{2} I_N & 0\\ \frac{1}{2}I_N &-\frac{1}{2} I_N & -I_N\\ 0 & 0 &I_N\end{pmatrix}
+\begin{pmatrix}\bun_N\\\bun_N\\\bun_N\end{pmatrix}\\
+&= \left[\tilde{\Gamma}^{+,*}-\tilde{\Pi}C_h(C_h^*\tilde{\Pi}C_h)^{-1}C_h^*\tilde{\Gamma}^{+,*}\right]\begin{pmatrix}\bun_N\\0\end{pmatrix}\\
+&= \tilde{\Gamma}^{+,*}\begin{pmatrix}\bun_N\\0\end{pmatrix}-\tilde{\Pi}C(C^*\tilde{\Pi}C)^{-1}C^*\tilde{\Gamma}^{+,*}\begin{pmatrix}\bun_N\\0\end{pmatrix}+o(1)
+\end{align*}
+ 
+
+%  &= \begin{pmatrix} A^*A & A^*B & A^*C\\ B^*A & B^*B& B^*C\\ C^*A & C^*B & C^*C\end{pmatrix}^{-1}+O(1)
+% where
+
+
+
+\end{proof}

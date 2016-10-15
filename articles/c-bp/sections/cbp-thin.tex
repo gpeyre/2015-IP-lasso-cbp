@@ -1,0 +1,296 @@
+% !TEX root = ../Asymptotic-CBP.tex
+
+\section{Continuous-Basis Pursuit on thin grids}
+\label{sec-contbp-thin}
+Now, we turn to the ``continuous'' inverse problem described in the introduction, and we assume that each $\alpha_\nu$ ($1\leq \nu \leq N$) is positive. We aim at recovering $m_0$ using the Continuous Basis-Pursuit (C-BP) proposed in~\cite{Ekanadham-CBP}. Given a grid $\Gg_n$, the goal is to reconstruct a measure $m=\sum_{i=0}^{\taillegridn-1} \veccont_{i} \delta_{i\stepsizen+t_i}$ where $t_i\in[-\frac{\stepsizen}{2},\frac{\stepsizen}{2}]$ which estimates $m_0$. Applying a Taylor expansion to $\varphi$ and setting $\shiftcont_i= t_i\veccont_i$, the authors of~\cite{Ekanadham-CBP} are led to solve
+\begin{align}
+  \umin{(\veccont,\shiftcont)\in \conehn^\taillegridn} \frac{1}{2}\normH{y-\Phi_{\Gg_n} \veccont-\Phi_{\Gg_n}'\shiftcont}^2 + \la \norm{\veccont}_1 \tag{$\Qq^n_\la(y)$}\label{eq-thin-cbpasso}\\
+  \umin{(\veccont,\shiftcont)\in \conehn^\taillegridn} \norm{\veccont}_1 \mbox{ such that } \Phi_{\Gg_n} \veccont+ \Phi'_{\Gg_n} \shiftcont=y_0.  \tag{$\Qq^n_0(y_0)$}\label{eq-thin-cbp}
+\end{align}
+which are particular instances of~\eqref{eq-abstract-cbpasso} and~\eqref{eq-abstract-cbp}, with the choice $(A,B) = (\Phi_{\Gg_n},\Phi_{\Gg_n}')$.
+The dual problems are respectively:
+\begin{align}
+  \inf_{q\in D^n} &\normH{\frac{y}{\la}-q}^2 \tag{$\Ee_\la^n(y)$}\label{eq-thin-dual-cbpasso}\\
+  \sup_{q\in D^n} &\langle y_0, q\rangle \tag{$\Ee_0^n(y_0)$}\label{eq-thin-dual-cbp}
+\end{align}
+\eql{\label{eq-defn-Dn}
+	\qwhereq 
+	D^n\eqdef\enscond{q\in \Hh}{\!\!\!\!\max_{k\in\seg{0}{\taillegridn-1}}(\Phi^*q)(k\stepsizen)+\frac{\stepsizen}{2}|(\Phi^*q)'(k\stepsizen)| \leq 1},
+}
+To study the behavior of the solutions to these problems as $n$ increases, we shall apply the results of the previous section, and in particular Lemma~\ref{lem-mu0}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Positive Beurling \protect\lasso}
+As we explain below, a natural limit model of C-BP on thin grids is the \textit{positive Beurling \lasso},
+\begin{align}
+  	\umin{m\in \Mm^+(\TT)} \frac{1}{2}\normH{y-\Phi m}^2 + \la m(\TT), 
+	\tag{$\Qq_\la^\infty(y)$}\label{eq-beurl-cbpasso}\\
+ 	\qandq
+	\umin{m\in \Mm^+(\TT)} m(\TT) \mbox{ such that } \Phi m=y_0,  \tag{$\Qq_0^\infty(y_0)$}\label{eq-beurl-cbp}
+\end{align}
+where $\Mm^+(\TT)$ refers to the space of positive Radon measures. The indicator function of positive measures plus the total mass may be encoded in the quantity:
+\begin{align}
+  m(\TT)+ \iota_{\Mm^+(\TT)}(m)=\sup\enscond{\int_\TT \psi(t)\d m(t)}{\psi\in \Cont(\TT)\mbox{ and } \sup_{t\in\TT} \psi(t)\leq 1}.
+\end{align}
+The characterization of optimality, the notions of minimal norm certificates and extended support are straightfoward adaptations of those of the Beurling \lasso exposed in the companion paper~\cite[Section 3]{2016-duval-thinlasso}.
+Again, it essentially amounts to replacing condition $\|\eta\|_{\infty}\leq 1$ with $\sup_{t\in\TT} \eta(t)\leq 1$ where $\eta=\Phi^*p$ for $p\in \Hh$.
+For instance, up to the addition of a constant, the dual problems to~\eqref{eq-beurl-cbpasso} and~\eqref{eq-beurl-cbp} are respectively:
+\begin{align}
+  \inf_{p\in D^\infty} \normH{\frac{y}{\la}-p}^2 \tag{$\Ee_\la^\infty(y)$}\label{eq-beurl-dual-cbpasso}\\
+  \sup_{p\in D^\infty} \langle y_0, p\rangle \tag{$\Ee_0^\infty(y_0)$}\label{eq-beurl-dual-cbp}
+\end{align}
+\eql{	\label{eq-defn-Dinf}
+  \qwhereq D^\infty \eqdef \enscond{p\in\Hh}{\sup_{t\in\TT} (\Phi^*p)(t)\leq 1}. 
+}
+
+As for the Beurling \lasso, the low noise behavior of~\eqref{eq-beurl-cbpasso} is governed by the minimal norm solution of~\eqref{eq-beurl-dual-cbp} (see~\cite[Section 3]{2016-duval-thinlasso}). That solution being difficult to compute in general, one is led to study a ``good candidate'' for it, the vanishing derivatives precertificate, which can easily be computed by solving a linear system in the least square sense. In this paper, we are not directly interested in the low noise behavior of~\eqref{eq-beurl-cbpasso} but we shall use this precertificate as an auxiliary quantity, hence we may adopt the following definition. 
+
+\begin{defn}
+  Let $m_0=\sum_{\nu=1}^N\alpha_{0,\nu} \delta_{x_{0,\nu}}$ an identifiable measure for the problem~\eqref{eq-beurl-cbp} such that $\Gamma_{x_0}\eqdef \begin{pmatrix}
+    \Phi_{x_0} & \Phi_{x_0}'
+  \end{pmatrix}$ has full rank.
+  
+The vanishing derivatives precertificate is defined as
+  \eql{\label{eq-vanishing-expression}
+    \muvi \eqdef \Phi^*\pvanishing \qwhereq \pvanishing \eqdef \Gamma_{x_0}^{+,*}\begin{pmatrix} s\\0
+      \end{pmatrix}, 
+     }
+     where $s=(1, \ldots,1)^T\in \RR^N$  and $\Gamma_{x_0}^{+,*}=\Gamma_{x_0}(\Gamma_{x_0}^*\Gamma_{x_0})^{-1}$.
+   \label{prop-etav-nonvanish}
+\end{defn}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Limit Problem for Thin Grids}
+
+Let us recall that we obtain a measure from the vector $(\veccont,\shiftcont)\in \conehn^\taillegridn$ by setting
+\begin{align}
+  m=\sum_{i=0}^{\taillegridn-1} \veccont_{i} \delta_{i\stepsizen+\shiftcont_i/\veccont_i } \label{eq-cbp-measure}
+\end{align}
+with the convention that $\shiftcont_i/\veccont_i=0$ if $\veccont_i=0$. It should be noticed that $\shiftcont_i/\veccont_i\in [-\frac{\stepsizen}{2},\frac{\stepsizen}{2}]$.
+
+In this section we prove the $\Gamma$-convergence of~\eqref{eq-thin-cbpasso} towards~\eqref{eq-beurl-cbpasso}. Since all the solutions to~\eqref{eq-thin-cbpasso} belong to $X_+ \eqdef \enscond{m\in \Mm^+(\TT)}{\la |m|(\TT)\leq \frac{1}{2}\normH{y}^2}$, we may restrict the problems to $X_+$,  which is metrizable for the weak* topology. Hence, we may use the following formulation of $\Gamma$-convergence valid in metric spaces (see~\cite{Dalmaso1993}).
+  
+\begin{defn}
+  We say that the Problem~\eqref{eq-thin-cbpasso} $\Gamma$-converges towards Problem~\eqref{eq-beurl-cbpasso} if, for all $m\in X_+$, the following conditions hold
+  \begin{itemize}
+    \item{(Liminf inequality)} for any sequence of measures $(\mn)_{n\in\NN}\in X_+^\NN$ of the form~\eqref{eq-cbp-measure} with $(\veccont^{(n)},\shiftcont^{(n)})\in \conehn^\taillegridn$ such that $\mn$ weakly* converges towards $m$, 
+      \begin{align*}
+        \liminf_{n\to +\infty}\left(\la \|\veccont^{(n)}\|_1+\frac{1}{2}\normH{\Phi_{\Gg_n}\veccont^{(n)}+\Phi'_{\Gg_n}\shiftcont^{(n)}-y}^2\right) \geq \la m(\TT) + \frac{1}{2}\normH{\Phi m-y}^2.
+      \end{align*}
+    \item{(Limsup inequality)} there exists a sequence of measures $(\mn)_{n\in \NN}\in X_+^\NN$ of the form~\eqref{eq-cbp-measure} with $(\veccont^{(n)},\shiftcont^{(n)})\in \conehn^\taillegridn$ such that $\mn$ weakly* converges towards $m$  and
+      \begin{align*}
+        \limsup_{n\to +\infty}\left(\la \|\veccont^{(n)}\|_1+\frac{1}{2}\normH{\Phi_{\Gg_n}\veccont^{(n)}+\Phi'_{\Gg_n}\shiftcont^{(n)}-y}^2\right)\leq \la m(\TT) + \frac{1}{2}\normH{\Phi m-y}^2.
+      \end{align*}
+  \end{itemize}
+  \label{def-gammacv-cbp}
+\end{defn}
+
+The following proposition, which is proved in~\ref{prop-cbp-gammaconv-proof}, states the $\Gamma$-convergence of the model and its consequences.
+
+\begin{prop}\label{prop-cbp-gammaconv}
+  The Problem~\eqref{eq-thin-cbpasso} $\Gamma$-converges towards \eqref{eq-beurl-cbpasso}, and 
+\begin{align}
+  \lim_{n\to +\infty}\left(\inf \eqref{eq-thin-cbpasso}\right) = \inf \eqref{eq-beurl-cbpasso}.\label{eq-cvinf-cbpasso}
+\end{align}
+Each sequence $(\mln)_{n\in\NN}$ such that $\mln$ is a minimizer of~\eqref{eq-thin-cbpasso} has accumulation points (for the weak*) topology, and each of these accumulation points is a minimizer of~\eqref{eq-beurl-cbpasso}.
+\label{prop-cbpthin-convergence}
+\end{prop}
+In particular, if the solution $\mli$ to $\eqref{eq-beurl-cbpasso}$ is unique, the whole sequence $(\mln)_{n\in\NN}$ converges towards $\mli$.
+
+\section{Convergence of the support}
+\label{sec-asympt-support}
+Though Proposition~\ref{prop-cbpthin-convergence} states the convergence of the solutions of~\eqref{eq-thin-cbpasso} towards those of~\eqref{eq-beurl-cbpasso}, it does not describe the supports of the solutions. We now study the convergence of those supports using dual certificates and the optimality conditions (Proposition~\ref{prop-optim-cbp}). 
+%\subsection{Asymptotics of the Support: Generalities}
+In this continuous context, a dual certificate is determined by a function $\eta=\Phi^*p\in\Cont(\TT)$ where $q\in \Hh$, and if $(\veccont,\shiftcont)$ is a solution to~\eqref{eq-thin-cbpasso},
+\begin{align*}
+  \Iup=\enscond{i\in\seg{0}{\taillegridn-1}}{\shiftcont_i>-\frac{\stepsizen}{2}a_i} \subset \enscond{i\in\seg{0}{\taillegridn-1}}{\left(\eta+\frac{\stepsizen}{2}\eta'\right)(i\stepsizen)=1},\\
+  \Idown=\enscond{i\in\seg{0}{\taillegridn-1}}{\shiftcont_i<\frac{\stepsizen}{2}a_i} \subset \enscond{i\in\seg{0}{\taillegridn-1}}{\left(\eta-\frac{\stepsizen}{2}\eta'\right)(i\stepsizen)=1}.
+\end{align*}
+To sum up, we shall exploit the following observations
+\begin{itemize}
+  \item if $\left(\muc+\frac{\stepsizen}{2}\muc'\right)(i\stepsizen)=1$ but $\left(\muc-\frac{\stepsizen}{2}\muc'\right)(i\stepsizen)<1$, a spike may appear at $i\stepsizen+\frac{\stepsizen}{2}$,
+  \item if $\left(\muc-\frac{\stepsizen}{2}\muc'\right)(i\stepsizen)=1$ but $\left(\muc+\frac{\stepsizen}{2}\muc'\right)(i\stepsizen)<1$, a spike may appear at $i\stepsizen-\frac{\stepsizen}{2}$,
+  \item if $\left(\muc+\frac{\stepsizen}{2}\muc'\right)(i\stepsizen)=1$ and $\left(\muc-\frac{\stepsizen}{2}\muc'\right)(i\stepsizen)=1$, a spike may appear anywhere in the interval $[i\stepsizen-\frac{\stepsizen}{2},i\stepsizen+\frac{\stepsizen}{2}]$.
+\end{itemize}
+
+In the next two paragraphs, we describe the behavior of the support. Those results rely on auxiliary Lemmas in~\ref{sec-apx-asympt-support}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asymptotics of the Support for Fixed $\la>0$}
+
+
+The following proposition relies on the convergence of the dual certificates (see Lemma~\ref{prop-cbp-cvdual} in Appendix). It states that in the generic case, one may observe up to two pairs of spikes for each spike of the solution of the positive Beurling-lasso. 
+%
+As before, $r$ is chosen such that $0<r<\frac{1}{2} \min_{\nu\neq\nu'}|x_{\nu}-x_{\nu'}|$.
+
+\begin{prop}\label{prop-cbp-thin-supplambda}
+  Let $\la >0$, and assume that there exists a solution $\mli$ to~\eqref{eq-beurl-cbpasso} which is a sum of a finite number of Dirac masses, $\mli= \sum_{\nu=1}^N \alpha_\nu \delta_{x_\nu}$ where $\alpha_\nu> 0$. Assume that $\muli$ satisfies $\abs{\muli(t)}<1$ for all $t\in \TT\setminus \{x_1,\ldots ,x_N \}$. 
+  
+  Then any sequence of solution $\mln=\sum_{i=0}^{\taillegridn-1} \veccont_{\la,i} \delta_{i\stepsizen+\shiftcont_{\la,i}/\veccont_{\la,i} }$ to~\eqref{eq-thin-cbpasso} satisfies 
+  \begin{align*}
+    \limsup_{n\to+\infty}\left(\supp \mln\right)\subset \{x_1, \ldots x_N\}.
+  \end{align*}
+  If, moreover, $\mli$ is the unique solution to~\eqref{eq-beurl-cbpasso}, 
+  \begin{align}
+    \lim_{n\to+\infty}\left(\supp (\mln)\right)= \{x_1, \ldots x_N\}.
+  \end{align}
+
+  If, additionally, $(\muli)''(x_\nu)\neq 0$ for some $\nu \in\{1,\ldots,N\}$, then for all $n$ large enough, the restriction of $\mln$ to $(x_\nu-r,x_\nu+r)$ is a sum of Dirac masses whose configuration is given in Table~\ref{tab-nbdirac}, and if $(\muli)^{(3)}(x_\nu)\neq 0$, then only the cases indicated with $(\ast)$ may appear. 
+\end{prop}
+
+%%%%%%%%%%%%
+\begin{table}
+\begin{center}
+    \renewcommand{\arraystretch}{1.5}\small
+    \begin{tabular}{|m{1.6cm}|>{\centering\scriptsize}m{4.3cm}|>{\scriptsize}m{8.1cm}|}
+    \hline
+    \textbf{Number of Dirac masses } & \textbf{\small Saturations of the certificates} \\ $(\Sright /  \Sleft)$ & \textbf{\small Possible Dirac Locations}\\
+    \hline
+    \multirow{2}{*}{\textbf{One}} & $\{i\stepsizen\} /\emptyset $ or $\emptyset/\{i\stepsizen\}$  &$i\stepsizen+\varepsilon_n\frac{\stepsizen}{2}$, with $\varepsilon_n\in\{-1,1\}$\quad\hfill $(\ast)$ \\
+& $\{i\stepsizen\}/\{i\stepsizen\}$ &  $i\stepsizen+t_i$, with $-\frac{\stepsizen}{2}\leq t_i\leq \frac{\stepsizen}{2}$\\\hline
+\multirow{4}{*}{\textbf{Two}} & $\{(i-1)\stepsizen,i\stepsizen\}/\emptyset$\\ or \\ $\emptyset/\{i\stepsizen,(i+1)\stepsizen\}$ & $\left((i-\varepsilon_n)\stepsizen+\varepsilon\frac{\stepsizen}{2},i\stepsizen+\varepsilon_n\frac{\stepsizen}{2}\right)$, with $\varepsilon_n\in\{-1,1\}$\quad\hfill $(\ast)$\\
+& $\{i\stepsizen\}/\{j\stepsizen\}$ & $\left(i\stepsizen+\frac{\stepsizen}{2}, j\stepsizen-\frac{\stepsizen}{2}\right)$, $i<j$\\
+& $\{i\stepsizen\}/\{j\stepsizen,(i+1)\stepsizen\}$\\ or \\ $\{(i-1)\stepsizen,i\stepsizen\}/\{i\stepsizen\}$  & $\left((i-\varepsilon_n)\stepsizen+\varepsilon_n\frac{\stepsizen}{2},i\stepsizen+t_i\right)$,  $\varepsilon_n\in\{-1,1\}$, $-\frac{\stepsizen}{2}\leq t_i\leq\frac{\stepsizen}{2}$\\\hline
+\multirow{3}{*}{\textbf{Three}} & $\{i\stepsizen\}/\{j\stepsizen,(j+1)\stepsizen\}$ & $\left(i\stepsizen+\frac{\stepsizen}{2},j\stepsizen-\frac{\stepsizen}{2}, (j+1)\stepsizen-\frac{\stepsizen}{2}\right)$, with $i<j$\\
+& $\{(i-1)\stepsizen,i\stepsizen\}/\{j\stepsizen\}$ & $\left((i-1)\stepsizen+\frac{\stepsizen}{2},i\stepsizen+\frac{\stepsizen}{2},j\stepsizen-\frac{\stepsizen}{2}\right)$, with $i<j$\\
+& $\{(i-1)\stepsizen,i\stepsizen\}/\{i\stepsizen,(i+1)\stepsizen\}$ & $\left((i-1)\stepsizen+\frac{\stepsizen}{2},i\stepsizen+t_i,(i+1)\stepsizen-\frac{\stepsizen}{2}\right)$,  $-\frac{\stepsizen}{2}\leq t_i\leq \frac{\stepsizen}{2}$\\\hline
+\textbf{Four} & $\{(i-1)\stepsizen,i\stepsizen\}/\{j\stepsizen,(j+1)\stepsizen\}$ & $\left((i-1)\stepsizen+\frac{\stepsizen}{2},i\stepsizen+\frac{\stepsizen}{2}, j\stepsizen-\frac{\stepsizen}{2},(j+1)\stepsizen-\frac{\stepsizen}{2}\right)$, $i<j$\\\hline
+ \end{tabular}
+ \caption{Number of Dirac masses that may appear if $\muli''(x_\nu)\neq 0$. For the sake of the simplicity of the table, and since we focus on the saturations of dual certificates, we regard sums like $\delta_{i\protect\stepsizen+\protect\stepsizen/2}+\delta_{(i+1)\protect\stepsizen-\protect\stepsizen/2}$ as ``two'' Dirac masses.}\label{tab-nbdirac}
+\end{center}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{rem}
+  Proposition~\ref{prop-cbp-thin-supplambda} states that the support of the C-BP on thin grids actually depends on the properties of the dual certificate $\muli$ of the (positive) Beurling \lasso. The condition $\muli''(x_\nu)\neq 0$ seems to be overwhelming, or generic, and it is ensured for instance if $\la$ is small and the Non-Degenerate Source Condition holds (see~\cite{2013-duval-sparsespikes}).
+  As for the condition $\muli^{(3)}(x_\nu)\neq 0$, it also seems to be generic, as there is nothing to impose $\muli^{(3)}(x_\nu)= 0$ in the positive Beurling \lasso. As a result, in practice, \textit{one does not observe all the configurations given in Table}~\ref{tab-nbdirac}, and \textit{only the cases indicated with $(\ast)$ appear}, the case of two spikes being again overwhelming. 
+  
+  This means that when approximating the positive Beurling \lasso with the Continuous Basis-Pursuit, one generally sees two spikes instead of one, and those spikes are at successive half-grid points: $(i\stepsize+\frac{\stepsize}{2}, (i+1)\stepsize+\frac{\stepsize}{2})$ or $(i\stepsize-\frac{\stepsize}{2},(i+1)\stepsize-\frac{\stepsize}{2})$.
+\label{rem-cbp-nbspikes}
+\end{rem}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asymptotic of the Low Noise Support}
+
+Now, we focus on the low noise behavior of the model. This analysis is more difficult in whole generality, since it involves the minimal norm solutions of linear problems, for which it is non-trivial to pass to the limit. Therefore, we are led to assume that $\{x_{0,1}, \ldots , x_{0,N} \}\subset \Gg_n$ for $n$ large enough, and the measure now reads $m_0=\sum_{i=0}^{\taillegridn-1} \veccont_{0,i} \delta_{i\stepsizen}$.
+
+%% LEMMA {lem-source-cbp} has been put in appendix %%%%
+Even so, the minimal norm solutions of~\eqref{eq-thin-dual-cbp} do not converge towards the minimal norm solution of~\eqref{eq-beurl-dual-cbp}, and we introduce a new variational problem to carry the study further.
+
+
+\begin{defn}[Third derivative precertificate]\label{defn-third-deriv-precertif}
+Given $m_0\in \Mm(\TT)$, we define the \textit{third derivative precertificate} as $\mut \eqdef \Phi^*p_T$ where 
+  \begin{align}
+    p_T \eqdef \uargmin{p\in\Hh}\bigg{\{}\normH{p}|; \ & \forall i\in \{1,\ldots, N\},\ (\Phi^*p)(x_{0,i})=1, \nonumber\\
+                                                  &  \quad \quad (\Phi^*p)'(x_{0,i})=0 \mbox{ and } (\Phi^*p)^{(3)}(x_{0,i})=0 \bigg{\}}, \label{eq-def-thirdderivcertif}
+  \end{align}
+whenever the above set is not empty.
+\end{defn}
+
+It is clear that the set defined in~\eqref{eq-def-thirdderivcertif} is a closed convex set. It is nonempty for instance if the conditions of Lemma~\ref{lem-source-cbp} hold. Note that $p_T$ corresponds to a quadratic minimization under linear constraint, and can hence be computed by solving a linear system,
+\begin{align}
+  p_T &= \begin{pmatrix}\Gamma_{x_0}^*\\{\Phi_{x_0}^{(3)}}^* \end{pmatrix}^+
+  \begin{pmatrix}\begin{pmatrix}\bun_N\\0\end{pmatrix}\\ 0\end{pmatrix}
+  = \Gamma_{x_0}^{+,*}\begin{pmatrix}\bun_N\\0\end{pmatrix}-\projGam {\Phi_{x_0}^{(3)}}^* ({\Phi_{x_0}^{(3)}}^*\projGam{\Phi_{x_0}^{(3)}}^*)^{-1}{\Phi_{x_0}^{(3)}}^* \Gamma_{x_0}^{+,*}\begin{pmatrix}\bun_N\\0\end{pmatrix}\label{eq-qt-expression}\\
+&= \pvanishing -\projGam {\Phi_{x_0}^{(3)}}^* ({\Phi_{x_0}^{(3)}}^*\projGam{\Phi_{x_0}^{(3)}}^*)^{-1}{\Phi_{x_0}^{(3)}}^*\pvanishing,
+\end{align}
+where $\projGam$ is the orthogonal projector onto $(\Im \Gamma_{x_0})^\perp$, and $\Gamma_{x_0}=\begin{pmatrix} \Phi_{x_0} & \Phi_{x_0}'\end{pmatrix}$.
+
+\begin{defn}[Twice Non-Degenerate Source Condition]\label{defn-TNDSC}
+  We say that $m_0$ satisfies the \textit{Twice Non-Degenerate Source Condition} (TNDSC) if $p_T$ in~\eqref{eq-def-thirdderivcertif} is well defined and if it satisfies, for $\mut=\Phi^*p_T$,
+  \begin{align*}
+    \forall t\in \TT\setminus \{x_{0,1},\ldots ,x_{0,N} \},\ \mut(t)<1,\\
+    \forall \nu\in \{1,\ldots, N\},\quad    \mut''(x_{0,\nu})<0 \qandq \mut^{(4)}(x_{0,\nu})>0.
+  \end{align*}
+\end{defn}
+
+We are now in position to provide a sufficient condition for the spikes to appear in pair, with a prediction on the location of the neighbor. 
+%
+The proof of this Theorem can be found in~\ref{thm-cbpasso-extended-proof}.
+\begin{thm}\label{thm-cbpasso-extended}
+  Assume that the operator $\begin{pmatrix}\Phi_{x_0}&\Phi_{x_0}'&\Phi_{x_0}^{(3)}\end{pmatrix}$ has full rank and that the Twice Non Degenerate Source condition (Definiton~\ref{defn-TNDSC}) holds.
+  Moreover, assume that all the components of the natural shift
+  \begin{align}
+    \rho \eqdef  (\Phi_{x_0}^{(3)*}\projGam\Phi_{x_0}^{(3)})^{-1}\Phi_{x_0}^{(3)*}\Gamma_{x_0}^{+,*}\begin{pmatrix}
+      \bun_{N}\\0
+    \end{pmatrix}
+  \end{align}
+  are nonzero.
+  Then, for $n$ large enough the extended support of $m_0$ on the grid $\Gg_n$ has the form
+  \begin{align*}
+    \extun(m_0) &=\{x_{0,1},\ldots, x_{0,N}\}\cup \enscond{x_{0,\nu}-\stepsizen}{\nu\in\seg{1}{N}\qandq \rho_\nu>0} \\
+    \extdn(m_0) &=\{x_{0,1},\ldots, x_{0,N}\}\cup \enscond{x_{0,\nu}+\stepsizen}{\nu\in\seg{1}{N}\qandq \rho_\nu<0}.
+  \end{align*}
+\end{thm}
+Combining the above Theorem with Theorem~\ref{thm-abstract-cbp}, we get
+
+\begin{cor}\label{cor-cbp-extended}
+  Under the hypotheses of Theorem~\ref{thm-cbpasso-extended}, for $n$ large enough, there exists constants $C^{(1)}_n>0$, $C^{(2)}_n>0$ such that 
+  for $\la\leq C^{(1)}_n \min_{1\leq \nu\leq N} |\alpha_{0,\nu}|$, and for all $w\in \Hh$ such that $\normH{w}\leq C^{(2)}_n \la$, the solution to~\eqref{eq-thin-cbpasso} is unique, and reads $m_\la=\sum_{\nu=1}^N (\alpha_{\la,\nu}\delta_{x_{0,\nu}+t_\nu}  + \beta_{\la,\nu}\delta_{x_{0,\nu}+\varepsilon_\nu\stepsizen})$, where 
+\begin{align*}
+-\stepsizen/2<t_\nu<\stepsizen/2 \qandq \varepsilon&\eqdef -\sign\left(\rho\right).
+% (\Phi_{x_0}^{(3)*}\projGam\Phi_{x_0}^{(3)})^{-1}\Phi_{x_0}^{(3)*}\Gamma_{x_0}^{+,*} \begin{pmatrix}      \bun_{N}\\0    \end{pmatrix}
+  \end{align*}
+  Moreover, the constants $C^{(1)}_n, C^{(2)}_n$ can be chosen as $C^{(1)}_n=O(\stepsizen^3)$ and $C^{(2)}_n=O(1)$, and one has
+  	\eql{\label{eq-lipsch-cbp}
+		\normb{ 	
+  		\begin{pmatrix} \alpha_\la\\\beta_\la \end{pmatrix}
+		- 
+		\begin{pmatrix} \alpha_0\\0 \end{pmatrix}
+ 		}_{\infty} = O\pa{ \frac{w}{\stepsizen^3}, \frac{\la}{\stepsizen^3} }.
+	}
+\end{cor}
+The proof is given in~\ref{prop-asympto-constant-cbp-proof}.
+
+\if0 %%DEBUG
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asymptotics of the Constants}
+
+In this section, we examine the asymptotic behavior of the constants given in Corollary~\ref{cor-cbp-extended}. Those constants stem from Theorem~\ref{thm-abstract-cbp}.% which is itself a variant of~\cite[Theorem 1]{2016-duval-thinlasso} for the \lasso.
+Replacing the constants $c_1,\ldots, c_3$ of the proof of Theorem~\ref{thm-abstract-cbp} (see~\ref{sec-continuous-abstract-proofs}) with the corresponding expressions for in the continuous framework, and using Lemma~\ref{lem-apx-cbpdl} we get
+\begin{align}\label{eq-cbp-cst-asympt-1}
+	c_{1,n}&= \norm{R_{\Iup\cup\Idown}\Copt^+}  
+	\sim 
+	\frac{1}{(\stepsizen)^3}\normb{\begin{pmatrix}
+    (\Phi_{x_0}^{(3),*}\projGam \Phi_{x_0}^{(3)})^{-1}\Phi_{x_0}^{(3),*}\projGam \\
+    0
+  \end{pmatrix}}_{\infty,\Hh}\\
+  	\label{eq-cbp-cst-asympt-2}
+  	c_{2,n}&= 
+	\normb{\begin{pmatrix} \tilde{u}_I\\\tilde{v}_I \end{pmatrix}}
+	\sim 
+	\frac{1}{(\stepsizen)^3} 
+	\normb{
+		\begin{pmatrix}\rho \\ 0 \end{pmatrix}
+	}_{\infty}\\
+	\label{eq-cbp-cst-asympt-3}
+  	c_{3,n} &= 
+  	\left(\norm{R_{(\Jup\setminus\Iup)\cup(\Jdown\setminus\Idown)}\Copt^+}_{\infty,\Hh}\right)^{-1}
+	\left(\min_{i\in I}\tilde{t}_i\right)
+		\sim 
+		\frac{
+			\min_i \left| \frac{1}{\gamma_3} \rho_i \right|  
+		}{
+			\norm{(\Phi_{x_0}^{(3),*}\projGam \Phi_{x_0}^{(3)})^{-1}\Phi_{x_0}^{(3),*}\projGam}_{\infty,\Hh}
+		}
+\end{align}
+where $\gamma_k$ is defined in~\eqref{eq?defn-alphak}.
+As for $c_{4,n}$ and $c_{5_n}$, like in the case of the \lasso, their expression lead to a pessimistic bound for the low noise regime, and we are led to make finer majorizations. The proof of this Proposition can be found in~\ref{prop-asympto-constant-cbp-proof}.
+
+\begin{prop}\label{prop-asympto-constant-cbp}
+  The constants $C^{(1)}_n, C^{(2)}_n$ in Corollary~\ref{cor-cbp-extended} can be chosen as $C^{(1)}_n=O(\stepsizen^3)$ and $C^{(2)}_n=O(1)$, and one has
+  	\eql{\label{eq-lipsch-cbp}
+		\normb{ 	
+  		\begin{pmatrix} \alpha_\la\\\beta_\la \end{pmatrix}
+		- 
+		\begin{pmatrix} \alpha_0\\0 \end{pmatrix}
+ 		}_{\infty} = O\pa{ \frac{w}{\stepsizen^3}, \frac{\la}{\stepsizen^3} }.
+	}
+\end{prop}
+
+\fi

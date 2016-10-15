@@ -1,0 +1,19 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+
+\begin{abstract}
+This article analyzes the recovery performance in the presence of noise of sparse $\ell^1$ regularization, which is often referred to as the \lasso or Basis-Pursuit. We study the behavior of the method for inverse problems regularization when the discretization step size tends to zero. 
+%
+We assume that the sought after sparse sum of Diracs is recovered when there is no noise (a condition which has been thoroughly studied in the literature) and we study what is the support (in particular the number of Dirac masses) estimated by the \lasso when noise is added to the observation.
+%
+% We examine in a unified framework both the $\ell^1$ regularization (often referred to as \lasso or Basis-Pursuit) and the Continuous Basis-Pursuit (C-BP) methods. The \lasso is the de-facto standard for the sparse regularization of inverse problems in imaging. It performs a nearest neighbor interpolation of the spikes locations on the sampling grid. The C-BP method,  introduced by Ekanadham, Tranchina and Simoncelli, uses a linear interpolation of the locations to perform a better approximation of the infinite-dimensional optimization problem, for positive measures. 
+%
+We identify a precise non-degeneracy condition that guarantees that the recovered support is close to the initial one. 
+%
+More precisely, we show that, in the small noise regime, when the non-degeneracy condition holds, this method estimates twice the number of spikes as the number of original spikes. Indeed, we prove that the \lasso detects two neighboring spikes around each location of an original spike.
+%
+% We show some numerical illustrations of this stability to noise and evaluate numerically these non-degeneracy conditions.
+%
+While this paper is focussed on cases where the observations vary smoothly with the spikes locations (e.g. the deconvolution problem with a smooth kernel), an interesting by-product is an abstract analysis of the support stability of discrete $\ell^1$ regularization, which is of an independent interest. We illustrate the usefulness of this abstract analysis to analyze for the first time the support instability of compressed sensing recovery.
+\end{abstract}
+
+

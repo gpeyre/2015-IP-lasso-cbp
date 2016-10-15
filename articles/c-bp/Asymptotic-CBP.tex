@@ -1,0 +1,79 @@
+% \documentclass[10pt]{article}
+\documentclass[11pt]{iopart}
+
+% Be sure to use PDF Latex
+\pdfoutput=1
+
+\usepackage[style=numeric,natbib=true,backend=bibtex]{biblatex}
+% \renewcommand{\cite}[1]{\citep{#1}}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz,tkz-tab}
+\usepackage{variations}
+
+\usepackage{mystyle}
+\usepackage{notations}
+\graphicspath{{./images/}}
+
+
+\bibliography{bibliography.bib}
+\AtEveryBibitem{\clearlist{url}}
+\AtEveryBibitem{\clearlist{doi}}
+
+
+\begin{document}
+
+\title[Sparse Spikes Retrieval on Thin Grids II: the Continuous Basis Pursuit]{Sparse Spikes Retrieval on Thin Grids II:\\ the Continuous Basis Pursuit}
+
+
+\author{Vincent Duval$^{1,2}$, Gabriel Peyr{\'e}$^{2,1}$}
+\address{$^1$ INRIA, MOKAPLAN}
+\ead{vincent.duval@inria.fr}
+\address{$^2$ CNRS and CEREMADE, Universit\'e Paris-Dauphine}
+\ead{gabriel.peyre@ceremade.dauphine.fr}
+
+
+%\author{
+%	\begin{tabular}{c}
+%		Vincent Duval \\
+%		INRIA \\ 
+%		MOKAPLAN \\
+%		{\small  \url{vincent.duval@inria.fr} }
+%	\end{tabular}
+%	\begin{tabular}{c}
+%		Gabriel Peyr\'e \\
+%		CNRS and Ceremade \\ 
+%		Univ. Paris-Dauphine \\
+%		{\small  \url{gabriel.peyre@ceremade.dauphine.fr} }
+%	\end{tabular}
+%}
+
+% \date{\today}
+% \maketitle
+
+
+%%%%%
+
+\input{sections/abstract.tex}
+
+% \tableofcontents
+
+\input{sections/intro.tex}
+\input{sections/cbp-abstract}
+\input{sections/cbp-thin}
+\input{sections/numerics}
+\input{sections/conclusion}
+\appendix
+\input{sections/appendix}
+\input{sections/cbp-abstract-proofs}
+\input{sections/cbp-thin-proofs}
+
+
+%%%
+%\bibliographystyle{plain}
+%\bibliography{bibliography}
+\printbibliography
+
+
+\end{document}
+

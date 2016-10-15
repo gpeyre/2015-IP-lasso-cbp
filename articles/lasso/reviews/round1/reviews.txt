@@ -1,0 +1,49 @@
+REFEREE REPORT(S):
+Referee: 1
+
+COMMENTS TO THE AUTHOR(S)
+This paper analyzes the solutions to discretized l1-norm regularized least squares problems under small noise. It contributes three main results:
+
+1. Theorem 1 shows that if the noise is small enough, the solution to the l1-norm regularized least squares problem is close to the solution of the noiseless inverse l1-norm minimization problem, if the latter is unique, up to a term that is linear in the noise and a term that depends on the behavior of a dual solution (see Definition 1).
+
+2. Theorem 2 shows that if a signal is the solution to a continuous-version of the l1-norm minimization problem, then the support of the solution to the noisy problem can be characterized in terms of a quantity that depends on the measurement operator and the sign of the original signal (see expression (47)), under a condition on the latter quantity.
+
+3. Theorem 3 is analogous to Theorem 1 for problems with cone constraints.
+
+4. Theorem 4 provides similar guarantees as those of Theorem 2 for continuous basis pursuit under conditions on the first and third derivative of the measurement operator and on the behavior of a certain minimum-norm certificate.
+
+This is very interesting work, as l1-norm regularized least squares solved on discrete grids are often used in practice to approximate the solution to inverse problems where the original object need not be restricted to a grid. The contributions of the authors are a useful step in this direction and therefore I believe that the paper merits publications. However, the authors do not explain their contributions clearly. In fact it is very challenging to decode exactly what these contributions are until one reads the paper in depth. This should definitely be fixed and is the reason for my assessment of the paper's scientific rigor, which I am happy to upgrade once the authors revisit the paper.
+
+To be clear the authors provide guarantees on the solution to the discretized noisy problems which rely on two main assumptions:
+
+1. The original signal is a unique solution to the continuous noiseless l1-norm minimization problem, which in general is NOT guaranteed to be the case.
+
+2. A certain certificate related to a dual solution which can be computed numerically behaves in a certain way. This certificate is NOT characterized theoretically, so it must be computed for a particular measurement operator and more crucially for a particular signal that we wish to recover.
+
+Unfortunately, this is not at all clear from either the abstract or the contributions section. In the abstract the authors write:
+
+“We show that, in the small noise regime, both methods (BP and CBP) estimate twice the number of spikes as the number of original spikes. Indeed, we show that they both detect two neighboring spikes around the locations of an original spikes.”
+
+“We illustrate these findings to analyze for the first time the support instability of compressed sensing recovery when the number of measurements is below the critical limit (well documented in the literature) where the support is provably stable.”
+
+And in the contribution section, they write
+
+“we show that under some assumption, if the input measure (...) has support on the grid (...), the model at low noise actually reconstructs pairs of Dirac masses” close to the support of the input measure.
+
+This would induce any reader to assume that the authors derive theoretical guarantees on the recovery of a certain class of signals from certain measurements (a la compressed sensing), but this is not the case.
+
+I want to stress that I believe that the contributions of the paper are very interesting and deserve publication, but the authors should make an effort to communicate their results much more clearly.
+
+Finally, the paper is written in an overly verbose and convoluted way. In particular Section 5 is challenging to follow and not very readable.
+
+
+Referee: 2 Editorial Board Member
+
+COMMENTS TO THE AUTHOR(S)
+I agree with the referee report in most cases. I think this is a highly relevant paper for the future direction of compressed sensing approaches in inverse problems. Unfortunately the way it is written, makes it very hard to access and appreciate the results. I have never seen a paper before that took such an effort of contacting reviewers and then ending up with only one report after one year - the main response from several potential reviewers to me was that the paper is just too much effort to read and find out what are the actual key results. Hence, I strongly recommend the authors to rewrite the paper with a strong focus on readability and presenting their results in a clear way.
+
+Concerning literature, I have two hints: one concerns the phd thesis of Pia Heins (http://wwwmath.uni-muenster.de/num/publications/2014/Hei14/Diss_Heins.pdf), where similar gamma-convergence results are shown, together with results for l0 penalties, which is nice to complement the arguments
+The second one is a practical one: J. Min, C. Vonesch, H. Kirshner, L. Carlini, N. Olivier, S. Holden, S. Manley, J.C. Ye, M. Unser, "FALCON: Fast and Unbiased Reconstruction of High-Density Super-Resolution Microscopy Data," Scientific Reports, vol. 4, no. 4577, pp. 1-9, April 3, 2014.
+Effectively this paper uses the fact that reconstructions on a grid provides more than one nonzero entry in the neighbouring grid points, here in 2D - without any theoretical justification. This will immediately motivate the importance of the results of this paper for future developments.
+
+Letter reference: DSMa01

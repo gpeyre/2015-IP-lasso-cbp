@@ -1,0 +1,128 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+
+%%%
+\section{Abstract analysis of the \lasso}
+\label{sec-discrete-lasso}
+
+The aim of this section is to study the low noise regime of the \lasso problem in an abstract finite dimensional setting, regardless of the grid stepsize. In this framework, the columns of the (finite dimensional) degradation operator need not be the samples of a continuous (\textit{e.g.} convolution) operator, and the provided analysis holds  for any general \lasso problem. We extend the initial study of Fuchs of the basis pursuit method (see~\cite{fuchs2004on-sp}) which gives the analytical expression of the solution when the noise is low and the support is stable. Here, provided we have access to a particular dual vector $\certdiscO$, we give an explicit parametrization the solutions of the basis pursuit at low noise \textit{even when the support is not stable}. This is especially relevant for the deconvolution problem since the support is not stable when the grid is thin enough.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Notations and optimality conditions}
+
+We consider in this section observations in an arbitrary separable Hilbert space $\Hh$, which might be for instance $L^2(\TT)$ (\textit{e.g.} in the case of a convolution) or a finite dimensional vector space. 
+The linear degradation operator is then denoted as $\Op:\RR^\taillegrid \rightarrow \Hh$.
+Let us emphasize that in this section, for $\vecdisc\in\RR^\taillegrid$,  $\|\vecdisc\|_\infty \eqdef \max_{0\leq k\leq \taillegrid-1} |\vecdisc_k|$. 
+
+Given an observation $y_0=\Op \vecdiscO\in \Hh$ (or $y=y_0+w$, where $w\in \Hh$), we aim at reconstructing the vector $\vecdiscO\in \RR^\taillegrid$ by solving the \lasso problem for $\la>0$,
+\begin{align}
+  \umin{\vecdisc \in \RR^\taillegrid} \frac{1}{2}\norm{y-\Op \vecdisc}^2 + \la \norm{\vecdisc}_1 \tag{$\Pp_\la(y)$}\label{eq-abstract-lasso}
+\end{align}
+ and for $\la =0$ we consider the (Basis-Pursuit) problem 
+\begin{align}
+  \umin{\vecdisc\in \RR^\taillegrid} \norm{\vecdisc}_1 \mbox{ such that } \Op \vecdisc=y_0.  \tag{$\Pp_0(y_0)$}\label{eq-abstract-bp}
+\end{align}
+
+If $\vecdisc\in \RR^\taillegrid$, we denote by $I(\vecdisc)$, or $I$ when the context is clear, the support of $\vecdisc$, \textit{i.e.} $I(\vecdisc) \eqdef \enscond{i\in \seg{0}{\taillegrid-1}}{\vecdisc_i\neq 0}$. Also, we let $s_I\eqdef\sign(\vecdisc_I)$, and $\suppm(\vecdisc)\eqdef\enscond{(i,s_i)}{i\in I}$ the \textit{signed support} of $\vecdisc$.
+
+The optimality conditions for Problems~\eqref{eq-abstract-lasso} and~\eqref{eq-abstract-bp} are quite standard, as detailed in the following proposition.
+
+\begin{prop}
+  Let $y\in \Hh$, and $\vecdisc_\la \in \RR^\taillegrid$. Then $a_\la$ is a solution to \eqref{eq-abstract-lasso} if and only if there exists $p_\la\in \Hh$ such that
+  \begin{align}
+    \|\Op^*p_\la \|_{\infty} \leq 1,\qandq (\Op^*p_\la)_I=\sign(\vecdisc_{\la,I}),\label{eq-optimal-subdiff}\\
+    \la  \Op^*p_\la + \Op^*(\Op \vecdisc_\la-y) =0.\label{eq-optimal-lagrange}
+  \end{align}
+
+  Similarly, if $\vecdiscO\in \RR^\taillegrid$, then $\vecdiscO$ is a solution to~\eqref{eq-abstract-bp} if and only if $\Op \vecdiscO=y_0$ and there exists $p\in \Hh$ such that.
+\begin{align}
+  \|\Op^*p\|_\infty \leq 1 \qandq (\Op^* p)_{I}=\sign(\vecdisc_{0,I}).\label{eq-optimal-source}
+\end{align}
+\end{prop}
+
+Conditions~\eqref{eq-optimal-subdiff} and~\eqref{eq-optimal-source} merely express the fact that $\certdisc_\la \eqdef \Op^*p_\la$ (resp. $\eta \eqdef \Op^*p$) is in the subdifferential of the $\ell^1$-norm at $\vecdisc_\la$ (resp. $\vecdiscO$). In that case we say that $\certdisc_\la$ (resp. $\certdisc$) is a \textit{dual certificate} for $\vecdisc_\la$ (resp. $\vecdiscO$). Condition~\eqref{eq-optimal-source} is also called the \textit{source condition} in the literature~\cite{Burger_Osher04}.
+
+The term \textit{dual certificate} stems from the fact that $p_\la$ (resp. $p$) is a solution to the dual problem to~\eqref{eq-abstract-lasso} (resp.~\eqref{eq-abstract-bp}), 
+\begin{align}
+  \inf_{p\in C} &\left\|\frac{y}{\la}-p  \right\|_2^2 \tag{$\Dd_\la(y)$},\label{eq-abstract-dual-lasso}\\
+  \mbox{resp. }\quad  \sup_{p\in C} &\langle y_0, p\rangle, \tag{$\Dd_0(y_0)$}\label{eq-abstract-dual-bp}\\
+  \qwhereq C& \eqdef \enscond{p\in \Hh}{\max_{k\in\seg{0}{\taillegrid-1}}|(\Op^*p)_k| \leq 1}.
+\end{align}
+If $\vecdisc$ is a solution to~\eqref{eq-abstract-lasso} and $p_\la$ is a solution to~\eqref{eq-abstract-dual-lasso}, then~\eqref{eq-optimal-subdiff} and~\eqref{eq-optimal-lagrange} hold. Conversely, for any $\vecdisc\in\RR^P$ and any $p_\la\in \Hh$, if~\eqref{eq-optimal-subdiff} and~\eqref{eq-optimal-lagrange} hold, then  $\vecdisc$ is a solution to~\eqref{eq-abstract-lasso} and $p_\la$ is a solution to~\eqref{eq-abstract-dual-lasso}. A similar equivalence holds for~\eqref{eq-abstract-bp} and~\eqref{eq-abstract-dual-bp}.
+
+\begin{rem}
+In general, the solutions to~\eqref{eq-abstract-lasso} and~\eqref{eq-abstract-bp} need not be unique. However, the dual certificate $\certdisc_\la=\Op^*p_\la$ which appears in~\eqref{eq-optimal-subdiff} and~\eqref{eq-optimal-lagrange} is unique. On the contrary, the dual certificate $\eta=\Op^*p$ which appears in~\eqref{eq-optimal-source} is not unique in general.
+\end{rem}
+
+We say that a vector $\vecdiscO$ is \textit{identifiable} if it is the unique solution to~\eqref{eq-abstract-bp} for the input $y=\Op \vecdiscO$.
+The following classical result gives a sufficient condition for $\vecdiscO$ to be identifiable.
+
+\begin{prop}
+  Let $\vecdiscO\in \RR^\taillegrid$ such that $\Op_I$ is injective and that there exists $p\in \Hh$ such that 
+\begin{align} 
+  \norm{ (\Op^*p)_{I^c} }_\infty < 1 
+  \qandq 
+  (\Op^* p)_{I}=\sign(\vecdiscOI),\label{eq-optimal-strictsource}
+\end{align}
+where $I^c=\seg{1}{\taillegrid}\setminus I$. Then $\vecdiscO$ is identifiable.
+\end{prop}
+
+Conversely, if $\vecdiscO$ is identifiable, there exists $p\in \Hh$ such that~\eqref{eq-optimal-strictsource} holds and $\Op_I$ is injective (see~\cite[Lemma~4.5]{Grasmair-cpam}).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Extended support of the \lasso}
+
+From now on, we assume that the vector $\vecdiscO\in \RR^\taillegrid$ is identifiable (\ie $\vecdiscO$ is the unique solution to~\eqref{eq-abstract-bp} where $y_0=\Op \vecdiscO$).
+We denote by $I=\supp(\vecdiscO)$ and $s_I=\sign(\vecdiscOI)$ the support and the sign of $\vecdiscO$. 
+
+It is well known that~\eqref{eq-abstract-bp} is the limit of \eqref{eq-abstract-lasso} for $\la \to 0$ (see~\cite{chen1999atomi} for the noiseless case and~\cite{Grasmair-cpam} when the observation is $y=y_0+w$ and the noise $w$ tends to zero as a multiple of $\la$) at least in terms of the $\ell^2$ convergence.
+In terms of the support of the solutions, the study in~\cite{2013-duval-sparsespikes}, which extends the one by Fuchs~\cite{fuchs2004on-sp}, emphasizes the role of a specific \textit{minimal-norm certificate} $\certdiscO$ which governs the behavior of the model at low noise regimes. 
+
+\begin{defn}[Minimal-norm certificate and extended support]
+  Let $\vecdiscO\in \RR^\taillegrid$, and let $p_0$ be the solution to~\eqref{eq-abstract-dual-bp} with minimal norm. The minimal-norm certificate of $a_0$ is defined as $\certdiscO \eqdef \Op^* p_0$.
+The set of indices $\ext(\vecdiscO) \eqdef \enscond{1\leq j\leq \taillegrid   }{|(\certdiscO)_j|=1}$ is called the extended support of $\vecdiscO$, and 
+the set $\extpm(\vecdiscO) \eqdef \enscond{(j,(\certdiscO)_j)}{j\in \ext(\vecdiscO)}\subset \seg{0}{\taillegrid-1}\times\{-1,1\}$ is called the extended signed support of $\vecdiscO$.
+\end{defn}
+
+\begin{rem}
+  In the case where $a_0$ is a solution to~\eqref{eq-abstract-bp} (which is the case here since we assume that $a_0$ is an identifiable vector for~\eqref{eq-abstract-bp}), we have $(I,\sign(\vecdiscOI))\subset \extpm(\vecdiscO)$. The minimal norm certificate thus turns out to be
+\eql{\label{eq-eta0}
+	\certdiscO = \Op^* p_0
+	\qwhereq
+  p_0 = \uargmin{p\in \Hh} \enscond{\norm{p}_2}{ \normi{\Op^* p} \leq 1 \qandq \Op_I^* p = s_I }.
+}
+\end{rem}
+
+%% {lem-eta0} has been moved to appendix.
+
+The minimal norm certificate governs the (signed) support of the solution at low noise regimes insofar as the latter is contained in the extended signed support. The following new theorem, which is proved in~\ref{sec-discrete-lasso-proof}, shows that, in the generic case, both signed supports are equal.
+
+\begin{thm}\label{thm-stability-dbp}
+  Let $\vecdiscO\in \RR^\taillegrid\setminus\{0\}$ be an identifiable signal , $J \eqdef \ext(\vecdiscO)$ such that $\Op_J$ has full rank, and $v_J \eqdef (\Op_J^* \Op_J)^{-1} \sign(\certdiscOJ)$. Assume that the following non-degeneracy condition holds
+  \eql{\label{eq-non-degen-dbp}
+  	\foralls j\in J\setminus I, 
+	\quad v_j\neq 0. 
+  }
+  Then, there exists constants $C^{(1)}>0$, $C^{(2)}>0$ (which depend only on $\Op$, $J$ and $\sign(\vecdisc_{0,J})$) such that for $0<\la \leq C^{(1)}\left( \umin{i \in I} |\vecdiscOI| 
+  \right)$  and all $w\in \Hh$ with $\|w\|\leq C^{(2)}\la$ 
+the solution $\soldisc$ of~\eqref{eq-abstract-lasso} is unique, $\supp(\soldisc) = J$ and it reads
+	\eq{
+    \soldiscJ = \vecdiscOJ + \Op_J^+ w - \la (\Op_J^* \Op_J)^{-1}\sign(\certdiscOJ),
+	}
+  where $\Op_J^+=(\Op_J^*\Op_J)^{-1}\Op_J^*$.
+\end{thm}
+
+
+\begin{rem}[Comparison with the analysis of Fuchs]\label{rem-fuchs}
+	When $J=I$, Theorem~\ref{thm-stability-dbp} recovers exactly the result of Fuchs~\cite{fuchs2004on-sp}. Note that this result has been extended beyond the $\ell^1$ setting,see in particular~\cite{2015-vaiter-piecewiseregular,2014-vaiter-ps-consistency} for a unified treatment of arbitrary partly smooth convex regularizers. For this result to hold, i.e. to obtain $I=J$, one needs to impose that the following pre-certificate
+	\eql{\label{eq-fuchs-precertif}
+		\fuchsdisc \eqdef \Op^* \Op_I^{+,*} s_I
+	} 
+  is a valid certificate, i.e. one needs that $\normi{\fuchsdiscIC} < 1$. This condition is often called the \textit{irrepresentability condition} in the statistics literature (see for instance~\cite{Zhao-irrepresentability}). It implies that the support $I$ is stable for small noise. Unfortunately, it is easy to verify that for the deconvolution problem, in general, this condition does not hold when the grid stepsize is small enough (see~\cite[Section 5.3]{2013-duval-sparsespikes}), so that one cannot use the initial result. This motivates our additional study of the extended support $\ext(\vecdiscO) \supset I$, which is always stable to small noise. While this new result is certainly very intuitive, to the best of our knowledge, it is the first time it is stated and proved, with explicit values of the stability constant involved. 
+\end{rem}
+
+\begin{rem}
+  Theorem~\ref{thm-stability-dbp} guarantees that the support of the reconstructed signal $\soldisc$ at low noise is equal to the extended support. The required condition $v_j\neq 0$ in Theorem~\ref{thm-stability-dbp} is tight in the sense that if $v_j=0$ for some $j\in J\setminus I$, then the saturation point of $\certdisc_\la$ may be strictly included in $J$. Indeed, it is possible, using similar calculations as above, to construct $w$ such that $\supp \soldisc\subsetneq J$ with $\la$ and $\|w\|_2/\la$ arbitrarily small.
+\end{rem}
+

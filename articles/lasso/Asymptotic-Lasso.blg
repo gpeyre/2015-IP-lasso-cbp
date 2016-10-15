@@ -1,0 +1,62 @@
+This is BibTeX, Version 0.99d (TeX Live 2012)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Asymptotic-Lasso.aux
+The style file: biblatex.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated field_info (elt_size=4) to 10032 items from 5000.
+Database file #1: Asymptotic-Lasso-blx.bib
+Database file #2: bibliography.bib
+Biblatex version: 1.7
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 37 entries,
+            6019 wiz_defined-function locations,
+            1352 strings with 13829 characters,
+and the built_in function-call counts, 118287 in all, are:
+= -- 4435
+> -- 4308
+< -- 1205
++ -- 1365
+- -- 1606
+* -- 9391
+:= -- 7188
+add.period$ -- 0
+call.type$ -- 37
+change.case$ -- 569
+chr.to.int$ -- 58
+cite$ -- 72
+duplicate$ -- 13192
+empty$ -- 12151
+format.name$ -- 2685
+if$ -- 26909
+int.to.chr$ -- 0
+int.to.str$ -- 91
+missing$ -- 0
+newline$ -- 981
+num.names$ -- 1744
+pop$ -- 11479
+preamble$ -- 1
+purify$ -- 689
+quote$ -- 0
+skip$ -- 7138
+stack$ -- 0
+substring$ -- 2359
+swap$ -- 4496
+text.length$ -- 1055
+text.prefix$ -- 36
+top$ -- 1
+type$ -- 1387
+warning$ -- 0
+while$ -- 716
+width$ -- 0
+write$ -- 943

@@ -1,0 +1,995 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 1.7 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{amelunxen2013living}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Amelunxen}{A.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lotz}{L.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {McCoy}{M.}%
+     {M.~B.}{M.~B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tropp}{T.}%
+     {J.~A.}{J.~A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AD+1}
+  \strng{fullhash}{ADLMMMBTJA1}
+  \field{sortinit}{A}
+  \field{title}{Living on the edge: A geometric theory of phase transitions in
+  convex optimization}
+  \field{journaltitle}{arXiv preprint arXiv:1303.6672}
+  \field{year}{2013}
+\endentry
+
+\entry{Azais-inaccurate}{report}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Azais}{A.}%
+     {J-M.}{J.-M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {{De Castro}}{D.}%
+     {Y.}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gamboa}{G.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AJMDYGF1}
+  \strng{fullhash}{AJMDYGF1}
+  \field{sortinit}{A}
+  \field{title}{{Spike detection from inaccurate samplings}}
+  \list{institution}{1}{%
+    {Preprint hal-00780808}%
+  }
+  \field{type}{techreport}
+  \field{month}{01}
+  \field{year}{2013}
+\endentry
+
+\entry{Bhaskar-line-spectral}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Bhaskar}{B.}%
+     {B.N.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Recht}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BBRB1}
+  \strng{fullhash}{BBRB1}
+  \field{sortinit}{B}
+  \field{booktitle}{2011 49th Annual Allerton Conference on Communication,
+  Control, and Computing}
+  \field{pages}{261\bibrangedash 268}
+  \field{title}{Atomic norm denoising with applications to line spectral
+  estimation}
+  \field{year}{2011}
+\endentry
+
+\entry{Blu-fri}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Blu}{B.}%
+     {T.}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dragotti}{D.}%
+     {P.-L.}{P.-L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vetterli}{V.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Marziliano}{M.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Coulot}{C.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BT+1}
+  \strng{fullhash}{BTDPLVMMPCL1}
+  \field{sortinit}{B}
+  \field{number}{2}
+  \field{pages}{31\bibrangedash 40}
+  \field{title}{Sparse Sampling of Signal Innovations}
+  \field{volume}{25}
+  \field{journaltitle}{IEEE Signal Processing Magazine}
+  \field{year}{2008}
+\endentry
+
+\entry{Bredies-space-measures}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Bredies}{B.}%
+     {K.}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pikkarainen}{P.}%
+     {H.K.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BKPH1}
+  \strng{fullhash}{BKPH1}
+  \field{sortinit}{B}
+  \field{number}{1}
+  \field{pages}{190\bibrangedash 218}
+  \field{title}{Inverse problems in spaces of measures}
+  \field{volume}{19}
+  \field{journaltitle}{ESAIM: Control, Optimisation and Calculus of Variations}
+  \field{year}{2013}
+\endentry
+
+\entry{Burger_Osher04}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Burger}{B.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Osher}{O.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BMOS1}
+  \strng{fullhash}{BMOS1}
+  \field{sortinit}{B}
+  \field{number}{5}
+  \field{pages}{1411\bibrangedash 1421}
+  \field{title}{Convergence rates of convex variational regularization}
+  \field{volume}{20}
+  \field{journaltitle}{Inverse Problems}
+  \field{year}{2004}
+\endentry
+
+\entry{CandesWakin}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Candes}{C.}%
+     {E.}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wakin}{W.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CEWM1}
+  \strng{fullhash}{CEWM1}
+  \field{sortinit}{C}
+  \field{number}{2}
+  \field{pages}{21\bibrangedash 30}
+  \field{title}{An Introduction to Compressive Sensing}
+  \field{volume}{25}
+  \field{journaltitle}{IEEE Signal Processing Magazine}
+  \field{year}{2008}
+\endentry
+
+\entry{Candes-superresol-noisy}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Cand{\`e}s}{C.}%
+     {E.~J.}{E.~J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fernandez-Granda}{F.-G.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CEJFGC1}
+  \strng{fullhash}{CEJFGC1}
+  \field{sortinit}{C}
+  \field{number}{6}
+  \field{pages}{1229\bibrangedash 1254}
+  \field{title}{Super-Resolution from Noisy Data}
+  \field{volume}{19}
+  \field{journaltitle}{Journal of Fourier Analysis and Applications}
+  \field{year}{2013}
+\endentry
+
+\entry{Candes-toward}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Cand{\`e}s}{C.}%
+     {E.~J.}{E.~J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fernandez-Granda}{F.-G.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CEJFGC1}
+  \strng{fullhash}{CEJFGC1}
+  \field{sortinit}{C}
+  \field{number}{6}
+  \field{pages}{906\bibrangedash 956}
+  \field{title}{Towards a Mathematical Theory of Super-Resolution}
+  \field{volume}{67}
+  \field{journaltitle}{Communications on Pure and Applied Mathematics}
+  \field{year}{2013}
+\endentry
+
+\entry{chandrasekaran2012convex}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Chandrasekaran}{C.}%
+     {V.}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Recht}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Parrilo}{P.}%
+     {P.~A.}{P.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Willsky}{W.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CV+1}
+  \strng{fullhash}{CVRBPPAWA1}
+  \field{sortinit}{C}
+  \field{number}{6}
+  \field{pages}{805\bibrangedash 849}
+  \field{title}{The Convex Geometry of Linear Inverse Problems}
+  \field{volume}{12}
+  \field{journaltitle}{Foundations of Computational Mathematics}
+  \field{year}{2012}
+\endentry
+
+\entry{chen1999atomi}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Chen}{C.}%
+     {S.S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Donoho}{D.}%
+     {D.L.}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Saunders}{S.}%
+     {M.A.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Citeseer}%
+  }
+  \strng{namehash}{CSDDSM1}
+  \strng{fullhash}{CSDDSM1}
+  \field{sortinit}{C}
+  \field{number}{1}
+  \field{pages}{33\bibrangedash 61}
+  \field{title}{Atomic decomposition by basis pursuit}
+  \field{volume}{20}
+  \field{journaltitle}{SIAM journal on scientific computing}
+  \field{year}{1999}
+\endentry
+
+\entry{Claerbout-geophysics}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Claerbout}{C.}%
+     {J.~F.}{J.~F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Muir}{M.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {SEG}%
+  }
+  \strng{namehash}{CJFMF1}
+  \strng{fullhash}{CJFMF1}
+  \field{sortinit}{C}
+  \field{number}{5}
+  \field{pages}{826\bibrangedash 844}
+  \field{title}{Robust modeling with erratic data}
+  \field{volume}{38}
+  \field{journaltitle}{Geophysics}
+  \field{year}{1973}
+\endentry
+
+\entry{Dalmaso1993}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Dal~Maso}{D.~M.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Birkhauser}%
+  }
+  \strng{namehash}{DMG1}
+  \strng{fullhash}{DMG1}
+  \field{sortinit}{D}
+  \field{series}{Progress in nonlinear differential equations and their
+  applications}
+  \field{title}{An Introduction to {$\Gamma$}-convergence}
+  \field{volume}{8}
+  \list{location}{1}{%
+    {Boston, MA}%
+  }
+  \field{year}{1993}
+\endentry
+
+\entry{deCastro-beurling}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {{de Castro}}{d.}%
+     {Y.}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gamboa}{G.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{dYGF1}
+  \strng{fullhash}{dYGF1}
+  \field{sortinit}{D}
+  \field{number}{1}
+  \field{pages}{336\bibrangedash 354}
+  \field{title}{Exact reconstruction using {Beurling} minimal extrapolation}
+  \field{volume}{395}
+  \field{journaltitle}{Journal of Mathematical Analysis and Applications}
+  \field{year}{2012}
+\endentry
+
+\entry{denoyelle2015asymptic}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Denoyelle}{D.}%
+     {Q.}{Q.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Duval}{D.}%
+     {V.}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peyr{\'e}}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DQDVPG1}
+  \strng{fullhash}{DQDVPG1}
+  \field{sortinit}{D}
+  \field{number}{1506.08264}
+  \field{title}{Support Recovery for Sparse Deconvolution of Positive Measures}
+  \verb{url}
+  \verb http://arxiv.org/abs/1506.08264
+  \endverb
+  \list{institution}{1}{%
+    {Arxiv}%
+  }
+  \field{type}{Preprint}
+  \field{year}{2015}
+\endentry
+
+\entry{Donoho-superresol-sparse}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Donoho}{D.}%
+     {D.~L.}{D.~L.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \strng{namehash}{DDL1}
+  \strng{fullhash}{DDL1}
+  \field{sortinit}{D}
+  \field{number}{5}
+  \field{pages}{1309\bibrangedash 1331}
+  \field{title}{Superresolution via sparsity constraints}
+  \field{volume}{23}
+  \field{journaltitle}{SIAM J. Math. Anal.}
+  \field{year}{1992}
+\endentry
+
+\entry{dossal2011necessary}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Dossal}{D.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DC1}
+  \strng{fullhash}{DC1}
+  \field{sortinit}{D}
+  \field{number}{1}
+  \field{pages}{117\bibrangedash 120}
+  \field{title}{A necessary and sufficient condition for exact recovery by
+  $\ell^1$ minimization}
+  \field{volume}{350}
+  \field{journaltitle}{Comptes Rendus Math{\'e}matique}
+  \field{year}{2011}
+\endentry
+
+\entry{DossalMallat}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Dossal}{D.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mallat}{M.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DCMS1}
+  \strng{fullhash}{DCMS1}
+  \field{sortinit}{D}
+  \field{booktitle}{Proceedings of SPARS}
+  \field{pages}{123\bibrangedash 126}
+  \field{title}{{Sparse spike deconvolution with minimum scale}}
+  \field{month}{11}
+  \field{year}{2005}
+\endentry
+
+\entry{dossal2011noisy}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Dossal}{D.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chabanol}{C.}%
+     {M.L.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peyr{\'e}}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fadili}{F.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DC+1}
+  \strng{fullhash}{DCCMPGFJ1}
+  \field{sortinit}{D}
+  \field{number}{1}
+  \field{pages}{24\bibrangedash 43}
+  \field{title}{Sharp Support Recovery from Noisy Random Measurements by L1
+  minimization}
+  \field{volume}{33}
+  \field{journaltitle}{Applied and Computational Harmonic Analysis}
+  \field{year}{2012}
+\endentry
+
+\entry{2013-duval-sparsespikes}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Duval}{D.}%
+     {V.}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peyr{\'e}}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DVPG1}
+  \strng{fullhash}{DVPG1}
+  \field{sortinit}{D}
+  \field{title}{Exact Support Recovery for Sparse Spikes Deconvolution}
+  \field{journaltitle}{to appear in Foundation of Computational Mathematics}
+  \field{year}{2015}
+\endentry
+
+\entry{2016-duval-thincbp}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Duval}{D.}%
+     {V.}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peyr{\'e}}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DVPG1}
+  \strng{fullhash}{DVPG1}
+  \field{sortinit}{D}
+  \field{title}{{Sparse Spikes Retrieval on Thin Grids II: the Continuous Basis
+  Pursuit}}
+  \field{type}{techreport}
+  \field{year}{2016}
+\endentry
+
+\entry{Fernandez-Granda-support}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Fernandez-Granda}{F.-G.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FGC1}
+  \strng{fullhash}{FGC1}
+  \field{sortinit}{F}
+  \field{pages}{145\bibrangedash 148}
+  \field{title}{Support detection in super-resolution}
+  \field{journaltitle}{Proc. Proceedings of the 10th International Conference
+  on Sampling Theory and Applications}
+  \field{year}{2013}
+\endentry
+
+\entry{fuchs2004on-sp}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Fuchs}{F.}%
+     {J.J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FJ1}
+  \strng{fullhash}{FJ1}
+  \field{sortinit}{F}
+  \field{number}{6}
+  \field{pages}{1341\bibrangedash 1344}
+  \field{title}{{On sparse representations in arbitrary redundant bases}}
+  \field{volume}{50}
+  \field{journaltitle}{IEEE Transactions on Information Theory}
+  \field{year}{2004}
+\endentry
+
+\entry{Grasmair-cpam}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Grasmair}{G.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Scherzer}{S.}%
+     {O.}{O.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Haltmeier}{H.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Subscription Services, Inc., A Wiley Company}%
+  }
+  \strng{namehash}{GMSOHM1}
+  \strng{fullhash}{GMSOHM1}
+  \field{sortinit}{G}
+  \field{number}{2}
+  \field{pages}{161\bibrangedash 182}
+  \field{title}{Necessary and sufficient conditions for linear convergence of
+  $\ell_1$-regularization}
+  \field{volume}{64}
+  \field{journaltitle}{Communications on Pure and Applied Mathematics}
+  \field{year}{2011}
+\endentry
+
+\entry{PiaThesis}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Heins}{H.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{HP1}
+  \strng{fullhash}{HP1}
+  \field{sortinit}{H}
+  \field{journaltitle}{{PhD} thesis}
+  \field{year}{2014}
+\endentry
+
+\entry{MinFalcon}{article}{}
+  \name{author}{9}{}{%
+    {{}%
+     {Min}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vonesch}{V.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kirshner}{K.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Carlini}{C.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Olivier}{O.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Holden}{H.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Manley}{M.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ye}{Y.}%
+     {J.C.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Unser}{U.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MJ+1}
+  \strng{fullhash}{MJVCKHCLONHSMSYJUM1}
+  \field{sortinit}{M}
+  \field{number}{4577}
+  \field{pages}{1\bibrangedash 9}
+  \field{title}{{FALCON}: Fast and Unbiased Reconstruction of High-Density
+  Super-Resolution Microscopy Data}
+  \field{journaltitle}{Scientific Reports}
+  \field{year}{2014}
+\endentry
+
+\entry{Odendaal-music}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {{Odendaal}}{O.}%
+     {J.~W.}{J.~W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {{Barnard}}{B.}%
+     {E.}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {{Pistorius}}{P.}%
+     {C.~W.~I.}{C.~W.~I.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{OJWBEPCWI1}
+  \strng{fullhash}{OJWBEPCWI1}
+  \field{sortinit}{O}
+  \field{pages}{1386\bibrangedash 1391}
+  \field{title}{{Two-dimensional superresolution radar imaging using the MUSIC
+  algorithm}}
+  \field{volume}{42}
+  \field{journaltitle}{IEEE Transactions on Antennas and Propagation}
+  \field{month}{10}
+  \field{year}{1994}
+\endentry
+
+\entry{rockafellarwets}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Rockafellar}{R.}%
+     {R.~T.}{R.~T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wets}{W.}%
+     {R.~J-B.}{R.~J.-B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wets}{W.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{RRTWRJBWM1}
+  \strng{fullhash}{RRTWRJBWM1}
+  \field{sortinit}{R}
+  \field{series}{Grundlehren der mathematischen Wissenschaften}
+  \field{title}{Variational analysis}
+  \list{location}{1}{%
+    {Berlin, Heidelberg, New York}%
+  }
+  \field{year}{1998}
+\endentry
+
+\entry{StillDiscretizationSDP}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Still}{S.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SG1}
+  \strng{fullhash}{SG1}
+  \field{sortinit}{S}
+  \field{number}{1}
+  \field{pages}{53\bibrangedash 69}
+  \field{title}{Discretization in semi-infinite programming: the rate of
+  convergence}
+  \field{volume}{91}
+  \field{journaltitle}{Mathematical Programming}
+  \field{year}{2001}
+\endentry
+
+\entry{Tang-linea-spectral}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Tang}{T.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bhaskar}{B.}%
+     {B.~Narayan}{B.~N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Recht}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TGBBNRB1}
+  \strng{fullhash}{TGBBNRB1}
+  \field{sortinit}{T}
+  \field{title}{Near Minimax Line Spectral Estimation}
+  \field{volume}{abs/1303.4348}
+  \field{journaltitle}{CoRR}
+  \field{year}{2013}
+\endentry
+
+\entry{TangConvergence}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Tang}{T.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bhaskar}{B.}%
+     {B.~Narayan}{B.~N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Recht}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{TGBBNRB1}
+  \strng{fullhash}{TGBBNRB1}
+  \field{sortinit}{T}
+  \field{booktitle}{Proc. ACSSC}
+  \field{pages}{1043\bibrangedash 1047}
+  \field{title}{Sparse recovery over continuous dictionaries-just discretize}
+  \field{year}{2013}
+\endentry
+
+\entry{tibshirani1996regre}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Tibshirani}{T.}%
+     {R.}{R.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TR1}
+  \strng{fullhash}{TR1}
+  \field{sortinit}{T}
+  \field{number}{1}
+  \field{pages}{267\bibrangedash 288}
+  \field{title}{Regression shrinkage and selection via the {L}asso}
+  \field{volume}{58}
+  \field{journaltitle}{Journal of the Royal Statistical Society. Series B.
+  Methodological}
+  \field{year}{1996}
+\endentry
+
+\entry{2014-vaiter-ps-consistency}{report}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Vaiter}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peyr{\'e}}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fadili}{F.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{VSPGFJ1}
+  \strng{fullhash}{VSPGFJ1}
+  \field{sortinit}{V}
+  \field{title}{Model Consistency of Partly Smooth Regularizers}
+  \list{institution}{1}{%
+    {Preprint Hal-00987293}%
+  }
+  \field{type}{techreport}
+  \field{year}{2014}
+\endentry
+
+\entry{2015-vaiter-piecewiseregular}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Vaiter}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Golbabaee}{G.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fadili}{F.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peyr{\'e}}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{VS+1}
+  \strng{fullhash}{VSGMFJPG1}
+  \field{sortinit}{V}
+  \field{title}{Model Selection with Low Complexity Priors}
+  \field{journaltitle}{to appear in Information and Inference}
+  \field{year}{2015}
+\endentry
+
+\entry{wainwright-sharp-thresh}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Wainwright}{W.}%
+     {M.~J.}{M.~J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{WMJ1}
+  \strng{fullhash}{WMJ1}
+  \field{sortinit}{W}
+  \field{number}{5}
+  \field{pages}{2183\bibrangedash 2202}
+  \field{title}{Sharp Thresholds for High-Dimensional and Noisy Sparsity
+  Recovery Using $\ell_1$-Constrained Quadratic Programming (Lasso)}
+  \field{volume}{55}
+  \field{journaltitle}{IEEE Transactions on Information Theory}
+  \field{year}{2009}
+\endentry
+
+\entry{Zhao-irrepresentability}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Zhao}{Z.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Yu}{Y.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {JMLR.org}%
+  }
+  \strng{namehash}{ZPYB1}
+  \strng{fullhash}{ZPYB1}
+  \field{sortinit}{Z}
+  \field{pages}{2541\bibrangedash 2563}
+  \field{title}{On Model Selection Consistency of {L}asso}
+  \field{volume}{7}
+  \field{journaltitle}{J. Mach. Learn. Res.}
+  \field{month}{12}
+  \field{year}{2006}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

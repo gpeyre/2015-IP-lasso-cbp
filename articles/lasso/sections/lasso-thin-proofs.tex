@@ -1,0 +1,153 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+
+\section{Proofs for Section~\ref{sec-discbp-thin}}
+\label{sec-discbp-thin-proofs}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Proposition~\ref{prop-gamma-conv}}
+\label{prop-gamma-conv-proof}
+
+
+%\begin{proof}
+The liminf inequality of Definition~\ref{def-gammacv} is a consequence of the (weak) lower semi-continuity of the total variation and the norm in $\Hh$ (since $\Phi$ is weak* to weak continuous, $\Phi_{\Gg_n}m^n -y$ weakly converges towards $\Phi m-y$): 
+  \begin{align*}
+    & \liminf_{n\to +\infty} \left(\la |m^n|(\TT)+\frac{1}{2}\norm{\Phi m^n-y}^2 \right) \\
+    & \qquad \geq \la \liminf_{n\to +\infty} (|m^n|(\TT))+\frac{1}{2}\liminf_{n\to +\infty}\left(\norm{\Phi m^n-y}^2 \right)\\
+    & \qquad \geq \la |m|(\TT) + \frac{1}{2}\norm{\Phi m-y}^2.
+  \end{align*}
+
+  As for the limsup inequality, we approximate $m$ with the measure $m^n= \sum_{k=0}^{\taillegridn-1} b_k \delta_{k\stepsizen}$, where $b_k=m([k\stepsizen,(k+1)\stepsizen))$. Then, for any $\psi\in C(\TT)$,
+  \begin{align*}
+    \left|\int_{\TT} \psi \d m - \int_{\TT} \psi\d m^n \right| &= \left|\sum_{k=0}^{\taillegridn-1} \int_{[k\stepsizen,(k+1)\stepsizen)} (\psi(x)-\psi(k\stepsizen))\d m \right|\\
+    &\leq \omega_\psi(\stepsizen)|m|(\TT),
+  \end{align*}
+  where $\omega_\psi: t\mapsto \sup_{|x'-x|\leq t}|\psi(x)-\psi(x')|$ is the modulus of continuity of $\psi$. Therefore, $\lim_{n\to +\infty} \langle m^n, \psi\rangle = \langle m,\psi\rangle$, and $m^n$ weakly* converges towards $m$. Incidentally, observe that $|m^n|(\TT)\leq |m|(\TT)$, so that using the liminf inequality we get $\lim_{n\to+\infty} |m^n|(\TT)= |m|(\TT)$. Moreover, by similar majorizations,
+    \begin{align*}
+      \norm{\Phi m^n-\Phi m}=\normB{\int_{\TT} \varphi \d m - \int_{\TT} \varphi\d m^n}\leq \omega_\varphi(\stepsizen)|m|(\TT),
+  \end{align*}
+so that $\Phi m^n$ converges strongly in $L^2(\TT)$ towards $\Phi m$. As a result $\lim_{n\to +\infty} \norm{\Phi m^n-y}^2 =\norm{\Phi m-y}^2$, and the limsup inequality is proved.
+
+  Eventually, from~\eqref{eq-X-bounded} we deduce the compactness of $X$, hence the existence of accumulation points,  and~\cite[Theorem~7.8]{Dalmaso1993} implies that accumulation points of $(m^n_\la)_{n\in\NN}$ are minimizers of \eqref{eq-beurl-lasso}, as well as~\eqref{eq-cvinf-lasso}.
+%\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Theorem~\ref{thm-lasso-extended}}
+\label{thm-lasso-extended-proof}
+
+% \begin{proof}[Proof of Theorem~\ref{thm-lasso-extended}]
+  We define a good candidate for $\certthinO$ and using Lemma~\ref{lem-eta0} we prove that it is indeed equal to $\certthinO$ when the grid is thin enough.
+  
+  	To comply with the notations of Section~\ref{sec-discrete-lasso}, we write 
+  	\eq{
+  		\sum_{\nu=1}^N\alpha_{0,i}\delta_{x_{0,\nu}}= \sum_{k=0}^{\taillegridn-1} a_{0,k}\delta_{k\stepsizen}, 
+	}
+	and we let $I\eqdef\enscond{i\in\seg{0}{\taillegridn-1}}{a_{0,i}\neq 0}$. Moreover, for any choice of sign $(\epsilon_i)_{i\in I}\in \{-1,+1\}^{N}$, we set $J\eqdef\bigcup_{i\in I} \{i, i+\varepsilon_i\}$ and $s_J=(s_j)_{j\in J}$ where $s_i\eqdef s_{i+\epsilon_i}\eqdef \sign(a_{0,i})$ for $i\in I$.
+  Since $|x_{0,\nu}-x_{0,\nu'}|> {2}{\stepsizen}$ for $\nu'\neq \nu$, we have $\Card J=2\times \Card I=2N$. 
+  
+Recalling that $\Op=\begin{pmatrix}
+  \phi(0)& \ldots &\phi((\taillegridn-1)\stepsizen)
+  \end{pmatrix}$, we consider the submatrices 
+  \begin{align*}
+  	\Op_I &\eqdef \begin{pmatrix} \phi(i\stepsizen) \end{pmatrix}_{i\in I}
+  = \begin{pmatrix} \phi(x_{0,1}) & \ldots &\phi(x_{0,N}) \end{pmatrix} \qandq 
+	\Op_{J\setminus I} &\eqdef \begin{pmatrix} \phi((i+\epsilon_i)\stepsizen) \end{pmatrix}_{i\in I}
+  \end{align*}
+  	so that up to a reordering of the columns $\Op_J=\begin{pmatrix} \Op_I & \Op_{J\setminus I} \end{pmatrix}$. 
+	In order to apply Lemma~\ref{lem-eta0}, we shall exhibit a choice of $(\epsilon_i)_{i\in I}$ such that $\Op_J$ has full rank, that $v\eqdef(\Op_J^*\Op_J)^{-1}s_J$ satisfies $\sign(v_j)=-s_j$ for $j\in J\setminus I$ and $\|\Op_{J^c}^* \Op_J v\|_{\infty} <1$ . 
+
+The following Taylor expansion holds for $\Op_{J\setminus I}$ as $n \to \infty$:
+  \begin{align*}
+    \Op_{J\setminus I} &= A_0 + \stepsizen (B_0 +O(\stepsizen)), \quad    \mbox{ with }   A_0=\Op_I=\Phi_{x_0}\\
+      \mbox{and }   
+      B_{0} &= \begin{pmatrix}
+      	\phi'(x_{0,1}) & \ldots & \phi'(x_{0,N}) 
+    	\end{pmatrix} \diag\left((\epsilon_{i_1}),\ldots (\epsilon_{i_N})\right) \\
+ 		&=\Phi_{x_0}'\diag\left((\epsilon_{i_1}),\ldots (\epsilon_{i_N})\right).
+  \end{align*}
+
+By Lemma~\ref{lem-apx-asymptolasso} in Appendix, the Gram matrix $\Op_J^*\Op_J$ is invertible for $n$ large enough, and
+\begin{align*}
+  (\Op_J^*\Op_J)^{-1} \begin{pmatrix}
+    s_I\\s_I
+  \end{pmatrix}=   \frac{1}{\stepsizen} \begin{pmatrix}
+(\diag(\varepsilon_{i_1},\ldots, \varepsilon_{i_N}))^{-1} \rho \\
+-(\diag(\varepsilon_{i_1},\ldots, \varepsilon_{i_N}))^{-1} \rho
+  \end{pmatrix}+O(1),
+\end{align*}
+% (\Phi_{x_0}'^* \Pi \Phi'_{x_0})^{-1}\Phi_{x_0}'^* \Phi_{x_0}^{+,*}s_I
+where $\rho$ is defined in~\eqref{eq-dfn-rho}, 
+where $\Pi$ is the orthogonal projector onto $(\Im \Phi_{x_0})^\perp$, and for $\nu\in \seg{1}{N}$, $i_\nu$ refers to the index $i\in I$ such that $i\stepsizen=x_{0,\nu}$.
+Therefore, $v_{J\setminus I}$ has the sign of $-\diag(\varepsilon_{i_1},\ldots \varepsilon_{i_N})\rho $, and it is sufficient to choose 
+$\varepsilon_{i_\nu} = s_{i_\nu}\times \sign(\rho_\nu)$ to ensure that  $\sign v_{J\setminus I}=-s_{J\setminus I}$ for $n$ large enough. 
+
+With that choice of $\varepsilon$, it remains to prove that  $\|\Op_{J^c}^* \Op_J v\|_{\infty} <1$. Let us write $\tilde{p}_n\eqdef \Op_J v=\Op_J^{+,*}\begin{pmatrix}
+    s_I\\s_I
+  \end{pmatrix}$. It is equivalent to prove that for $k\in J^c$,  $|\Phi^* \tilde{p}_n (k\stepsizen)|<1$. 
+  Using the above Taylor expansion and Lemma~\ref{lem-apx-asymptolasso} in Appendix, we obtain that 
+  \begin{align*}
+    \lim_{n\to+\infty} \tilde{p}_n &= A_0^{+,*}s_I -\Pi B_0(B_0^*\Pi B_0)^{-1}B_0^*A_0^{+,*}s_I\\
+    &=  \Phi_{x_0}^{+,*}\sign(\vecbeurl_{0,\cdot}) - \Pi \Phi_{x_0}' ({\Phi_{x_0}'}^*\Pi \Phi_{x_0}')^{-1}{\Phi_{x_0}'}^*\Phi_{x_0}^{+,*}\sign(\vecbeurl_{0,\cdot})\\
+    &= \pvanishing \mbox{ (by~\eqref{eq-vanishing-formula}).}
+  \end{align*}
+
+
+Hence, $\Phi^*\tilde{p}_{n}$ and its derivatives converge to those of $\certvanishing=\certbeurlO$, and there exists $r>0$ such that for all $n$ large enough, for all $1\leq \nu\leq N$, $\Phi^*\tilde{p}_{n}$ is strictly concave (or stricly convex, depending on the sign of $\certbeurlO''(x_{0,\nu})$) in $(x_{0,\nu}-r,x_{0,\nu}+r)$. Hence, for $t\in (x_{0,\nu}-r,x_{0,\nu}+r)\setminus [x_{0,\nu},x_{0,\nu}+\varepsilon_{i(\nu)}\stepsizen]$, we have $|\Phi^* \tilde{p}_n (t)|<1$.
+Since by compactness 
+\eq{
+	\max \enscond{ |\certbeurlO(t)|}{t\in \TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)}<1
+} 
+we also see that for $n$ large enough 
+\eq{
+	\max \enscond{ |\Phi^* \tilde{p}_n(t)|}{t\in \TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)}<1.
+}
+As a consequence, for $k\in J^c$,  $|\Phi^* \tilde{p}_n (k\stepsizen)|<1$, and from Lemma~\ref{lem-eta0}, we obtain that $\Phi^* \tilde{p}_n = \certthinO$ and $\bigcup_{\nu=1}^N \{x_{0,\nu},x_{0,\nu}+\varepsilon_{i(\nu)}\stepsizen\}$ is the extended support on $\Gg_n$.
+% \end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Proposition~\ref{prop-asympto-constant-lasso}}
+\label{prop-asympto-constant-lasso-proof}
+
+
+%\begin{proof}  
+	The proof of~\eqref{eq-lipsch-lasso} follows from applying~\eqref{eq-lipsch-lasso-cst-1} and~\eqref{eq-lipsch-lasso-cst-2} in the expression for $\al_\la$ and $\be_\la$ provided by Corollary~\ref{cor-lasso-extended}. 
+  Let $\omega\eqdef\Phi^*\Pi w$, where $\Pi$ is the orthogonal projector onto $(\Im \Phi_{x_0})^\perp= \ker \Phi_{x_0}^*$. In order to ensure~\eqref{eq-abstract-strict} we may ensure that :
+  \begin{align}
+    |\omega(j\stepsizen) + \la\certthinO(j\stepsizen)| -\la<0,
+    \label{eq-tight-snr}
+  \end{align}
+  for all $j\in J^c$ (that is ($j\stepsizen\notin \ext_n(m_0)$). 
+  
+By the Non-Degenerate Source Condition, there exists $r>0$ such that for all $\nu\in\{1,\ldots, N\}$, 
+\begin{align*}
+	\forall t\in (x_{0,\nu}-r,x_{0,\nu}+r),\ |\certbeurlO(t)|>0.95 \qandq |(\certbeurlO)''(t)|>\frac{3}{4}|(\certbeurlO)''(x_{0,\nu})|,
+\end{align*}
+and by compactness $\sup_{\TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)} |\certbeurlO|<1$.
+Since $\certthinO \to \certbeurlO$ (with uniform convergence of all the derivatives), for $n$ large enough,
+\eq{
+    \forall \nu\in\{1,\ldots, N\}, \ \forall t\in (x_{0,\nu}-r,x_{0,\nu}+r),\ |\certthinO(t)|>0.9 \qandq |(\certthinO)''(t)|>\frac{1}{2}|(\certbeurlO)''(x_{0,\nu})|,
+}
+(with equality of the signs) and 
+\eq{
+	 \sup_{\TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)} |\certthinO|\leq k \eqdef\frac{1}{2} \left(\sup_{\TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)} |\certbeurlO|+1\right)<1.
+}
+
+First, for $j$ such that  $j\stepsizen\in \TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)$, we see that it is sufficient to assume $\norm{\Phi^*}_{\infty,2}\norm{w}_2< (1-k)\la$ to obtain~\eqref{eq-tight-snr}.
+
+Now, let $\nu\in \{1,\ldots, N\}$ and assume that $\certbeurlO(x_{0,\nu})=1$  (so that $(\certbeurlO)''(x_{0,\nu})<0$) and that $\epsilon_{\nu}=1$, the other cases being similar.
+We make the following observation: if a function $f\colon(-r,+r)\rightarrow \RR$ satisfies $f''(t)\leq C$ for some $C<0$ and $f(0)=f(\stepsizen)=0$, then $f(t)\leq \frac{C}{2} t(t-\stepsizen)<0$ for $t\in (-r,0]\cup [\stepsizen,r)$.
+
+Notice that $\omega=\Phi^*\Pi w$ is a $\Cont^2$ function which vanishes on $\ext_n(m_0)$ (hence at $x_{0,\nu}$ and $x_{0,\nu}+\stepsizen$), and that its second derivative is bounded by $\norm{(\Phi'')^*}_{\infty,2}\norm{w}$.
+  Moreover, $\certthinO(x_{0,\nu})=\certthinO(x_{0,\nu}+\stepsizen)=1$ and $\sup_{(x_{0,\nu}-r,x_{0,\nu}+r)}(\certthinO)''\leq\frac{1}{2}(\certbeurlO)''(x_{0,\nu})<0$. Thus, for $\frac{\norm{w}}{\la}< \frac{|(\certbeurlO)''(x_{0,\nu})|}{2\norm{(\Phi'')^*}_{\infty,2}}$, we may apply the observation to $\omega(\cdot -x_{0,\nu})+ \la (\certthinO(\cdot -x_{0,\nu})-1)$ so as to get 
+\begin{align*}
+  \omega(t)+ \la (\certthinO(t)-1)\leq \left(\norm{(\Phi'')^*}_{\infty,2}\norm{w} +\la \frac{1}{2}(\certbeurlO)''(x_{0,\nu}) \right) (t-x_{0,\nu})(t-x_{0,\nu}-\stepsizen) <0
+\end{align*}
+for $t\in (x_{0,\nu}-r,x_{0,\nu}]\cup[x_{0,\nu}+\stepsizen,x_{0,\nu}+r)$. 
+  
+On the other hand, the inequality $-\omega(t) -\la (\certthinO(t)+1)<0$ holds for $\norm{\Phi^*}_{\infty,2}\norm{w}_2 <1.9\la$.  
+As a result~\eqref{eq-tight-snr} holds for all $j$ such that $j\stepsizen\in (x_{0,\nu}-r,x_{0,\nu}+r)$, provided that the signal-to-noise ratio satisfies $\frac{\norm{w}_2}{\la}\leq c$, where $c>0$ is a constant which only depends on $\min_{\nu}|(\certbeurlO)''(x_{0,\nu})|$, $\norm{\Phi^*}_{\infty,2}$, $\norm{(\Phi'')^*}_{\infty,2}$ and $\sup_{\TT\setminus \bigcup_{\nu=1}^N (x_{0,\nu}-r,x_{0,\nu}+r)} |\certbeurlO|$.
+In other words, including the condition involving $c_{3,n}$, we may choose $C^{(2)}_n=\min(c_{3,n},c) = O(1)$.
+% \end{proof}

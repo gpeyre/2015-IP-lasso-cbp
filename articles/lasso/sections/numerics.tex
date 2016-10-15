@@ -1,0 +1,41 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical illustrations on Compressed sensing}
+\label{sec-numerics}
+
+% In this section, we illustrate the usefulness of our analysis to gain a precise understanding of the recovery performance of $\ell^1$-type methods (\lasso and C-BP) for both deconvolution and compressed sensing problems. The code to reproduce these numerical experiments is available online\footnote{\url{https://github.com/gpeyre/2015-IP-lasso-cbp/}}. 
+
+In this section, we illustrate the ``abstract'' support analysis of the \lasso problem provided in Section~\ref{sec-discrete-lasso}, in the context of $\ell^1$ recovery for compressed sensing. Let us mention that more experiments, illustrating the doubling of the support for sparse spikes recovery on thin grids are described in the companion paper, in a comparison of the \lasso and the C-BP. Compressed sensing corresponds to the recovery of a high dimensional (but hopefully sparse) vector $a_0 \in \RR^P$ from low resolution, possibly noisy, randomized observations $y=B a_0 +w \in \RR^Q$, see for instance~\cite{CandesWakin} for an overview of the literature on this topic. For simplicity, we assume that there is no noise ($w=0$) and we consider here the case where $B \in \RR^{Q \times P}$ is a realization from the Gaussian matrix ensemble, where the entries are independent and uniformly distributed according to a Gaussian $\Nn(0,1)$ distribution. This setting is particularly well documented, and it has been shown, assuming that $a_0$ is $s$-sparse (meaning that $|\supp(a_0)|=s$), that there are roughly three regimes:
+\begin{rs}
+	\item If $s < s_0 \eqdef \frac{Q}{2\log(P)}$, then $a_0$ is with ``high probability'' the unique solution of~\eqref{eq-abstract-bp} (it is identifiable), and the support is stable to small noise, because $\eta_F$ (as defined in~\eqref{eq-fuchs-precertif}) is a valid certificate, $\norm{\eta_F}_\infty \leq 1$. This is shown for instance in~\cite{wainwright-sharp-thresh,dossal2011noisy}. 
+	\item If $s < s_1 \eqdef \frac{Q}{2\log(P/Q)}$, then $a_0$ is with ``high probability'' the unique solution of~\eqref{eq-abstract-bp}, but the support is not stable, meaning that $\eta_F$ is not a valid certificate. This phenomena is precisely analyzed in~\cite{chandrasekaran2012convex,amelunxen2013living} using tools from random matrix theory and so-called Gaussian width computations. 
+	\item If $s > s_1$, then $a_0$ with ``high probability'' is not the solution of~\eqref{eq-abstract-bp}.
+\end{rs}
+We do not want to give details here on the precise meaning of with ``high probability'', but this can be precisely quantified in term of probability of success (with respect to the random draw of $B$) and one can show that a phase transition occurs, meaning that for large $(P,Q)$ the transition between these regimes is sharp. 
+
+While the regime $s<s_0$ is easy to understand, a precise analysis of the intermediate regime $s_0<s<s_1$ in term of support stability is still lacking. Figure~\ref{fig-cs} shows how Theorem~\ref{thm-stability-dbp} allows us to compute numerically the size of the recovered support, hence providing a quantification of the degree of ``instability'' of the support when a small noise $w$ contaminates the observations. The simulation is done with $(P,Q)=(400,100)$. 
+
+The left part of the figure shows, as a function of $s$ (in abscissa), the probability (with respect to a random draw of $\Phi$ and $a_0$ a $s$-sparse vector) of the event that $a_0$ is identifiable (plain curve) and of the event that $\eta_F$ is a valid certificate (dashed curve). This clearly highlights the phase transition phenomena between the three different regimes, and one roughly gets that $s_0 \approx 6$ and $s_1 \approx 20$, which is consistent with the theoretical asymptotic bounds found in the literature.
+
+The right part of the figure, shows, for three different sparsity levels $s \in \{14,16,18\}$, the histogram of the repartition of $|J|$ where $J$ is the extended support, as defined in Theorem~\ref{thm-stability-dbp}. According to Theorem~\ref{thm-stability-dbp}, this histogram thus shows the repartition of the sizes of the supports of the solutions to~\eqref{eq-abstract-lasso} when the noise $w$ contaminating the observations $y=B a_0+w$ is small and $\la$ is chosen in accordance to the noise level. As one could expect, this histogram is more and more concentrated around the minimum possible value $s$ (since we are in the regime $s<s_1$ so that the support $I$ of size $s$ is included in the extended support $J$) as $s$ approaches $s_0$ (for smaller values, the histogram being only concentrated at $s$ since $J=I$ and the support is stable). Analyzing theoretically this numerical observation is an interesting avenue for future work that would help to better understand the performance of compressed sensing. 
+
+\newcommand{\myfigCS}[1]{\includegraphics[width=0.46\linewidth]{compressed-sensing/distrib-extsup-s#1}}
+
+\begin{figure}[ht]
+\centering
+	\begin{tabular}{@{}c@{\hspace{3mm}}c@{}}
+		\multirow{6}{*}{\includegraphics[width=0.5\linewidth]{compressed-sensing/ident-vs-ic}}
+		 & \myfigCS{14} \\
+		 & $s=14$ \\
+		 & \myfigCS{16} \\
+		 & $s=16$ \\
+		 & \myfigCS{18} \\
+		 & $s=18$ 
+	\end{tabular}
+\caption{\label{fig-cs} % 
+	\textit{Left:} probability as a function of $s$ of the event that $a_0$ is identifiable (plain curve) and of the even that its support is stable (dashed curve).
+	\textit{Right:} for several value of $s$, display of histogram of repartition of the sizes $|J|$ of the extended support $J$. 
+	}
+\end{figure}

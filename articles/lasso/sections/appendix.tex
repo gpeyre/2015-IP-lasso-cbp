@@ -1,0 +1,154 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+
+
+\section{Useful properties of the integral transform}
+
+
+\begin{lem}\label{lem-phi-compact}
+  Let $k_0\in \NN^*$ and assume that $\phi\in \Cont^{k_0}(\TT,\Hh)$. Then $\Phi^{(k)}:\Mm(\TT)\rightarrow \Hh$, $m\mapsto \int_{\TT}\varphi^{(k)}(t)\d m(t)$ is weak-* to weak continuous, and its adjoint operator $\Phi^{(k),*}:\Hh\rightarrow \Cont(\TT)$ is compact and given by $(\Phi^{(k),*}q)(t)=\dotp{q}{\varphi^{(k)}(t)}$ for all $q\in \Hh$, $t\in \TT$. 
+
+Eventually, $\frac{\d^k }{\d t^k}(\Phi^{*}q)(t)=(\Phi^{(k),*}q)(t)$.
+\end{lem}
+
+\begin{proof}
+By continuity and bilinearity of the inner product, we see that
+\begin{equation*}
+  \forall q\in \Hh,\quad \dotp{q}{\Phi^{(k)} m}= \int_{\TT}\dotp{q}{\varphi^{(k)}(t)}\d m(t).
+\end{equation*}
+Since $t\mapsto \dotp{q}{\varphi^{(k)}(t)}$ is in $\Cont(\TT)$ we obtain the weak-* to weak continuity and the expression of the adjoint operator.
+Its compactness, namely that $\{\Phi^*p; \ p\in\Hh, \norm{p}\leq 1\}$ is relatively compact in $\Cont(\TT)$,  follows from the  Ascoli-Arzel\`a theorem.
+The last assertion is simply that $\frac{\d^k }{\d t^k}\dotp{q}{\varphi(t)}=\dotp{q}{\frac{\d^k }{\d t^k}\varphi(t)}$
+\end{proof}
+
+The compactness mentioned above yields the following property. Given any bounded sequence $\{p_n\}_{n\in\NN}$ in $\Hh$, we may extract a subsequence $\{p_{n'}\}_{n'\in\NN}$ which converges weakly towards some $\tilde{p}\in \Hh$. Then, the (sub)sequence $\Phi^* p_{n'}$ converges towards $\Phi^*\tilde{p}$ for the (strong) uniform topology, and its derivatives $\Phi^{(k),*}p_{n'}$ also converge towards $\Phi^{(k),*}\tilde{p}$ for that topology.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Asymptotic expansion of the inverse of a Gram matrix}
+
+In this Appendix, we gather some useful lemmas on the asymptotic behavior of inverse Gram matrices.
+
+\begin{lem}
+  Let $A\colon \RR^N\rightarrow\Hh$, $B:\RR^N\rightarrow\RR^N$ be linear operators such that $A$ has full rank and $B$ is invertible. Then the Moore-Penrose pseudo-inverse of $AB$ is $(AB)^+=B^{-1}A^+$.
+  \label{lem-apx-inverse}
+\end{lem}
+\begin{proof}
+Since $AB$ has full rank, the classical formula of the pseudo-inverse yields 
+  \eq{ 
+  	\left((AB)^*(AB)\right)^{-1}(AB)^*)= B^{-1}(A^*A)^{-1}B^{-1,*}B^*A^*=B^{-1}A^+.
+}
+\end{proof}
+
+\begin{lem}\label{lem-apx-asymptolasso}
+  Let $A,B,B_h\colon \RR^N\rightarrow \Hh$ be linear operators such that $B_h=B +O(h)$ for $h\to 0^+$, and that $\begin{pmatrix}
+    A & B
+  \end{pmatrix}$ has full rank. Let $\Pi$ be the orthogonal projector onto $(\Im A)^\perp$, and let 
+  \eq{
+  	G_h\eqdef \begin{pmatrix}
+    A^*\\
+    A^*+hB_h^*
+  \end{pmatrix}\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}
+  } 
+  and $s\in\RR^N$. Then for $h>0$ small enough, $G_h$ and $B^*\Pi B$ are invertible, and
+  \begin{align}
+G_h^{-1}\begin{pmatrix}
+    s\\s
+  \end{pmatrix}&=\frac{1}{h} \begin{pmatrix} (B^*\Pi B)^{-1}B^*A^{+,*}s\\-(B^*\Pi B)^{-1}B^*A^{+,*}s \end{pmatrix}+O(1),\\
+  \begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}^+&= \frac{1}{h}\begin{pmatrix}
+  (B^*\Pi B)^{-1}B^*\Pi \\ -(B^*\Pi B)^{-1}B^*\Pi
+\end{pmatrix}+O(1),\\
+\mbox{but }\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}^{+,*}\begin{pmatrix}
+    s\\s
+  \end{pmatrix}
+&= A^{+,*}s -\Pi B(B^*\Pi B)^{-1}B^*A^{+,*}s + O(h).
+\end{align}
+\end{lem}
+
+\begin{proof}
+  Observe that $\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}=\begin{pmatrix}
+    A& B_h
+  \end{pmatrix}\begin{pmatrix}
+    I_N & I_N\\ 0 & hI_N
+  \end{pmatrix} $ 
+  so that  
+  \eq{
+  	G_h=\begin{pmatrix}I_N & 0\\ I_N & hI_N\end{pmatrix}
+  \begin{pmatrix} A^*A & A^*B_h\\B_h^*A & B_h^*B_h\end{pmatrix}
+  \begin{pmatrix}I_N & I_N\\ 0 & hI_N\end{pmatrix}.
+  } 
+  Since $\begin{pmatrix}A & B\end{pmatrix}$
+  has full rank, the middle matrix is invertible for $h$ small enough, and 
+  \eq{
+  	G_h^{-1}=\begin{pmatrix}I_N & -\frac{1}{h}I_N\\0 & \frac{1}{h}I_N\end{pmatrix}
+  \begin{pmatrix} A^*A & A^*B_h\\B_h^*A & B_h^*B_h\end{pmatrix}^{-1}
+  \begin{pmatrix}I_N & 0\\ -\frac{1}{h}I_N & \frac{1}{h} I_N\end{pmatrix}.
+ }
+  
+  %\\
+%  &= \begin{pmatrix}I_N & -\frac{1}{h}I_N\\0 & \frac{1}{h}I_N\end{pmatrix}
+%  \left(\begin{pmatrix} A^*A & A^*B\\B^*A & B^*B\end{pmatrix}^{-1} + O(h)\right)
+%  \begin{pmatrix}I_N & 0\\ -\frac{1}{h}I_N & \frac{1}{h} I_N\end{pmatrix}.
+Writing  $\begin{pmatrix} a & b\\ c & d\end{pmatrix}\eqdef\begin{pmatrix} A^*A & A^*B_h\\B_h^*A & B_h^*B_h\end{pmatrix}$, the block inversion formula yields
+%\begin{align*}
+\eq{
+	\begin{pmatrix} a & b\\ c & d\end{pmatrix}^{-1}=  \begin{pmatrix}
+    a^{-1} + a^{-1}bS^{-1}ca^{-1} & -a^{-1}bS^{-1}\\
+    -S^{-1}ca^{-1} & S^{-1}\end{pmatrix},
+}
+\eq{
+	\qwhereq 
+	S\eqdef d-ca^{-1}b = B_h^*B_h-B_h^*A(A^*A)^{-1}A^*B_h = B_h^*\Pi B_h
+}
+is indeed invertible for small $h$ since $\begin{pmatrix} A & B \end{pmatrix}$ has full rank. Moreover, $a^{-1}bS^{-1}= A^+B_h(B_h^*\Pi B_h)^{-1}$, and $S^{-1}ca^{-1}= (B_h^*\Pi B_h)^{-1}B_h^*A^{+,*}$.
+
+Now, we evaluate $G_h^{-1}\begin{pmatrix} s\\s\end{pmatrix}=\begin{pmatrix}I_N & -\frac{1}{h}I_N\\0 & \frac{1}{h}I_N\end{pmatrix}
+ \begin{pmatrix}
+   a^{-1}s +  a^{-1}bS^{-1}ca^{-1}s\\
+  -S^{-1}ca^{-1}s 
+ \end{pmatrix}$. We obtain 
+ \begin{align*}G_h^{-1}\begin{pmatrix} s\\s\end{pmatrix}= \frac{1}{h}  \begin{pmatrix}
+   S^{-1}ca^{-1}s \\-S^{-1}ca^{-1}s 
+ \end{pmatrix}+O(1) = \frac{1}{h} \begin{pmatrix} (B^*\Pi B)^{-1}B^*A^{+,*}s\\-(B^*\Pi B)^{-1}B^*A^{+,*}s \end{pmatrix}+O(1).
+ \end{align*}
+
+ Eventually, by Lemma~\ref{lem-apx-inverse}, $\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}^+= \begin{pmatrix}I_N & -\frac{1}{h}I_N\\0 & \frac{1}{h}I_N\end{pmatrix}
+  \begin{pmatrix} A^*A & A^*B_h\\B_h^*A & B_h^*B_h\end{pmatrix}^{-1}
+\begin{pmatrix}A^*\\B_h^*\end{pmatrix}$.
+We obtain 
+\begin{align*}\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}^+&= \begin{pmatrix}I_N & -\frac{1}{h}I_N\\0 & \frac{1}{h}I_N\end{pmatrix}
+\begin{pmatrix}
+  A^+ -A^+B_h(B_h^*\Pi B_h)^{-1}B_h^*\Pi\\
+  -(B_h^*\Pi B_h)^{-1}B_h^*\Pi
+\end{pmatrix}\\
+\intertext{and we deduce}
+\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}^+&= \frac{1}{h}\begin{pmatrix}
+  (B^*\Pi B)^{-1}B^*\Pi \\ -(B^*\Pi B)^{-1}B^*\Pi
+\end{pmatrix}+O(1),\\
+\mbox{and }
+\begin{pmatrix}
+    A& A+hB_h
+  \end{pmatrix}^{+,*}\begin{pmatrix}
+    s\\s
+  \end{pmatrix}&= \begin{pmatrix}
+    A^{+,*}-\Pi B_h(B_h\Pi B_h)^{-1}B_h^*A^{+,*} & \Pi B_h(B_h^*\Pi B_h)^{-1}
+  \end{pmatrix}\\
+&\qquad \qquad \qquad\begin{pmatrix}I_N &0 \\ -\frac{1}{h}I_N & \frac{1}{h}I_N\end{pmatrix}
+\begin{pmatrix}s\\s\end{pmatrix}\\
+&= A^{+,*}s -\Pi B(B^*\Pi B)^{-1}B^*A^{+,*}s + O(h).
+\end{align*}
+\end{proof}
+

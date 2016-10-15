@@ -1,0 +1,212 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+We consider the problem of estimating an unknown Radon measure on the torus $\TT=\RR/\ZZ$ (i.e. an interval with periodic boundary conditions), $m_0 \in \Mm(\TT)$, from low-resolution noisy observations in a separable Hilbert space $\Hh$,
+\eql{\label{eq-observ-measures}
+  y=\Phi (m_0)+\noise \in \Hh
+} 
+where $\noise \in \Hh$ is some measurement noise, and $\Phi : \Mm(\TT) \rightarrow \Hh$ is a bounded linear map such that\eql{\label{eq-def-phi}
+	\foralls m \in \Mm(\TT), \quad
+  	\Phi (m) = \int_{\TT} \phi(x) \d m(x),
+}
+where $\phi \in \Cont^2(\TT,\Hh)$.
+
+A typical example of such an operation is a convolution, where $\Hh=\Ldeux(\TT)$ and $\varphi(x): x'\mapsto\tilde{\varphi}(x'-x)$ for some smooth function $\tilde{\varphi}$ defined on $\TT$.
+%
+Another example is a partial Fourier transform, where $\Hh=\CC^P$, and $\varphi(x) = (e^{2\imath\pi \om_k x})_{k=1}^P \in \Hh$ where $\om_k \in \ZZ$ are the measured frequencies. For instance, using low frequency $-f_c \leq \om_k = k-f_c-1 \leq f_c$ with $P=2f_c+1$ is equivalent to using a convolution with the ideal low-pass filter
+\eql{\label{eq-low-passfilter}
+	\foralls x \in \TT, \quad
+	\tilde\phi(x) = \sum_{k=-f_c}^{f_c} e^{2\imath\pi k x}, 
+}
+with cutoff frequency $f_c$. To simplify the notation, we shall assume that $\Hh$ is a real Hilbert space, and we leave to the reader the straightforward adaptations to the complex case.
+ 
+
+
+% We focus our attention here for simplicity on the compact 1-D domain $\TT$, but our results can be extended to higher dimensional settings.  
+% but the algorithms considered (\lasso and C-BP) as well as our theoretical analysis can be extended to higher dimensional settings.
+%  (see Section~\ref{sec-extensions})\todo{est-ce qu'on parle des extensions?}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Sparse Regularization}
+
+The problem of inverting~\eqref{eq-observ-measures} is severely ill-posed. A particular example is when $\Phi$ is a low pass filter, which is a typical setting for many problems in imaging. In several applications, it makes sense to impose some sparsity assumption on the data to recover. This idea has been introduced first in the geoseismic literature, to model the layered structure of the underground using sparse sums of Dirac masses~\cite{Claerbout-geophysics}. Sparse regularization has later been studied by David Donoho and co-workers, see for instance~\cite{Donoho-superresol-sparse}.  
+
+In order to recover sparse measures (i.e. sums of Diracs), it makes sense to consider the following regularization
+\eql{\label{eq-blasso}
+	\umin{m \in \Mm(\TT)} \frac{1}{2}\norm{y-\Phi(m)}^2 + \la |m|(\TT)
+}
+where $|m|(\TT)$ is the total variation of the measure $m$, defined as
+\eql{\label{eq-totalvariation}
+	|m|(\TT) \eqdef \sup \enscond{ \int_\TT \psi(x) \d m(x) }{ \psi \in \Cont(\TT), \: \normi{\psi} \leq 1 }.
+} 
+This formulation of the recovery of sparse Radon measures has recently received lots of attention in the literature, see for instance the works of~\cite{Bredies-space-measures,deCastro-beurling,Candes-toward}.
+%
+In the case where there is no noise, $w=0$, it makes sense to consider $\la \rightarrow 0$ and to solve the following limit problem
+\eql{\label{eq-blasso-noiseless}
+	\umin{m \in \Mm(\TT)} \enscond{ |m|(\TT) }{ \Phi(m) = \Phi(m_0) }.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\lasso}
+
+The optimization problem~\eqref{eq-blasso} is convex but infinite dimensional, and while there exists solvers when $\Phi$ is measuring a finite number of Fourier frequency (see~\cite{Candes-toward}), they do not scale well with the number of frequencies. Furthermore, the case of an arbitrary linear operator $\Phi$ is still difficult to handle, see~\cite{Bredies-space-measures} for an iterative scheme. The vast majority of practitioners thus approximate~\eqref{eq-blasso} by a finite dimensional problem computed over a finite grid $\Gg \eqdef \enscond{z_i}{i\in \seg{0}{\taillegrid-1}} \subset \TT$, by restricting their attention to measures of the form
+\eq{
+  m_{a,\Gg} \eqdef \sum_{i=0}^{\taillegrid-1} a_i \de_{z_i} \in \Mm(\TT).
+}
+For such a discrete measure, one has $|m|(\TT) =\sum_{i=0}^{\taillegrid-1} |a_i|  =\norm{a}_1$, which can be interpreted as the fact that $|\cdot|(\TT)$ is the natural extension of the $\ell^1$ norm from finite dimensional vectors to the infinite dimensional space of measures. 
+Inserting this parametrization in~\eqref{eq-blasso} leads to the celebrated Basis-Pursuit problem~\cite{chen1999atomi}, which is also known as the \lasso method in statistics~\cite{tibshirani1996regre}, 
+\eql{\label{eq-bp}
+	\umin{a \in \RR^N} \frac{1}{2}\norm{y-\Phi_\Gg a}^2 + \la \norm{a}_1
+}
+where in the following we make use of the notations
+% \todo{a-t-on besoin d'intoduire $\Phi'_\Gg$  a ce niveau la?}
+\begin{align}\label{eq-phix}
+  \Phi_\Gg a \eqdef \Phi(m_{a,\Gg}) = \sum_{i=0}^{\taillegrid-1} a_i \phi(z_i), 
+%  \qandq
+% \Phi'_\Gg b \eqdef \Phi'(m_{b,\Gg}) = \sum_{i=0}^{\taillegrid-1} b_i \phi'(z_i). 
+\end{align}
+One can understand~\eqref{eq-bp} as performing a nearest neighbor interpolation of the Dirac's locations. 
+
+Note that while we focus in this paper on convex recovery method, and in particular $\ell^1$-type regularization, there is a vast literature on the subject, which makes use of alternative algorithms, see for instance~\cite{Odendaal-music,Blu-fri} and the references therein.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Motivating Example}
+
+Figure~\eqref{fig-lasso-path} illustrates the typical behavior of the Lasso method~\eqref{eq-bp} to estimate a sparse input measure $m_0$ (shown in (a)) from observations $y=\Phi m_0+w$, where $\Phi$ is the ideal low-pass filter with cutoff frequency $f_c$, i.e. $\phi(x)=\tilde\phi(x-\cdot)$ where $\tilde\phi$ is defined in~\eqref{eq-low-passfilter}.
+%
+In the numerical simulation, we used $f_c=12$ and an uniform grid of $G=512$ points. 
+%
+Here $w$ is a small input noise, and its impact can be visualized in (a) where both $y_0 = \Phi m_0$ (plain black curve) and $y=y_0+w$ (dashed black curve) are displayed. 
+%
+As can be expected, the recovered $a_\la$ (solution of~\eqref{eq-bp}) with a small value of $\la$ (here $\la=0.05$ is displayed in (c)) is bad because too much noise contaminates the result. 
+%
+A well chosen value of $\la$ (here $\la=4$ is displayed in (d)) is able to remove the noise, and to detect spikes located near the input spikes composing $m_0$. However, as showed in~\cite{2013-duval-sparsespikes}, in this small noise setting, one can recover up to twice as many spikes as the input measures, because the spikes of $m_0$ can get duplicated on immediate nearest neighbors on the grid $\Gg$.
+%
+Figure~\ref{fig-lasso-path}, (b), further refines this analysis by displaying the whole path $\la \mapsto a_\la$ (dashed curves indicate spurious spikes whose locations do not match those of the input measure $m_0$).
+%
+It is the goal of this paper to precisely analyze and quantify this behavior. In particular, we precisely characterize the ``extended support'' (those grid locations that are selected when the noise is small and $\la$ well chosen) and show that for deconvolution, it is exactly composed of pairs of nearest neighbors. 
+
+\newcommand{\myfigLasso}[1]{\includegraphics[width=0.49\linewidth]{homotopy-bp/k3-n512-#1}}
+
+\begin{figure}[ht]
+\centering
+	\begin{tabular}{@{}c@{\hspace{3mm}}c@{}}
+%		\multirow{6}{*}{\includegraphics[width=0.5\linewidth]{compressed-sensing/ident-vs-ic}}
+		 \myfigLasso{observations} & \myfigLasso{path} \\
+		 (a) $m_0, y_0, y_0+w$ & (b) Path $\la \mapsto a_\la$ \\
+		 \myfigLasso{lambda1} & \myfigLasso{lambda3} \\
+		 (c) $a_\la, \la=0.05$ & (d) $a_\la, \la=4$
+	\end{tabular}
+\caption{\label{fig-lasso-path} % 
+		Sparse spikes deconvolution results obtained by computing the solution $a_\la$ of~\eqref{eq-bp}. The color reflects the positions of the spikes on the 1-D grid. 
+		%
+		(a) shows the input measure $m_0$ and the observation $y=y_0+w$. 
+		%
+		(b) shows how the solution $a_\la$ (vertical axis) evolves with $\la$ (horizontal axis). Each curve shows the evolution of $\la \mapsto (a_\la)_i$ for indexes $i \in \{1,\ldots,G-1\}$. The color encodes the value of $i$. 
+		Plain curves correspond to correct spikes locations $i$ associated to the input measure $m_0$.
+		Dashed curves correspond to incorrect spikes (not present in the input measure $m_0$).
+		%
+		(c,d) show the results $a_\la$ obtained for two different values of $\la$.
+	}
+\end{figure}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Previous Works}
+\label{sec-previous}
+
+Most of the early work to assess the performance of convex sparse regularization has focussed its attention on the finite dimensional case, thus considering only the \lasso problem~\eqref{eq-bp}. While the literature on this subject is enormous, only very few works actually deal with deterministic and highly correlated linear operators such as low-pass convolution kernels. The initial works of Donoho~\cite{Donoho-superresol-sparse} study the Lipschitz behavior of the inverse map $y \mapsto a^\star$, where $a^\star$ is a solution of~\eqref{eq-bp}, as a function of the bandwidth of the bandpass filter. The first work to address the question of spikes identification (i.e. recovery of the exact location of the spikes over a discrete grid) is~\cite{DossalMallat}. This work uses the analysis of $\ell^1$ regularization introduced by Fuchs in~\cite{fuchs2004on-sp}. This type of analysis ensures that the support of the input measure is stable under small noise perturbation of the measurements. Our finding is that this is however never the case (the support is always unstable) when the grid is thin enough, and we thus introduce the notion of ``extended support'', which is in some sense the smallest extension of the support which is stable. The idea of extending the support to study the recovery performance of $\ell^1$ methods can be found in the work of Dossal~\cite{dossal2011necessary} who focusses on noiseless recovery and stability in term of $\ell^2$ error. 
+
+Recently, a few works have studied the theoretical properties of the recovery over measures~\eqref{eq-blasso}. Cand\`es and Fernandez-Granda show in~\cite{Candes-toward} that this convex program does recover exactly the initial sparse measure when $w=0$ and $\la \rightarrow 0$ (i.e. program~\eqref{eq-blasso-noiseless}) under a minimum-separation condition, i.e. if the spikes are well-separated. 
+%
+The robustness to noisy measurements is analyzed by the same authors in~\cite{Candes-superresol-noisy} using an Hilbertian norm, and in~\cite{Fernandez-Granda-support,Azais-inaccurate} in terms of spikes localization. The work of~\cite{Tang-linea-spectral} analyzes the reconstruction error. Lastly, \cite{2013-duval-sparsespikes} provides a condition ensuring that~\eqref{eq-blasso} recovers the same number of spikes as the input measure and that the error in terms of spikes localization and elevation has the same order as the noise level. 
+%
+It is important to note that in the special case where $m_0$ is a positive measure, then $m_0$ is always a solution to~\eqref{eq-blasso-noiseless}, as shown in~\cite{deCastro-beurling} (see also~\cite{denoyelle2015asymptic} for a refined analysis of the stability to noise in this special case).
+
+Very few works have tried to bridge the gap between these grid-free methods over the space of measures, and finite dimensional discrete approximations that are used by practitioners. 
+%
+These theoretical questions are however relevant from a practitioner's point of view, and we refer~\cite{MinFalcon} for experimental observations of the impact of discretization and the corresponding recovery bias.
+%
+The convergence (in the sense of measures) of the solutions of the discrete problem toward to ones of the grid-free problem is shown in~\cite{TangConvergence}, where a speed of convergence is shown using tools from semi-infinite programming~\cite{StillDiscretizationSDP}. 
+%
+The same authors show in~\cite{Bhaskar-line-spectral} that the discretized problem achieves a similar prediction $L^2$ error as the grid-free method. 
+%
+$\Gamma$-convergence results on $\ell^1$ but also $\ell^0$ regularization are provided in the PhD work of~\cite{PiaThesis}. 
+%
+In~\cite{2013-duval-sparsespikes}, we have shown that solutions of the discrete \lasso problem estimate in general as much as twice the number of spikes as the input measure. We detail in the following section how the present work gives a much more precise and general analysis of this phenomenon. 
+
+% phd thesis of  (http://wwwmath.uni-muenster.de/num/publications/2014/Hei14/Diss_Heins.pdf \cite{PiaThesis} where similar gamma-convergence results are shown, together with results for l0 penalties, which is nice to complement the arguments
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Contributions}
+
+Our paper is composed of two contributions (Theorems 1 and 2) that study the robustness to noise of the support of the solution of \lasso finite dimensional recovery problems. 
+%
+We stress the fact that we always suppose that the sought after sparse measure $m_0$ is identifiable, i.e. is the solution of the BLASSO program~\eqref{eq-blasso-noiseless} (i.e. in the noiseless case $w=0, \la=0$). This mandatory hypothesis is now well understood, as detailed in Section~\ref{sec-previous}, and is always true if the measure $m_0$ is positive, or under a minimum separation distance between the spikes.
+%
+Our main contributions study whether the support of the recovered solution is close from the one of $m_0$ in the presence of a small noise. 
+%
+Such a stability cannot hold in full generality, and requires a strengthening of the optimality condition for $m_0$ being identifiable, which we refers in the following as a ``non-degeneracy'' condition. 
+
+%%%%%%
+Section~\ref{sec-discrete-lasso} presents our first contribution. This is an improvement over the known analysis of the \lasso in an abstract setting (that is~\eqref{eq-bp} when $\Phi_\Gg$ is replaced with any finite dimensional linear operator). 
+%
+Whereas Fuchs' result~\cite{fuchs2004on-sp} characterizes the exact support recovery of the \lasso at low noise, our previous work~\cite{2013-duval-sparsespikes} has pointed out that when Fuchs'criterion is not satisfied, the nonzero components of the solutions of the Basis-Pursuit at low noise are contained in the \textit{extended support}, that is the saturation set of some \textit{minimal norm dual certificate}. 
+%
+Theorem~\ref{thm-stability-dbp} states that under a sufficient non-degeneracy condition (hypothesis~\eqref{eq-non-degen-dbp}, which holds generically), all the components of the extended support are actually nonzero (with a prediction on the signs). 
+
+% Our main result in this direction is Theorem~\ref{thm-stability-dbp}.
+
+%%%%%
+Section~\ref{sec-discbp-thin} applies this result to Problem~\eqref{eq-bp} on thin grids. After recalling the convergence properties of Problem~\eqref{eq-bp} towards~\eqref{eq-blasso}, we show that, if the input measure $m_0 = m_{\al_0,x_0}= \sum_{\nu=1}^N \alpha_{0,\nu}\delta_{x_{0,\nu}}$ has support on the grid (\ie $x_{0,\nu}\in\Gg$ for all $\nu$), and if a non-degeneracy condition holds (the ``Non-Degenerate Source Condition'', see Definition~\ref{defn-ndsc-bp}), 
+the methods actually reconstructs at low noise pairs of Dirac masses, i.e. solutions of the form
+\begin{align}
+  m_\la=\sum_{\nu=1}^N \left(\alpha_{\la,\nu}\delta_{x_{0,\nu}}+ \beta_{\la,\nu}\delta_{x_{0,\nu}+\varepsilon_\nu\stepsize} \right),\qwhereq & \varepsilon_\nu\in\{-1,+1\},\\
+\qandq  \sign(\alpha_{\la,\nu})=\sign(\beta_{\la,\nu})&=\sign(\alpha_{0,\nu}).
+\end{align}
+The precise statement of this result can be found in Theorem~\ref{thm-lasso-extended}.
+%
+Compared to~\cite{2013-duval-sparsespikes} where it is predicted that spikes could appear at most in pairs, this result states that all the pairs do appear, and it provides a closed-form expression for the shift $\varepsilon$. That closed-form expression does not vary as the grid is refined, so that the side on which each neighboring spike appears is in fact intrinsic to the measure, we call it the \textit{natural shift}. Moreover, we characterize the low noise regime as $\frac{\norm{w}_2}{\la}=O(1)$ and $\la = O(\stepsize)$.
+
+It is worth emphasizing that, in this setting of spikes retrieval on thin grids, our contributions give important information about the structure of the recovered spikes when the noise $\noise$ is small. This is especially important since, contrary to common belief, the spikes locations for \lasso are not stable: even for an arbitrary small noise $\noise$, neither methods retrieve the correct input spikes locations.
+
+Eventually, we illustrate in Section~\ref{sec-numerics} our abstract analysis of the \lasso problem~\eqref{eq-bp} (as provided by Theorem~\ref{thm-stability-dbp}) to characterize numerically the behavior of the \lasso for compressed sensing (CS) recovery (i.e. when one replaces the filtering $\Phi_\Gg$ appearing in~\eqref{eq-bp} with a random matrix). The literature on CS only describes the regime where enough measurements are available so that the support is stable, or does not study support stability but rather $\ell^2$ stability. Theorem~\ref{thm-stability-dbp} allows us to characterize numerically how much the support becomes unstable (in the sense that the extended support's size increases) as the number of measurements decreases (or equivalently the sparsity increases).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Notations and preliminaries}
+
+The set of Radon measures (resp. positive Radon measures) is denoted by $\Mm(\TT)$ (resp. $\Mm^+(\TT)$). Endowed with the total variation norm~\eqref{eq-totalvariation}, $\Mm(\TT)$ is a Banach space. Another useful topology on $\Mm(\TT)$ is the weak* topology: a sequence of measures $(m_n)_{n\in\NN}$ weak* converges towards $m\in \Mm(\TT)$ if and only if for all $\psi\in \Cont(\TT)$, $\lim_{n\to+\infty}\int_\TT \psi \d m_n= \int_\TT \psi \d m$.
+Any bounded subset of $\Mm(\TT)$ (for the total variation) is relatively sequentially compact for the weak* topology. Moreover the topology induced by the total variation is stronger than the weak* topology, and the total variation is sequentially lower semi-continuous for the weak* topology. 
+Throughout the paper, given $\alpha\in\RR^N$ and $x_0\in\TT^N$, the notation $m_{\alpha,x_0} \eqdef \sum_{\nu=1}^N \alpha_\nu \delta_{x_{0,\nu}}$ hints that $\alpha_\nu\neq 0$ for all $\nu$  (contrary to the notation $m_{a,\Gg}$), and that the $x_{0,\nu}$'s are pairwise distinct.
+
+Given a separable Hilbert space $\Hh$, the properties of $\Phi:\Mm(\TT)\rightarrow \Hh$ and its adjoint are recalled in Proposition~\ref{lem-phi-compact} in Appendix. The $\infty,2$-operator norm of $\Phi^*:\Hh\rightarrow  \Cont(\TT)$ is defined as $\norm{\Phi^*}_{\infty,2}\eqdef \sup\enscond{\norm{\Phi^*w}_\infty}{w\in \Hh,  \norm{w}\leq 1}$ (and the $\infty,2$ operator norm of a matrix is defined similarly).
+Given a vector $x_0\in\TT^N$, $\Phi_{x_0}$ refers to the linear operator $\RR^N\rightarrow \Hh$, with 
+\begin{align*}
+\forall \alpha\in\RR^N,\quad   \Phi_{x_0} \alpha \eqdef \Phi(m_{\alpha,x_0}) = \sum_{\nu=1}^{N} \alpha_\nu \phi(x_{0,\nu}).
+\end{align*}
+It may also be seen as the restriction of $\Phi$ to measures supported on the set $\enscond{x_{0,\nu}}{\nu\in\seg{1}{N}}$. A similar notation is adopted for $\Phi'_{x_0}$ (replacing $\phi(x_{0,\nu})$ with $\varphi'(x_{0,\nu})$. The concatenation of $\Phi_{x_0}$ and $\Phi'_{x_0}$ is denoted by $\Gamma_{x_0}\eqdef \begin{pmatrix}
+   \Phi_{x_0} & \Phi'_{x_0}
+\end{pmatrix}$.
+
+We shall rely on the notion of set convergence. Given a sequence $(C_n)_{n\in\NN}$ of subsets of $\TT$, we define 
+\begin{align}
+  \limsup_{n\to+\infty} C_n= \enscond{x\in\TT}{\liminf_{n\to+\infty} d(x,C_n)=0}\\
+  \liminf_{n\to+\infty} C_n= \enscond{x\in\TT}{\limsup_{n\to+\infty} d(x,C_n)=0}
+\end{align}
+where $d$ is defined by $d(x,C)=\inf_{x'\in C}|x'-x|$ and $|x-x'|$ refers to the distance between $x$ and $x'$ on the torus. 
+If both sets are equal, let $C$ be the corresponding set (then $C$ is necessarily closed), we write
+\begin{align}
+  \lim_{n\to+\infty} C_n= C.
+\end{align}
+If the sequence $(C_n)_{n\in\NN}$ is nondecreasing ($C_n\subset C_{n+1}$), then $\lim_{n\to\infty}C_n= \overline{\bigcup_{n\in\NN} C_n}$, and if it is nonincreasing  ($C_n\supset C_{n+1}$) then $\lim_{n\to\infty}C_n= \bigcap_{n\in\NN} \overline{C_n}$ (where $\overline{C}$ denotes the closure of $C$).
+We refer the reader to~\cite{rockafellarwets} for more detail about set convergence. We shall also use this notion in Hilbert spaces, with obvious adaptations.
+

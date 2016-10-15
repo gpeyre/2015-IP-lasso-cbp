@@ -1,0 +1,82 @@
+% !TEX root = ../Asymptotic-CBP.tex
+
+\section{Proofs for Section~\ref{sec-continuous-abstract}}
+\label{sec-continuous-abstract-proofs}
+
+%%% PROOF OF {prop-fuchs-cbp} %%%
+
+%\begin{proof}
+%  We define a candidate solution $(\veccont_\la,\shiftcont_\la)$ with the same saturations as $(\veccontO,\shiftcontO)$. We may write $\begin{pmatrix}\veccont \\ \shiftcont\end{pmatrix}=H\begin{pmatrix}\parU\\ \parD\end{pmatrix} $ and show that the signed support of $(\parU_0,\parD_0)$ is preserved small values of $\la$ and $w$.
+%
+%  The optimality condition~\eqref{eq-optimal-cbp-lagrange} should read 
+%  \begin{align}
+%    \la \veccertcont_\la + \OpT^*(\OpT H_{\Ir\cup I^+/\Ir\cup I^-}\begin{pmatrix}\parU_{\la,\Ir\cup I^+}\\ \parD_{\la,\Ir\cup I^-}\end{pmatrix} -y_0-w) =0\label{eq-optim-fuchs-cbp}
+%  \end{align}
+%where $\veccertcont_\la\in \partial J(\veccont_\la,\shiftcont_\la)$.
+%Let us recall that we write $R=H_{\Ir\cup I^+/\Ir\cup I^-}$.
+%Applying $R^*$ and using the fact that $\OpT R$ has full rank, we are led to to define 
+%\begin{align}
+% \begin{pmatrix}\parU_{\la,\Ir\cup I^+}\\ \parD_{\la,\Ir\cup I^-}\end{pmatrix}=\begin{pmatrix}\parU_{0,\Ir\cup I^+}\\ \parD_{0,\Ir\cup I^-}\end{pmatrix}+ (\OpT R)^+ w - \la (R^*\OpT^*\OpT R)^{-1}s
+%\end{align}
+%where the other entries of $\parU$ and $\parD$ are zero and $s=R^*\veccertcont_\la =\begin{pmatrix}1\\ \vdots \\ 1\end{pmatrix}$.
+%% and $s_i=\frac{1}{2} \begin{pmatrix}
+%%  1\\1
+%%\end{pmatrix}$ for $i\in\mathring{I}$, $s_i=1$ for $i\in I^+\cup I^-$. 
+%
+%We observe that for $\la$ and $\frac{\|w\|}{\la}$ small enough, $(\veccont_\la,\shiftcont_\la)=R\begin{pmatrix}\parU_{\la,\Ir\cup I^+}\\ \parD_{\la,\Ir\cup I^-}\end{pmatrix}\in \coneh^\taillegrid$, and that $\mathring{I}(\veccont_\la,\shiftcont_\la)=\mathring{I}(\veccontO,\shiftcontO)$, $I^+(\veccont_\la,\shiftcont_\la)=I^+(\veccontO,\shiftcontO)$, $I^-(\veccont_\la,\shiftcont_\la)=I^-(\veccontO,\shiftcontO)$. Indeed,
+%\begin{align*}
+%\forall i\in\mathring{I}(\veccontO,\shiftcontO)\cup I^-(\veccontO,\shiftcontO),\  \parU_{\la,i} &\geq   \parU_{0,i} - \|(\OpT R)^+\|_{\infty,2} \|w\|_2 - \la \|(R^*\OpT^*\OpT R)^{-1}s\|_\infty\\  &>0,\\
+%\forall i\in\mathring{I}(\veccontO,\shiftcontO)\cup I^-(\veccontO,\shiftcontO),\  \parD_{\la,i} &\geq   \parD_{0,i} - \|(\OpT R)^+\|_{\infty,2} \|w\|_2 - \la \|(R^*\OpT^*\OpT R)^{-1}s\|_\infty\\
+%&>0.
+%\end{align*}
+%%\begin{align*}
+%%  -\stepsize\veccont_{\la,i}+|\shiftcont_{\la,i}| &\leq (-\stepsize\veccontOi+|\shiftcontOi|) + \|\projf_{\mathring{I}}^*(BR_I)^+\|_{\infty,2}\|w\|_{2}\\
+%%  &\qquad\qquad+ \la \|\projf_{\mathring{I}}^*(R_I^*\OpT^*\OpT R_I)^{-1}s\|_{\infty}\\
+%%  &<0, 
+%%\end{align*}
+%provided that $\alpha \|w\|_2+ \beta\lambda <T$, where we have denoted $\alpha = \|(\OpT R)^+\|_{\infty,2}$, $\beta=\|(R^*\OpT^*\OpT R)^{-1}s\|_\infty$.%, and $T=\min \enscond{\parU_i}{i\in \mathring{I}(\veccontO,\shiftcontO)\cup I^-(\veccontO,\shiftcontO)}\cup \enscond{\parD_i}{i\in\mathring{I}(\veccontO,\shiftcontO)\cup I^+(\veccontO,\shiftcontO)}$.
+%
+%It remains to prove that the corresponding vector $\veccertcont_\la=(\certcont_\la,\certshift_\la)$ is in $\partial J(\veccont_\la,\shiftcont_\la)$, \ie satisfies the conditions of~\eqref{eq-subdiff-cbp}.
+%By construction, we already have $R^* \veccertcont_\la=s$, \ie $(\certcont_{\la,i},\certshift_{\la,i})=(1,0)$ for $i\in \mathring{I}$, $\certcont_{\la,i}+\stepsize\certshift_{\la,i}=1$ for $i\in I^+$, and $\certcont_{\la,i}-\stepsize\certshift_{\la,i}=1$ for $i\in I^-$. 
+%It remains to prove that $\certcont_{\la,i} -\stepsize\certshift_{\la,i} <1$ for $i\in I^+$, $\certcont_{\la,i} +\stepsize\certshift_{\la,i} <1$ for $i\in I^-$, and that $\certcont_{\la,i} +\stepsize|\certshift_{\la,i}| <1$ for $i\in I^c$. We may also write those inequalities as $\|\parmat_{\mathring{I}\cup I^-/\mathring{I}\cup I^+}^* \veccertcont_{\la}\|_\infty<1$,
+%
+%
+%From~\eqref{eq-optim-fuchs-cbp}, we infer that $\veccertcont_\la=\OpT^* P_{(\Im \OpT R)^\perp}\frac{w}{\la} +\OpT^*(R^*\OpT^*\OpT R)^{-1}s$.
+%We obtain the desired inequality by imposing
+%\begin{align*}
+% \|\parmat_{\mathring{I}\cup I^-/\mathring{I}\cup I^+}^*\OpT^*\|_{\infty,2}  \frac{\|w\|}{\la} &< 1- \|\parmat_{\mathring{I}\cup I^-/\mathring{I}\cup I^+}^*\OpT^*(R^*\OpT^*\OpT R)^{-1}s\|_{\infty}.
+%%\|\projg_{I^-}\OpT^*\|_{\infty,2}  \frac{\|w\|}{\la} &< 1- \|\projg_{I^-}\OpT^*(R_I^*\OpT^*\OpT R_I)^{-1}s\|_{\infty},\\
+%%\|\projg_{I^c}\OpT^*\|_{\infty,2}  \frac{\|w\|}{\la} &< 1- \|\projg_{I^c}\OpT^*(R_I^*\OpT^*\OpT R_I)^{-1}s\|_{\infty}.
+%\end{align*}
+%Eventually, we see that the constructed $(\veccont_\la,\shiftcont_\la)\in \coneh^\taillegrid$ and $\veccertcont_\la$ satisfy~\eqref{eq-optim-fuchs-cbp} with $\veccertcont_\la\in \partial J(\veccont_\la,\shiftcont_\la)$. Using Proposition~\ref{prop-cbp-strict}, we obtain the claimed result with 
+%\begin{align*}
+%C&= \frac{1}{ \|\parmat_{\mathring{I}\cup I^-/\mathring{I}\cup I^+}^*\OpT^*\|_{\infty,2}}\left(1-\|\parmat_{\mathring{I}\cup I^-/\mathring{I}\cup I^+}^*\OpT^*(R^*\OpT^*\OpT R)^{-1}s\|_{\infty}\right)\\
+%& \mbox{(or $C=1$ if  $ \|\parmat_{\mathring{I}\cup I^-/\mathring{I}\cup I^+}^*\OpT^*\|_{\infty,2}=0$)}\\
+%\mbox{and }\quad C_1&=\frac{1}{(\alpha C + \beta)}.
+%\end{align*}
+%\end{proof}
+
+The proof of Theorem~\ref{thm-abstract-cbp} is given below.
+%similar to the one of~\cite[Theorem~1]{2016-duval-thinlasso}, therefore we omit it\todo{ a voir si avec ce decoupage en deux on peut se permettre de remettre la preuve?}. 
+It relies on the following fundamental Lemma (which is a simplified version of~\cite[Lemma 4]{2016-duval-thinlasso}), which characterizes $\mu_0$. 
+
+\begin{lem}\label{lem-mu0}
+  Let $\Jup,\Jdown \subset \seg{0}{\taillegrid-1}$, and $(\veccontO,\shiftcontO)\in\coneh^\taillegrid$. Assume that $(\Iup,\Idown)\eqdef (\Iup(\veccontO,\shiftcontO),\Idown(\veccontO,\shiftcontO))$  is such that 
+  	\eq{
+	 	\Iup\subset \Jup,  \quad
+		\Idown\subset \Jdown
+		\qandq \Copt\eqdef\begin{pmatrix}(\OpU+\frac{\stepsize}{2}\OpD)_{\Jup} &(\OpU-\frac{\stepsize}{2}\OpD)_{\Jdown}\end{pmatrix}
+	} 
+	has full rank. Define $\begin{pmatrix} u_{\Jup}\\v_{\Jdown} \end{pmatrix} \eqdef -(\Copt^*\Copt)^{-1}s$ where $s \eqdef \begin{pmatrix}1\\\vdots\\ 1\end{pmatrix}\in \RR^{|\Jup|+|\Jdown|}$. Then $(\Jup,\Jdown)$ is the extended support of $(\veccontO,\shiftcontO)$ if and only if the following two conditions hold:
+\begin{itemize}
+  \item for all $j\in \Jup\setminus \Iup$, $u_j \geq 0$, and for all $j\in \Jdown\setminus \Idown$, $v_j\geq 0$.
+  \item $\max \left[\begin{pmatrix}(\OpU+\frac{\stepsize}{2}\OpD)_{\Jup^c}^* \\(\OpU-\frac{\stepsize}{2}\OpD)_{\Jdown^c}^* \end{pmatrix} \Copt \begin{pmatrix} u_{\Jup}\\v_{\Jdown} \end{pmatrix}\right]<1$.
+\end{itemize}
+Moreover, in that case, the minimal norm certificate is given by 
+\eq{
+	\veccertcontO =-\Cop^*(\Copt^*\Copt)^{-1}s.
+}
+\end{lem}
+
+\todo{Ecrire la preuve du theoreme 1. Ou alors changer l'enonce du theoreme 1 pour faire apparaitre les constantes $c_1$, ... $c_5$}
+

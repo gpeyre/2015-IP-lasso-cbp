@@ -1,0 +1,111 @@
+\documentclass{article}
+% \usepackage{mystyle}
+
+% \oddsidemargin 0.0in
+% \textwidth 6.5in
+% \topmargin -0.75in
+% \textheight 9in
+
+\newcommand{\QA}[2]{%
+\item #1
+
+{\bf{Answer:}}\\
+#2
+}
+
+\title{Responses to Reviewers' comments on the paper \\
+\textit{``Sparse Regularization on Thin Grids I: the LASSO''
+	(was``Sparse Spikes Deconvolution on Thin Grids'')}}
+
+\date{\today}
+\author{Vincent Duval and Gabriel Peyr\'e}
+
+\begin{document}
+\maketitle
+
+First of all, we would like to express our gratitude for your valuable and detailed comments which contributed to improve the quality of this paper. 
+%
+The manuscript has been thoroughly modified and corrected according to the reviewer's and editor's comments.
+We hope the present version will match your expectations. The answers to your comments are detailed as follows.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Major modifications of the paper}
+
+We fully agree with the reviewer and the editor that the initial version of the paper was too long and technical. After discussing with the editor, and after getting the agreement from the journal board, we decided to split the paper in two independent papers. The current revision is thus the first part of this series of two papers, and is dedicated to the Lasso recovery of signed measures. We will very soon submit the second part, dedicated to the C-BP recovery of positive measures. We really believe this splitting helps to make each paper more focussed and simple to parse. 
+
+
+We have also done two important modifications to ease the reading of the paper:
+\begin{itemize}
+	\item To further exemplify the relevance of our contributions, we have added a new section in the introduction called ``Motivating Example''. It makes use a numerical simulation to show the importance of our analysis of the support recovery of the LASSO.
+	\item To lighten the notations the paper, we have replaced the initial writing of the operator 
+		$(\Phi m)(x') = \int \phi(x',x) d m(x)$ 
+		by the more compact one
+		$(\Phi m) = \int \phi(x) d m(x)$  
+		where $\phi(x)$ takes its value in an arbitrary Hilbert space.
+		%
+		This is both more general (this accounts for instance for both a convolution or a sampled Fourier transform), shorter, and it makes the proofs easier to follow. 
+\end{itemize}  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Reviewer 1}
+
+\begin{enumerate}
+
+\QA{However, the authors do not explain their contributions clearly. In fact it is very challenging to decode exactly what these contributions are until one reads the paper in depth. [...] Unfortunately, this is not at all clear from either the abstract or the contributions section. }{
+We fully agree that both the abstract and the contribution sections did not initially present our contributions in a precise enough way. 
+%
+We have re-written these sections so that the hypotheses, the statements and the implications of the main theorems are as clear as possible, without diving into technical definitions (e.g. non-degenerate source conditions). 
+%
+In particular, we have explicitly written the BLASSO problem when $\lambda=0$ in the introduction, and made reference to the identifiability condition and non-degeneracy strengthening of this one, in the first paragraph of the ``Contributions'' section.  
+%
+The fact the present revision is now dedicated to the LASSO only should also help to make the message clearer. 
+%
+The numerical illustration and the new figure in the introduction should also be useful for the reader to immediately grasp what our paper is about.
+}
+
+
+\QA{The original signal is a unique solution to the continuous noiseless $\ell^1$-norm minimization problem, which in general is NOT guaranteed to be the case.}{
+We acknowledge that the hypotheses were not stated clearly enough. We have stressed that indeed we assume that the measure to be recovered is assumed to be identifiable, and that the study of this hypothesis is not the purpose of the present paper. We refer to the literature for this matter, which is now quite well understood, so that sharp sufficient (almost necessary) conditions exist (either for low-pass filters with arbitrary signs and a minimum-separation distance, or for positive spikes, where all measures are identifiable). We now insist on the fact that the target of the present paper is stability to noise and the impact of discretization on this stability. 
+}
+
+\QA{Finally, the paper is written in an overly verbose and convoluted way. In particular Section 5 is challenging to follow and not very readable.}{
+We have re-written and re-ordered most sections, in order to make the main theorem of each section appear as early as possible, without the need to go to long technical derivations and proofs. 
+%
+We have also moved most of the technical material in the appendix, to make the paper more pleasant to read.
+%
+Lastly, once again, we believe that focussing here only on the LASSO makes the technicality less of an issue. 
+% Section 5, which was indeed highly technical, have seen most of its (technical) material moved to the appendix, and is now much shorter, and gives more emphasis on the stability result and the asymptotic of the constants involved, which are -- in our opinion -- the most interesting findings (although technical lemmas can still be of interested for specialist of $\Gamma$-convergence, so we think it is important to have them proved somewhere). 
+}
+ 
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Reviewer 2 (Editorial Board Member)}
+
+\begin{enumerate}
+
+\QA{ Unfortunately the way it is written, makes it very hard to access and appreciate the results. [...] Hence, I strongly recommend the authors to rewrite the paper with a strong focus on readability and presenting their results in a clear way.}{
+Once again, we can not agree more on this statement, and as highlighted in the response to the previous reviewer, we did our best to both have clearer statements of our contributions, more compact (less technical) main sections.
+%
+Focussing only on the Lasso problem should also be beneficial in this respect. 
+%
+The appendix are still quite technical, but we believe it reflects the need for tedious derivations and expansions (e.g. for block matrix inversion) since we are targeting the computation of exact sharp asymptotics, in contrast to most of the existing literature on sparse spikes deconvolution. 
+}
+
+
+\QA{Concerning literature, I have two hints: [...]
+}{
+We thank the editor for these pointers, we have added them in the bibliography. We have also cited and re-used the $\Gamma$-convergence result proved in the PhD thesis of Pia.  
+} 
+
+
+
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

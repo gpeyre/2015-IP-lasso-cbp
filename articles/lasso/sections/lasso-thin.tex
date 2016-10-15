@@ -1,0 +1,343 @@
+% !TEX root = ../Asymptotic-Lasso.tex
+
+\section{\lasso on Thin Grids}
+\label{sec-discbp-thin}
+
+In this section, we focus on inverse problems with smooth kernels, such as for instance the deconvolution problem. 
+Our aim is to recover a measure $m_0\in\Mm(\TT)$ from the observation $y_0=\Phi m_0$ or $y=\Phi m_0+w$, where $\varphi\in \Cont^k(\TT;\Hh)$ ($k\geq 2$), $w\in \Hh$ and 
+\begin{align}
+\forall x\in \TT,\  \Phi m \eqdef \int_\TT \varphi(x) \d m(x),
+\end{align}
+so that $\Phi:\Mm(\TT)\rightarrow \Hh$ is a bounded linear operator. Observe that $\Phi$ is in fact weak* to weak continuous and its adjoint is compact (see Lemma~\ref{lem-phi-compact} in Appendix).
+
+Typically, we assume that the unknown measure $m_0$ is sparse, in the sense that it is of the form $m_0=\sum_{\nu=1}^N \alpha_{0,\nu}\delta_{x_{0,\nu}}$ for some $N\in\NN^*$, here $\alpha_{0,\nu}\in \RR^*$ and the $x_{0,\nu}\in \TT$ are pairwise distinct. 
+
+The approach we study in this paper is the (discrete) Basis Pursuit. We look for measures that have support on a certain discrete grid $\Gg\subset \TT$, and we want to recover the original signal by solving an instance of~\eqref{eq-abstract-bp} or~\eqref{eq-abstract-lasso} on that grid. Specifically, we aim at analyzing the behavior of the solutions at low noise regimes (\textit{i.e.} when the noise $w$ is small and $\la$ well chosen) as the grid gets thinner and thinner.
+To this end, we take advantage of the characterizations given in Section~\ref{sec-discrete-lasso}, regardless of the grid, and we use the Beurling \lasso~\eqref{eq-blasso} as a limit of the discrete models.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Notations and Preliminaries}
+
+For the sake of simplicity we only study uniform grids, i.e. $\Gg \eqdef \enscond{ih}{i\in \seg{0}{\taillegrid-1}}$ where $\stepsize \eqdef \frac{1}{\taillegrid}$ is the stepsize. Moreover, we shall consider sequences of grids $(\Gg_n)_{n\in\NN}$ such that the stepsize vanishes ($\stepsizen=\frac{1}{\taillegridn}\to 0$ as $n\to+\infty$) and to ensure monotonicity, we assume that $\Gg_{n}\subset \Gg_{n+1}$. For instance, the reader may think of a dyadic grid (\ie $\stepsizen=\frac{\stepsize_0}{2^n}$).
+We shall identify in an obvious way measures with support in $\Gg_n$ (\ie of the form $\sum_{k=0}^{\taillegridn-1} \vecthin_k \delta_{k\stepsizen}$) and vectors $a\in\RR^\taillegridn$.
+
+The problem we consider is a particular instance of~\eqref{eq-abstract-lasso} (or~\eqref{eq-abstract-bp}) when choosing $\Op$ as the restriction of $\Phi$ to measures with support in the grid~$\Gg_n$,
+\begin{align}
+  \Op\eqdef\Phi_{\Gg_n} = \begin{pmatrix}
+    \phi(0)& \ldots& \phi((\taillegrid-1)\stepsizen)
+  \end{pmatrix}.
+\end{align}
+On the grid $\Gg_n$, we solve
+\begin{align}
+  \umin{\vecthin \in \RR^\taillegridn} \frac{1}{2}\norm{y-\Phi_{\Gg_n} \vecthin}^2 + \la \norm{\vecthin}_1, \tag{$\Pp_\la^n(y)$}\label{eq-thin-lasso}\\
+  \mbox{and }  \umin{\vecthin\in \RR^\taillegridn} \norm{\vecthin}_1 \mbox{ such that } \Phi_{\Gg_n} \vecthin=y_0.  \tag{$\Pp_0^n(y_0)$}\label{eq-thin-bp}
+\end{align}
+
+We say that a measure $m_0=\sum_{\nu=1}^N \alpha_{0,\nu} \delta_{x_{0,\nu}}$ (with $\alpha_{0,\nu}\neq 0$ and the $x_{0,\nu}$'s pairwise distinct) is identifiable through~\eqref{eq-thin-bp} if it can be written as $m_0=\sum_{k=0}^{\taillegridn-1} \vecthin_i \delta_{i\stepsizen}$ and that the vector $\vecthin$ is identifiable using~\eqref{eq-thin-bp}. 
+
+As before, given $\vecthin\in \RR^{\taillegridn}$, we shall write $I(\vecthin) \eqdef \enscond{i\in \seg{0}{\taillegridn-1}}{\vecthin_i\neq 0}$ or simply $I$ when the context is clear.
+
+The optimality conditions~\eqref{eq-optimal-lagrange} amount to the existence of some $p_\la\in \Hh$ such that
+  \begin{align}
+    \max_{0\leq k\leq \taillegridn-1} |(\Phi^*p_\la)(k\stepsizen)|\leq 1,\qandq (\Phi^*p_\la)(\gIn)&=\sign(\solthinI), \label{eq-optimal-thin-subdiff}\\
+    \la  \Phi^*p_\la + \Phi^*(\Phi \vecthin_\la-y) &=0.\label{eq-optimal-thin-lagrange}
+    \end{align}
+Similarly the optimality condition~\eqref{eq-optimal-source} is equivalent to the existence of $p\in \Hh$ such that
+    \begin{align}
+    \max_{0\leq k\leq \taillegridn-1}|(\Phi^*p)(k\stepsizen)| \leq 1 \qandq (\Phi^* p)(\gIn)&=\sign(\vecthinOI).\label{eq-optimal-thin-source}
+\end{align}
+Notice that the dual certificates are naturally given by the sampling of continuous functions $\certthin=\Phi^*p: \TT\rightarrow \RR$, and that the notation $\certthin(\gIn)$ or $(\Phi^* p)(\gIn)$ stands for $(\certthin(i\stepsizen))_{i\in I}$ where $I=I(\vecthinO)$ (and similarly for $\certthin_\la=\Phi^*p_\la$ and $I(\solthin)$).
+
+
+If $m_0$ is identifiable through~\eqref{eq-thin-bp}, the minimal norm certificate for the problem~\eqref{eq-thin-bp} (see Section~\ref{sec-discrete-lasso}) is denoted by $\certthinO$, whereas the extended support on $\Gg_n$ is defined as 
+\begin{align}
+  \ext_n m_0 \eqdef \enscond{t\in \Gg_n}{\certthinO(t)=\pm 1}.
+\end{align}
+From Section~\ref{sec-discrete-lasso}, we know that the extended support is the support of the solutions at low noise.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Limit Problem: the Beurling Lasso}
+\label{subsec-beurl-lasso}
+
+Problems~\eqref{eq-thin-lasso} and~\eqref{eq-thin-bp} have natural limits when the grid gets thin.
+Embedding those problems into the space $\Mm(\TT)$ of Radon measures, the present authors have studied in~\cite{2013-duval-sparsespikes} their convergence towards the Beurling-\lasso used in~\cite{deCastro-beurling,Candes-toward,Bredies-space-measures,Tang-linea-spectral}.
+
+The idea is to recover the measure $m_0$ using the following variants of~\eqref{eq-abstract-lasso} and~\eqref{eq-abstract-bp}:
+\begin{align}
+  \umin{m\in \Mm(\TT)} \frac{1}{2}\norm{y-\Phi m}^2 + \la |m|(\TT), \tag{$\Pp_\la^\infty(y)$}\label{eq-beurl-lasso}\\
+ \qandq  \umin{m\in \Mm(\TT)} |m|(\TT) \quad\mbox{such that}\quad \Phi m=y_0,  \tag{$\Pp_0^\infty(y_0)$}\label{eq-beurl-bp}
+\end{align}
+where $|m|(\TT)$ refers to the total variation of the measure $m$
+\begin{align}
+  |m|(\TT) \eqdef \sup\enscond{\int_\TT \psi(x) \d m(x)}{\psi\in C(\TT)\mbox{ and } \|\psi\|_\infty\leq 1}.
+\end{align}
+Observe that in this framework, the notation $\|\psi\|_\infty$ stands for $\sup_{t\in\TT}|\psi(t)|$.
+When $m$ is of the form $m=\sum_{\nu=1}^N \alpha_{\nu}x_{\nu}$ where $\alpha_{\nu}\in\RR^*$ and $x_{\nu}\in\TT$ (with the $x_{\nu}$'s pairwise distinct), $|m|(\TT)=\sum_{\nu=1}^N |\alpha_\nu|$, so that those problems are natural extensions of~\eqref{eq-abstract-lasso} and~\eqref{eq-abstract-bp}.
+This connection is emphasized in~\cite{2013-duval-sparsespikes} by embedding~\eqref{eq-thin-lasso} and~\eqref{eq-thin-bp} in the space of Radon measures $\Mm(\TT)$, using the fact that
+\begin{align*}
+  &\sup\enscond{\int_\TT \psi(x) \d m(x)}{\psi\in C(\TT), \forall k\in\seg{0}{\taillegridn-1}\  |\psi|(k\stepsizen)\leq 1 }\\
+  &\qquad = \left\{\begin{array}{ll}
+    \|\vecthin\|_1 \mbox{ if } m=\sum_{k=0}^{\taillegridn-1} \vecthin_k \delta_{k\stepsizen},\\
+    +\infty \mbox{ otherwise.}
+  \end{array}\right.
+\end{align*}
+
+
+
+We say that $m_0$ is identifiable through~\eqref{eq-beurl-bp} if it is the unique solution of~\eqref{eq-beurl-bp}.
+A striking result of~\cite{Candes-toward} is that when $\Phi$ is the ideal low-pass filter and that the spikes $m_0=\sum_{\nu=1}^N \alpha_{0,\nu}x_{0,\nu}$ are sufficiently far from one another, the measure $m_0$ is identifiable through~\ref{eq-beurl-bp}. 
+
+The optimality conditions for~\eqref{eq-beurl-lasso} and~\eqref{eq-beurl-bp} are similar to those of the abstract \lasso (respectively \eqref{eq-optimal-subdiff}, \eqref{eq-optimal-lagrange} and \eqref{eq-optimal-source}). The corresponding dual problems are 
+\begin{align}
+  \inf_{p\in C^\infty} &\left\|\frac{y}{\la}-p  \right\|_2^2 \tag{$\Dd^\infty_\la(y)$},\label{eq-beurling-dual-lasso}\\
+  \mbox{resp. }\quad  \sup_{p\in C^\infty} &\langle y_0, p\rangle, \tag{$\Dd^\infty_0(y_0)$}\label{eq-beurling-dual-bp}\\
+  \qwhereq C^\infty& \eqdef \enscond{p\in \Hh}{\|\Phi^*p\|_{\infty} \leq 1}.
+\end{align}
+The source condition associated with~\eqref{eq-beurl-bp} amounts to the existence of some $p\in\Hh$ such that
+ \begin{align}
+   \|\Phi^*p\|_\infty \leq 1\qandq (\Phi^*p)(x_{0,\nu}) =\sign(\vecbeurlOnu) \mbox{ for all } \nu \in\{1,\ldots,N\}.
+\label{eq-optimal-beurl-source}
+ \end{align}
+ Here, $\|\Phi^*p\|_\infty= \sup_{t\in\TT}|(\Phi^*p)(t)|$.  Moreover, if such $p$ exists and satisifies $|(\Phi^*p)(t)|<1$ for all $t\in\TT\setminus \{x_{0,1},\ldots ,x_{0,N} \}$, and $\Phi_{x_0}$ has full rank, then $m_0$ is the \textit{unique} solution to~\eqref{eq-beurl-bp} (\ie $m_0$ is identifiable). 
+ 
+ Observe that in this infinite dimensional setting, the source condition~\eqref{eq-optimal-beurl-source} implies the optimality of $m_0$ for~\eqref{eq-beurl-bp} but the converse is not true (see~\cite{2013-duval-sparsespikes}). 
+
+\begin{rem}\label{rem-beurl-vs-thin}
+  A simple but crucial remark made in~\cite{Candes-toward} is that if $m_0$ is identifiable through~\eqref{eq-beurl-bp} and that $\supp m_0\subset \Gg_n$, then $m_0$ is identifiable for~\eqref{eq-thin-bp}. 
+Similarly, the source condition for~\eqref{eq-beurl-bp} implies the source condition for~\eqref{eq-thin-bp}.
+\end{rem}
+
+
+If we are interested in noise robustness, a stronger assumption is the \textit{Non Degenerate Source Condition} which relies on the notion of minimal norm certificate for~\eqref{eq-beurl-bp}. When there is a solution to~\eqref{eq-beurling-dual-bp}, the one with minimal norm, $p_0^\infty$, determines the \textit{minimal norm certificate} $\eta_0^\infty\eqdef \Phi^*p_0^\infty$. When $m_0$ is a solution to~\eqref{eq-beurl-bp}, the \textit{minimal norm certificate} can be characterized as 
+\begin{align}
+  \certbeurlO&=\Phi^*\pbeurlO \qwhereq \label{eq-certbeurl0}\\
+  \pbeurlO &= \uargmin{p\in \Hh} \enscond{\norm{p}}{ \normi{\Phi^* p} \leq 1, \: (\Phi^* p)(x_{0,\nu}) = \sign(\alpha_{0,\nu}), 1\leq \nu\leq N}.
+\end{align}
+ As with the discrete \lasso problem, a notion of extended (signed) support $\extpm_\infty$ may be defined and the minimal norm certificate governs the behavior of the solutions at low noise (see~\cite{2013-duval-sparsespikes} for more details).
+
+ \begin{defn}\label{defn-ndsc-bp}
+   Let $m_0=\sum_{\nu=1}^N\alpha_{0,\nu} \delta_{x_{0,\nu}}$ an identifiable measure for~\eqref{eq-beurl-bp}, and $\certbeurlO\in \Cont(\TT)$ its minimal norm certificate. We say that $m_0$ satisfies the \textit{Non-Degenerate Source Condition} if
+\begin{itemize}
+  \item $|\certbeurlO(t)|<1$ for all $t\in \TT\setminus \{x_{0,1},\ldots x_{0,N} \}$,
+  \item $\certbeurlO''(x_{0,\nu})\neq 0$ for all $\nu\in\{1,\ldots,N\}$.
+\end{itemize}
+ \end{defn}
+
+The Non Degenerate Source Condition might seem difficult to check in practice. It turns out that it is easy to check numerically by computing the vanishing derivatives precertificate.
+
+\begin{defn}\label{defn-vanishing-bp}
+  Let $m_0=\sum_{\nu=1}^N\alpha_{0,\nu} \delta_{x_{0,\nu}}$ an identifiable measure for~\eqref{eq-beurl-bp} such that $\Gamma_{x_0}\eqdef \begin{pmatrix} \Phi_{x_0} & \Phi'_{x_0}\end{pmatrix}$ has full rank. We define the vanishing derivatives precertificate as $\certvanishing \eqdef \Phi^*\pvanishing$ where 
+\begin{align}
+  \pvanishing \eqdef \uargmin{p\in \Hh} \enscond{\norm{p}}{(\Phi^* p)(x_{0,\nu}) = \sign(\alpha_{0,\nu}), (\Phi^* p)'(x_{0,\nu})=0, \ 1\leq \nu\leq N}.
+  \label{eq-vanishing-p}
+\end{align}
+\end{defn}
+
+This precertificate can be easily computed by solving a linear system in the least square sense. 
+
+\begin{prop}[\cite{2013-duval-sparsespikes}]
+  Let $m_0=\sum_{\nu=1}^N\alpha_{0,\nu} \delta_{x_{0,\nu}}$ an identifiable measure for the problem~\eqref{eq-beurl-bp} such that $\Gamma_{x_0}$ has full rank.
+  
+  Then, the vanishing derivatives precertificate can be computed by 
+  \eql{\label{eq-vanishing-expression}
+		\eta_V^\infty \eqdef \Phi^*\pvanishing \qwhereq \pvanishing \eqdef \Gamma_{x_0}^{+,*}\begin{pmatrix} \sign(\vecbeurl_{0,\cdot})\\0
+      \end{pmatrix}, 
+     }
+     and $\Gamma_{x_0}^{+,*}=\Gamma_{x_0}(\Gamma_{x_0}^*\Gamma_{x_0})^{-1}$.
+Moreover, the following conditions are equivalent:
+  \begin{enumerate}
+    \item $m_0$ satisfies the Non Degenerate Source Condition.
+    \item The vanishing derivatives precertificate satisfies:
+      \begin{itemize}
+        \item $|\certvanishing(t)|<1$ for all $t\in \TT\setminus \{x_{0,1},\ldots x_{0,N} \}$,
+        \item $\certvanishing''(x_{0,\nu})\neq 0$ for all $\nu\in\{1,\ldots,N\}$.
+      \end{itemize}
+   \end{enumerate}
+   And in that case, $\certvanishing$ is equal to the minimal norm certificate $\certbeurlO$.
+   \label{prop-etav-nonvanish}
+\end{prop}
+
+\begin{rem}\label{rem-vanishing-formula}
+  Using the block inversion formula in~\eqref{eq-vanishing-expression}, it is possible to check that 
+  \begin{align}
+    \pvanishing&=\Phi_{x_0}^{+,*}\sign(\vecbeurl_{0,\cdot}) - \Pi \Phi_{x_0}' ({\Phi_{x_0}'}^*\Pi \Phi_{x_0}')^{-1}{\Phi_{x_0}'}^*\Phi_{x_0}^{+,*}\sign(\vecbeurl_{0,\cdot}),\label{eq-vanishing-formula}
+  \end{align} where $\Pi$ is the orthogonal projector onto $(\Im \Phi_{x_0})^\perp$. If we denote by $\pfuchsbeurl$ the vector introduced by Fuchs (see~\eqref{eq-fuchs-precertif}), which turns out to be
+  \begin{align*}
+    \pfuchsbeurl= \uargmin{p\in\Hh} \enscond{\norm{p}}{(\Phi^* p)(x_{0,\nu}) = \sign(\alpha_{0,\nu}), \ 1\leq \nu\leq N},
+  \end{align*}
+  we observe that $\pvanishing = \pfuchsbeurl - \Pi \Phi_{x_0}' ({\Phi_{x_0}'}^*\Pi \Phi_{x_0}')^{-1}{\Phi_{x_0}'}^*\pfuchsbeurl$.
+\end{rem}
+
+ \begin{rem}
+   At this stage, we see that two different minimal norm certificates appear: the one for the discrete problem~\eqref{eq-thin-bp} which should satisfy~\eqref{eq-optimal-thin-source} on a discrete grid $\Gg_n$, and the one for gridless problem~\eqref{eq-beurl-bp} which should satisfy~\eqref{eq-optimal-beurl-source}. One should not mingle them.
+ \end{rem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The \lasso on Thin Grids for Fixed $\la>0$}
+
+As hinted by the notation, Problem~\eqref{eq-beurl-lasso} is the limit of Problem~\eqref{eq-thin-lasso} as the stepsize of the grid vanishes (\ie $n\to+\infty$).
+Indeed, we may identify each vector $a\in\RR^{\taillegridn}$ with the measure $m_a= \sum_{k=0}^{\taillegridn-1} a_k\delta_{k\stepsizen}$ (so that $\|a\|_1=|m_a|(\TT)$) and embed~\eqref{eq-thin-lasso} into the space of Radon measures. With this identification, the Problem~\eqref{eq-thin-lasso} $\Gamma$-converges towards Problem~\eqref{eq-beurl-lasso} (see the definition below), and as a result, any accumulation point of the minimizers of~\eqref{eq-thin-lasso} is a minimizer of~\eqref{eq-beurl-lasso}.
+
+\begin{rem}
+  The space $\Mm(\TT)$ endowed with the weak* topology is a topological vector space which does not satisfy the first axiom of countability (\ie the existence of a countable base of neighborhoods at each point). However, each solution $m^n_\la$ of~\eqref{eq-thin-lasso} (resp. $m^\infty_\la$ of~\eqref{eq-beurl-lasso}) satisfies 
+  \begin{align}
+\la |m^n_\la|(\TT)\leq \la |m^n_\la|(\TT)+\frac{1}{2}\norm{\Phi m^n_\la-y}^2 \leq \frac{1}{2}\norm{y}^2.
+\label{eq-X-bounded}
+  \end{align}
+  Hence we may restrict those problems to the set
+  	\eq{
+  		X \eqdef \enscond{m\in \Mm(\TT)}{\la |m|(\TT)\leq \frac{1}{2}\norm{y}^2}
+	} 
+	which is a metrizable space for the weak* topology. As a result, we shall work with the definition of $\Gamma$-convergence in metric spaces, which is more convenient than working with the general definition~\cite[Definition~4.1]{Dalmaso1993}). For more details about $\Gamma$-convergence, we refer the reader to the monograph~\cite{Dalmaso1993}.
+\end{rem}
+
+\begin{defn}
+  We say that the Problem~\eqref{eq-thin-lasso} $\Gamma$-converges towards Problem~\eqref{eq-beurl-lasso} if, for all $m\in X$, the following conditions hold
+  \begin{itemize}
+    \item{(Liminf inequality)} for any sequence of measures $(m^n)_{n\in\NN}\in X^\NN$ such that $\supp(m^n)\subset\Gg_n$ and that $m^n$ weakly* converges towards $m$, 
+      \begin{align*}
+        \liminf_{n\to +\infty}\left(\la |m^n|(\TT)+\frac{1}{2}\norm{\Phi m^n-y}^2\right) \geq \la |m|(\TT) + \frac{1}{2}\norm{\Phi m-y}^2.
+      \end{align*}
+    \item{(Limsup inequality)} there exists a sequence of measures $(m^n)_{n\in \NN}\in X^\NN$ such that $\supp(m^n)\subset \Gg_n$, $m^n$ weakly* converges towards $m$  and
+      \begin{align*}
+        \limsup_{n\to +\infty} \left(\la |m^n|(\TT)+\frac{1}{2}\norm{\Phi m^n-y}^2\right) \leq \la |m|(\TT) + \frac{1}{2}\norm{\Phi m-y}^2.
+      \end{align*}
+  \end{itemize}
+  \label{def-gammacv}
+\end{defn}
+
+The following proposition shows the $\Gamma$-convergence of the discretized problems toward the Beurling \lasso problem.  This ensures in particular the convergence of the minimizers, which was already proved in~\cite{TangConvergence}. 
+Notice that this $\Gamma$-convergence can be seen as a consequence of the study in~\cite{PiaThesis}, where discrete vectors $a$ are embedded in $\Mm(\TT)$ using $m_a=\sum_{k=0}^{\taillegridn-1}a_k\bun_{[k\stepsizen,(k+1)\stepsizen)}$ (as opposed to $\sum_{k=0}^{\taillegridn-1} a_k\delta_{k\stepsizen}$). While that other discretization yields the same convergence of the primal problems, it seems less convenient to interpret the convergence of dual certificates, so that we propose a direct proof (using our discretization) in~\ref{prop-gamma-conv-proof}.
+
+  \begin{prop}[\cite{PiaThesis}]\label{prop-gamma-conv}
+  The Problem~\eqref{eq-thin-lasso} $\Gamma$-converges towards \eqref{eq-beurl-lasso}, and 
+\begin{align}
+  \lim_{n\to +\infty} \inf \eqref{eq-thin-lasso} = \inf \eqref{eq-beurl-lasso}.\label{eq-cvinf-lasso}
+\end{align}
+Each sequence $(m^n_\la)_{n\in\NN}$ such that $m^n_\la$ is a minimizer of~\eqref{eq-thin-lasso} has accumulation points (for the weak*) topology, and each of these accumulation point is a minimizer of~\eqref{eq-beurl-lasso}.
+\label{prop-gammacv-lasso}
+\end{prop}
+In particular, if the solution $m_\la$ to~\eqref{eq-beurl-lasso} is unique, the minimizers of \eqref{eq-thin-lasso} converge towards $m_\la$.
+
+Here, we propose to describe the convergence of the minimizers of~\eqref{eq-thin-lasso} more accurately than the plain weak-* by studying the dual certificates $p_\la$ and looking at the support of the solutions $m_\la^n$ to~\eqref{eq-thin-lasso} (see~\cite[Section~5.4]{2013-duval-sparsespikes}). One may prove that $m_\la^n$ is generally composed of at most one pair of Dirac masses in the neighborhood of each Dirac mass of the solution $m_{\la}^\infty=\sum_{\nu=1}^{N_\la} \alpha_{\la,\nu}\delta_{x_{\la,\nu}}$ to~\eqref{eq-beurl-lasso}. More precisely, 
+\begin{prop}
+  Let $\la >0$, and assume that there exists a solution to~\eqref{eq-beurl-lasso} which is a sum of a finite number of Dirac masses: $m_{\la}^\infty=\sum_{\nu=1}^{N_\la} \alpha_{\la,\nu}\delta_{x_{\la,\nu}}$ (where $\alpha_\nu\neq 0$). Assume that the corresponding dual certificate $\eta_\la^{\infty}=\Phi^*p_{\la}^\infty$ satisfies $|\eta_\la^\infty(t)|<1$ for all $t\in \TT\setminus \{x_1,\ldots ,x_N \}$.
+    
+  Then any sequence of solution $m_{\la}^n=\sum_{i=0}^{\taillegridn-1} \veccont^n_{\la,i} \delta_{i\stepsizen}$ to~\eqref{eq-thin-lasso} satisfies 
+  \begin{align*}
+    \limsup_{n\to+\infty}\left(\supp(m_{\la}^n)\right)\subset \{x_1, \ldots x_N\}.
+  \end{align*}
+  If, moreover, $m_{\la}^\infty$ is the unique solution to~\eqref{eq-beurl-lasso}, 
+  \begin{align}
+    \lim_{n\to+\infty}\left(\supp(m_{\la}^n)\right)= \{x_1, \ldots x_N\}.
+  \end{align}
+
+  If, additionally, $(\eta_\la^{\infty})''(x_\nu)\neq 0$ for some $\nu \in\{1,\ldots,N\}$, then for all $n$ large enough, the restriction of $m_{\la}^{n}$ to $(x_\nu-r,x_\nu+r)$ (with $0<r<\frac{1}{2} \min_{\nu-\nu'}|x_{\la,\nu}-x_{\la,\nu'}|$) is a sum of Dirac masses of the form $ \vecthin_{\la,i}\delta_{i\stepsizen}+ \vecthin_{\la,i+\varepsilon_{i,n}}\delta_{(i+\varepsilon_{i,n})\stepsizen}$ with $\varepsilon_{i,n}\in\{-1,1\}$, $\vecthin_{\la,i}\neq 0$ and $\sign(\vecthin_{\la,i})=\sign(\alpha_{\la,\nu})$. Moreover, if $\vecthin_{\la,i+\varepsilon_{i,n}}\neq 0$, $\sign(\vecthin_{\la,i+\varepsilon_{i,n}})=\sign(\alpha_{\la,\nu})$.
+\end{prop}
+
+We skip the proof as it is very close to the arguments of~\cite[Section~5.4]{2013-duval-sparsespikes}. Moreover the proof of Proposition~\CitationProp{} in the companion paper~\cite{2016-duval-thincbp} for the C-BP is quite similar.
+
+%$m_\la^n$ is composed of at most one pair of Dirac masses in the neighborhood of each Dirac mass of the solution $m_{\la}^\infty=\sum_{\nu=1}^{N_\la} \alpha_{\la,\nu}\delta_{x_{\la,\nu}}$ to~\eqref{eq-beurl-lasso}, provided that $(\Phi^{*}p_{\la^\infty})''(x_{\la,\nu})\neq 0$ and $|\Phi^{*}p_{\la^\infty}(t)|<1$ for all $t\in\TT\setminus\{(x_{\la,1},\ldots , (x_{\la,N_\la} \}$, where $p_\la^\infty$ is the solution to~\eqref{eq-beurling-dual-lasso}. 
+
+%\todo{Proposition convergence des supports}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Convergence of the Extended Support}
+
+Now, we focus on the study of low noise regimes. The convergence of the extended support for~\eqref{eq-thin-bp} towards the extended support of~\eqref{eq-beurl-bp} is analyzed by the following proposition.
+
+From now on, we assume that the source condition for~\eqref{eq-beurl-bp} holds, and that $\supp m_0\subset \Gg_n$ for $n$ large enough (in other words, $y_0=\Phi_{\Gg_n} \vecthinO$ for some $\vecthinO\in \RR^{\taillegridn}$), so that $m_0=\sum_{\nu=1}^N\alpha_{0,i}\delta_{x_{0,\nu}}$ is a solution of~\eqref{eq-thin-bp}. Moreover we assume that $n$ is large enough so that $|x_{0,\nu}-x_{0,\nu'}|> {2}{\stepsizen}$ for $\nu'\neq \nu$. 
+
+
+\begin{prop}[\cite{2013-duval-sparsespikes}]
+  The following result holds:
+  \begin{align}
+    \lim_{n\to +\infty} \certthinO = \certbeurlO,
+  \end{align}
+  in the sense of the uniform convergence (which also holds for the first and second derivatives). Moreover, if $m_0$ satisfies the Non Degenerate Source Condition, for $n$ large enough, there exists $\varepsilon^n\in\{-1,0,+1\}^N$ such that
+\begin{align}
+\extpm^{n}(m_0) =\suppm(m_0) \cup \left(\suppm(m_0) + \varepsilon^n \stepsizen \right), 
+\end{align}
+where $\suppm(m_0) + \varepsilon^n \stepsizen \eqdef \enscond{ (x_{0,\nu}+\varepsilon^n_\nu h_n,\certbeurlO(x_{0,\nu})) }{ 1\leq \nu\leq N }$.
+\label{prop-extsupp}
+\end{prop}
+
+That result ensures that on thin grids, there is a low noise regime for which the solutions are made of the same spikes as the original measure, plus possibly one immediate neighbor of each spike with the same sign. However, it does not predict which neighbors may appear and where (is it at the left or at the right of the original spike?).
+
+The following new theorem, whose proof can be found in~\ref{thm-lasso-extended-proof}, refines that result by giving a sufficient condition for the spikes to appear in pairs (\ie $\epsilon_\nu=\pm 1$ for $1\leq \nu\leq N$). Moreover, it shows that the value of $\varepsilon^n$ does not depend on $n$, and it gives the explicit positions of the added spikes $\varepsilon_\nu$, for $1\leq \nu\leq N$.
+
+\begin{thm}\label{thm-lasso-extended}
+  Assume that the  operator $\Gamma_{x_0}=\begin{pmatrix}
+  \Phi_{x_0} & \Phi_{x_0}'
+\end{pmatrix}$ has full rank, and that $m_0$ satisfies the Non-Degenerate Source Condition. Moreover, assume that all the components of the natural shift
+\begin{align}\label{eq-dfn-rho}
+\rho\eqdef  (\Phi_{x_0}'^*\Pi\Phi_{x_0}')^{-1}\Phi_{x_0}'^*\Phi_{x_0}^{+,*}\sign(m_0(x_0))
+\end{align}
+ are nonzero, where $\Pi$ is the orthogonal projector onto $(\Im \Phi_{x_0})^\perp$. 
+
+Then, for $n$ large enough, the extended signed support of $m_0$ on $\Gg_n$ has the form 
+\begin{align}
+  \extpm^n(m_0)&= \{(x_\nu, \sign(\alpha_{0,\nu}))\}_{1\leq \nu\leq N}\cup \{(x_\nu+\varepsilon_\nu \stepsizen, \sign(\alpha_{0,\nu})\}_{1\leq \nu \leq N}   \\
+  \mbox{where } \varepsilon &= \sign\left(\diag(\sign(\alpha_0))\rho\right).
+\end{align}
+\end{thm}
+
+In the above theorem, observe that $\Phi_{x_0}'^*\Pi\Phi_{x_0}'$ is indeed invertible since $\Gamma_{x_0}$ has full rank.
+
+\begin{cor}\label{cor-lasso-extended}
+  Under the hypotheses of Theorem~\ref{thm-lasso-extended}, for $n$ large enough, there exists constants $C^{(1)}_n>0$, $C^{(2)}_n>0$ such that 
+  for $\la\leq C^{(1)}_n \min_{1\leq \nu\leq N} |\alpha_{0,\nu}|$, and for all $w\in \Hh$ such that $\|w\|\leq C^{(2)}_n \la$, the solution to~\eqref{eq-thin-lasso} is unique, and reads $m_\la=\sum_{\nu=1}^N (\alpha_{\la,\nu}\delta_{x_{0,\nu}}  + \beta_{\la,\nu}\delta_{x_{0,\nu}+\varepsilon\stepsizen})$, where 
+\begin{align*}
+  \begin{pmatrix}
+    \alpha_\la\\\beta_\la
+  \end{pmatrix}&= \begin{pmatrix}
+    \alpha_0\\0
+  \end{pmatrix}+ \Phi_{\ext_n}^+ w - \la (\Phi_{\ext_n}^* \Phi_{\ext_n})^{-1} \sign\begin{pmatrix}
+    \alpha_0\\ \alpha_0
+  \end{pmatrix},\\
+\qwhereq   \ext_n(m_0)&= \{x_\nu\}_{1\leq \nu\leq N}\cup \{x_\nu+\varepsilon_\nu \stepsizen\}_{1\leq \nu \leq N},\\
+  \varepsilon&= \sign\left(\diag(\sign(\alpha_0))\rho\right),\\
+  \sign(\alpha_{\la,\nu})&= \sign(\beta_{\la,\nu})=\sign(\alpha_{0,\nu}).
+\end{align*}
+\end{cor}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asymptotics of the Constants}
+
+To conclude this section, we examine the decay of the constants $C^{(1)}_n$, $C^{(2)}_n$ in Corollary~\ref{cor-lasso-extended} as $n\to +\infty$. For this we look at the values of $c_1, \ldots, c_5$ given in the proof of Theorem~\ref{thm-stability-dbp}.
+
+By Lemma~\ref{lem-apx-asymptolasso} applied to $\Phi_{\ext_n(m_0)}=\begin{pmatrix} \Phi_{x_0} & \Phi_{x_0}+\stepsizen (\Phi_{x_0}'+O(\stepsizen))
+\end{pmatrix}$, we see that 
+\begin{align}
+	\label{eq-lipsch-lasso-cst-1}
+c_{1,n}&\eqdef \norm{R_I \Phi_{\ext_n(m_0)}^+}_{\infty,2}\sim \frac{1}{\stepsizen}\norm{(\Phi_{x_0}'^*\Pi\Phi_{x_0}'^*)^{-1}\Phi_{x_0}'^*\Pi}_{\infty,2},\\
+	\label{eq-lipsch-lasso-cst-2}
+c_{2,n}&\eqdef \norm{v_I}_\infty=  \normb{R_I(\Phi_{\ext_n(m_0)}^*\Phi_{\ext_n(m_0)})^{-1} \begin{pmatrix}
+    s_I\\s_I
+  \end{pmatrix}}_\infty \sim \frac{1}{\stepsizen}\norm{\rho}_{\infty},\\ % (\Phi_{x_0}'^*\Pi\Phi_{x_0}'^*)^{-1}\Phi_{x_0}'^*\Phi_{x_0}^{+,*}s_I
+  \label{eq-lipsch-lasso-cst-3}
+c_{3,n}&\eqdef (\norm{R_K \Phi_{\ext_n(m_0)}^+}_{\infty,2})^{-1}\left(\umin{k \in K} |v_{k}|\right) 
+	\sim \frac{\min_{k \in K} |\rho_k|}{\norm{(\Phi_{x_0}'^*\Pi\Phi_{x_0}'^*)^{-1}\Phi_{x_0}'^*\Pi}_{\infty,2}}.
+\end{align} % (\Phi_{x_0}'^*\Pi\Phi_{x_0}'^*)^{-1}\Phi_{x_0}'^*\Phi_{x_0}^{+,*}s_I\right
+  However, the expressions of $c_4$ and $c_5$ lead to an overly pessimistic bound on the signal-to-noise ratio. Indeed the majorization used in~\eqref{eq-rough-snr} is too rough in this framework: it does not distinguish between neighborhoods of $x_{0,\nu}$'s, where the certificate is close to $1$, and the rest of the domain. The following proposition, whose proof can be found in~\ref{prop-asympto-constant-lasso-proof}, gives a more refined asymptotic. 
+
+\begin{prop}\label{prop-asympto-constant-lasso}
+  The constants $C^{(1)}_n, C^{(2)}_n$ in Corollary~\ref{cor-lasso-extended} can be chosen as $C^{(1)}_n=O(\stepsizen)$ and $C^{(2)}_n=O(1)$, and one has
+  	\eql{\label{eq-lipsch-lasso}
+		\normb{ 	
+  		\begin{pmatrix} \alpha_\la\\\beta_\la \end{pmatrix}
+		- 
+		\begin{pmatrix} \alpha_0\\0 \end{pmatrix}
+ 		}_{\infty} = O\pa{ \frac{w}{\stepsizen}, \frac{\la}{\stepsizen} }.
+	}
+\end{prop}
+
+
+
+
